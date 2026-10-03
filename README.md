@@ -47,8 +47,7 @@ repository also supplies `icu77`. pkgman installs that runtime dependency automa
 ICU 74 remains available from the official repositories. Node can be rebuilt against
 ICU 74; that does not change the ICU dependency of an already compiled binary.
 
-If Node.js 20 is installed, Node.js 22 conflicts with it. Inspect the solver proposal.
-If necessary, uninstall `nodejs20` and its development package before installing Node 22.
+If Node.js 20 is installed, Node.js 22 conflicts with it. If necessary, uninstall `nodejs20` and its development package before installing Node 22.
 Development headers are optional: `pkgman install nodejs22_devel`.
 ICU development files and tools are also optional; they are not needed to run Node.
 

@@ -10,6 +10,9 @@ the owner's VM. No compilation or rebuild was performed for this publication.
 | icu77 | 77.1-1 | Runtime dependency of this compiled Node binary |
 | icu77_devel | 77.1-1 | Optional ICU development files |
 | icu77_tools | 77.1-1 | Optional ICU tools |
+| fd | 10.5.0-1 | File-search tool used by the pi coding agent |
+| pi | 1.0.0-1 | The pi coding agent, unbundled build |
+| haiku_agent_library | 0.1.0-1 | Haiku developer skills for pi, including the Haiku Book |
 
 All packages declare vendor `Haiku Project`, as produced by the existing recipes.
 That vendor field does not imply that Haiku or HaikuPorts endorses this repository.
@@ -40,6 +43,18 @@ The test kernel reported Haiku R1/beta6 hrev59866+79, x86_64. This was an existi
 VM, not a newly installed VM. A successful dependency-solver check does not replace
 a full fresh-install test. The official repositories may update system dependencies
 during installation on an older beta6 system.
+
+## pi and haiku_agent_library
+
+- `pi` was built from the tested unbundled output (`build-info.json` records source
+  commit `9fba660cf1caca0ade5bea72269352416e595a19`, pi 1.0.0). Its `bin/pi` symlink
+  resolves within the package. The extracted command reports `1.0.0`.
+- `haiku_agent_library` packages the owner's Haiku agent library: `AGENTS.md`, the
+  `haiku-api` skill with the Haiku Book sources, and the `haikuports-recipe` skill.
+- Both are `architecture any` and are served from this repository.
+- On the test VM, `pkgman install pi haiku_agent_library` downloaded both packages
+  over HTTPS and validated their checksums. System-package activation requires a
+  reboot; the extracted `bin/pi` was run instead and reported `1.0.0`.
 
 ## Source and rebuilds
 

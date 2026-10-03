@@ -4,6 +4,10 @@ This is a personal **additional package repository** for Haiku R1/beta6 x86_64.
 It supplements the official Haiku and HaikuPorts repositories. Keep those repositories enabled.
 This repository is not maintained or endorsed by the Haiku or HaikuPorts projects.
 
+I worked on [BeKaffe](https://bekaffe.sourceforge.net/), the project that brought
+Java to BeOS, a long time ago. I am not part of the pi or HaikuPorts projects. I
+publish these packages because I want to help move Haiku forward.
+
 ## AI assistance, human review, and AS-IS software
 
 Some packages, recipes, patches, and scripts in this repository may have been created
@@ -27,6 +31,17 @@ node --version
 node -p 'process.versions.icu'
 ```
 
+To install the `pi` coding agent and its Haiku developer skills:
+
+```sh
+pkgman install pi haiku_agent_library
+pi install /boot/system/data/haiku-agent-library
+pi
+```
+
+If `pi` is not found after installation, reboot Haiku. New system packages become
+available on the next boot.
+
 The current package is Node.js 22.23.3. Its compiled binary loads ICU 77, so this
 repository also supplies `icu77`. pkgman installs that runtime dependency automatically.
 ICU 74 remains available from the official repositories. Node can be rebuilt against
@@ -36,6 +51,17 @@ If Node.js 20 is installed, Node.js 22 conflicts with it. Inspect the solver pro
 If necessary, uninstall `nodejs20` and its development package before installing Node 22.
 Development headers are optional: `pkgman install nodejs22_devel`.
 ICU development files and tools are also optional; they are not needed to run Node.
+
+## Packages in this repository
+
+| Package | Purpose |
+|---------|---------|
+| `nodejs22` | Node.js 22.23.3 runtime (loads ICU 77) |
+| `nodejs22_devel` | Node.js development files |
+| `icu77`, `icu77_devel`, `icu77_tools` | ICU 77 runtime for the Node binary, plus optional development and tool files, from the maintained `icu77` port |
+| `fd` | `fd` file-search tool used by `pi` |
+| `pi` | The `pi` coding agent (`pi` command) |
+| `haiku_agent_library` | Haiku developer skills for `pi`, including the Haiku Book API reference |
 
 ## Future updates and SoftwareUpdater
 

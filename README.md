@@ -100,7 +100,11 @@ pkgman refresh DuncanHaikuPackages
 pkgman update nodejs22
 ```
 
-Or check all enabled repositories with `pkgman update` or SoftwareUpdater.
+Or check all enabled repositories with `pkgman update` or Softwarte downloads. GitHub Pages limits this hosting approach to a
+1 GB site; move to a larger host if the package collection outgrows it.
+
+See `BUILD-INFO.md` for the provenance and verification of the current package set.
+eUpdater.
 This repository has priority 0 (the official repositories on beta6 use priority 1).
 Only personal packages are included; official repositories continue to supply their
 dependencies. Keep this repository registered so repository synchronization has a
@@ -115,26 +119,3 @@ pkgman drop-repo DuncanHaikuPackages
 Dropping the repository does not uninstall packages. A later full synchronization
 can replace or remove packages that are no longer provided by an enabled repository.
 
-## Rebuild Node and publish other packages
-
-The owner's `pi-on-haiku` repository contains the maintained recipe, patchset, and:
-
-- `scripts/rebuild-node-haiku.sh`: rebuild Node in an isolated HaikuPorts tree.
-- `scripts/build-haiku-repository.sh`: create this repository layout from a directory
-  of `.hpkg` files. It supports other personal packages, not only Node.
-- `scripts/publish-haiku-repository.sh`: verify and publish a generated index from
-  a clean checkout of the hosting branch. It preserves older package download files.
-
-The `pi-on-haiku` repository is private. Download it with the owner's authorized account.
-The public package repository can be used without GitHub credentials.
-
-The publishing branch is `personal-packages`. The upstream `master` and port branches
-remain separate. Repository data is in `r1beta6/x86_64/`; the binary index, checksum,
-metadata, and `packages/` files must be published together.
-
-Only one version of each package belongs in an index. Increment its package revision
-when replacing an existing binary. Preserve published versioned files so clients with
-an older index can complete downloads. GitHub Pages limits this hosting approach to a
-1 GB site; move to a larger host if the package collection outgrows it.
-
-See `BUILD-INFO.md` for the provenance and verification of the current package set.

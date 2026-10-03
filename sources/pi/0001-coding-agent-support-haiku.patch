@@ -1,0 +1,234 @@
+From 91a758bc12acda916a227c3733b3ce4f54690e6f Mon Sep 17 00:00:00 2001
+From: Duncan McQueen <dwmcqueen@gmail.com>
+Date: Fri, 2 Oct 2026 07:06:03 -0500
+Subject: [PATCH] coding-agent: support Haiku for clipboard, browser launch and
+ tool hints
+
+On Haiku, process.platform is "haiku", so every Linux and macOS branch
+was skipped:
+
+- Clipboard: use Haiku's `clipboard` command (`-p` to read, `-i` to
+  write from stdin) and strip the single newline `-p` appends.
+- openBrowser: use Haiku's `open`, which routes URLs through the roster,
+  instead of xdg-open.
+- fd/rg: upstream publishes no Haiku binaries, so the download always
+  failed with "Unsupported platform". Show an install hint instead
+  (ripgrep and fd come from HaikuPorts).
+
+---
+ packages/coding-agent/src/utils/clipboard.ts  |  17 +++
+ .../coding-agent/src/utils/open-browser.ts    |   5 +-
+ .../coding-agent/src/utils/tools-manager.ts   |  13 +++
+ .../coding-agent/test/haiku-platform.test.ts  | 110 ++++++++++++++++++
+ 4 files changed, 144 insertions(+), 1 deletion(-)
+ create mode 100644 packages/coding-agent/test/haiku-platform.test.ts
+
+diff --git a/packages/coding-agent/src/utils/clipboard.ts b/packages/coding-agent/src/utils/clipboard.ts
+index 926d9f9..713bbf8 100644
+--- a/packages/coding-agent/src/utils/clipboard.ts
++++ b/packages/coding-agent/src/utils/clipboard.ts
+@@ -50,8 +50,21 @@ async function copyViaWindowsClipboard(text: string): Promise<boolean> {
+ 	}
+ }
+ 
++/**
++ * Haiku ships a `clipboard` command (src/bin/clipboard.cpp): `-p` prints the
++ * text/plain clip followed by one newline, `-i` replaces the clip with stdin.
++ */
++const HAIKU_CLIPBOARD = "clipboard";
++
+ /** Read plain text from the system clipboard. */
+ export async function readClipboardText(): Promise<string | null> {
++	if (platform() === "haiku") {
++		const bytes = await runClipboardCommand(HAIKU_CLIPBOARD, ["-p"], { timeoutMs: 5000 });
++		if (bytes === undefined) return null;
++		// `clipboard -p` appends exactly one newline, and prints nothing for an empty clip.
++		const text = bytes.toString("utf8");
++		return (text.endsWith("\n") ? text.slice(0, -1) : text) || null;
++	}
+ 	if (platform() === "linux") {
+ 		const commands: [string, string[]][] = [];
+ 		if (process.env.TERMUX_VERSION) commands.push(["termux-clipboard-get", []]);
+@@ -98,6 +111,7 @@ export async function copyToClipboard(text: string): Promise<void> {
+ 		const commands: [string, string[]][] = [];
+ 		if (p === "darwin") commands.push(["pbcopy", []]);
+ 		else if (p === "win32") commands.push(["clip", []]);
++		else if (p === "haiku") commands.push([HAIKU_CLIPBOARD, ["-i"]]);
+ 		else {
+ 			if (env.TERMUX_VERSION) commands.push(["termux-clipboard-set", []]);
+ 			if (env.WAYLAND_DISPLAY) commands.push(["wl-copy", []]);
+@@ -140,5 +154,8 @@ export async function copyToClipboard(text: string): Promise<void> {
+ 			throw new Error("Clipboard unavailable: install `xclip` or `xsel`, or check X11 access");
+ 		}
+ 	}
++	if (p === "haiku") {
++		throw new Error("Clipboard unavailable: the `clipboard` command failed or is missing from PATH");
++	}
+ 	throw new Error("Clipboard unavailable");
+ }
+diff --git a/packages/coding-agent/src/utils/open-browser.ts b/packages/coding-agent/src/utils/open-browser.ts
+index 435e23f..f1ee72a 100644
+--- a/packages/coding-agent/src/utils/open-browser.ts
++++ b/packages/coding-agent/src/utils/open-browser.ts
+@@ -13,7 +13,10 @@ export function openBrowser(target: string): void {
+ 			? ["open", [target]]
+ 			: process.platform === "win32"
+ 				? ["rundll32", ["url.dll,FileProtocolHandler", target]]
+-				: ["xdg-open", [target]];
++				: process.platform === "haiku"
++					? // Haiku's `open` hands URLs to the roster's preferred handler.
++						["open", [target]]
++					: ["xdg-open", [target]];
+ 
+ 	// spawn reports launcher failures (for example, missing xdg-open) via an
+ 	// error event. Browser launch is best-effort: callers still present the target
+diff --git a/packages/coding-agent/src/utils/tools-manager.ts b/packages/coding-agent/src/utils/tools-manager.ts
+index f040f52..c98e00b 100644
+--- a/packages/coding-agent/src/utils/tools-manager.ts
++++ b/packages/coding-agent/src/utils/tools-manager.ts
+@@ -336,6 +336,13 @@ const TERMUX_PACKAGES: Record<string, string> = {
+ 	rg: "ripgrep",
+ };
+ 
++// Upstream fd and ripgrep publish no Haiku binaries. ripgrep is in HaikuPorts;
++// fd builds with the HaikuPorts Rust toolchain (rust_bin).
++const HAIKU_INSTALL_HINTS: Record<string, string> = {
++	fd: "pkgman install fd",
++	rg: "pkgman install ripgrep",
++};
++
+ export interface ToolStatus {
+ 	type: "info" | "warning";
+ 	message: string;
+@@ -371,6 +378,12 @@ export async function ensureTool(
+ 		return undefined;
+ 	}
+ 
++	if (platform() === "haiku") {
++		const hint = HAIKU_INSTALL_HINTS[tool] ?? `pkgman install ${tool}`;
++		onStatus?.({ type: "warning", message: `${config.name} not found. Install with: ${hint}` });
++		return undefined;
++	}
++
+ 	// Tool not found - download it
+ 	onStatus?.({ type: "info", message: `${config.name} not found. Downloading...` });
+ 
+diff --git a/packages/coding-agent/test/haiku-platform.test.ts b/packages/coding-agent/test/haiku-platform.test.ts
+new file mode 100644
+index 0000000..8e9c884
+--- /dev/null
++++ b/packages/coding-agent/test/haiku-platform.test.ts
+@@ -0,0 +1,110 @@
++import type * as ChildProcess from "node:child_process";
++import type * as OsModule from "node:os";
++import type * as Fs from "fs";
++import type * as Os from "os";
++import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
++
++const mocks = vi.hoisted(() => ({
++	spawn: vi.fn(),
++	spawnSync: vi.fn(() => ({ error: new Error("not found") })),
++	platform: vi.fn<() => NodeJS.Platform>(() => "haiku"),
++	command: vi.fn<(command: string, args: readonly string[], options?: unknown) => Promise<Buffer | undefined>>(),
++}));
++
++// "child_process" and "node:child_process" resolve to one module, so both mocks must agree.
++vi.mock("node:child_process", async () => ({
++	...(await vi.importActual<typeof ChildProcess>("node:child_process")),
++	spawn: mocks.spawn,
++	spawnSync: mocks.spawnSync,
++}));
++vi.mock("child_process", async () => ({
++	...(await vi.importActual<typeof ChildProcess>("node:child_process")),
++	spawn: mocks.spawn,
++	spawnSync: mocks.spawnSync,
++}));
++vi.mock("os", async () => ({ ...(await vi.importActual<typeof Os>("os")), platform: mocks.platform }));
++vi.mock("node:os", async () => ({ ...(await vi.importActual<typeof OsModule>("node:os")), platform: mocks.platform }));
++vi.mock("fs", async (importOriginal) => ({ ...(await importOriginal<typeof Fs>()), existsSync: vi.fn(() => false) }));
++vi.mock("@earendil-works/pi-tui", () => ({ getNativeClipboard: () => undefined }));
++vi.mock("../src/utils/clipboard-command.ts", () => ({ runClipboardCommand: mocks.command }));
++
++const { openBrowser } = await import("../src/utils/open-browser.ts");
++const { ensureTool } = await import("../src/utils/tools-manager.ts");
++const { copyToClipboard, readClipboardText } = await import("../src/utils/clipboard.ts");
++
++const originalPlatform = Object.getOwnPropertyDescriptor(process, "platform")!;
++const originalOffline = process.env.PI_OFFLINE;
++
++beforeEach(() => {
++	vi.clearAllMocks();
++	mocks.spawnSync.mockReturnValue({ error: new Error("not found") });
++	mocks.platform.mockReturnValue("haiku");
++	Object.defineProperty(process, "platform", { value: "haiku" });
++	delete process.env.PI_OFFLINE;
++	for (const name of [
++		"SSH_CONNECTION",
++		"SSH_CLIENT",
++		"MOSH_CONNECTION",
++		"DISPLAY",
++		"WAYLAND_DISPLAY",
++		"TERMUX_VERSION",
++	])
++		vi.stubEnv(name, "");
++});
++afterEach(() => {
++	Object.defineProperty(process, "platform", originalPlatform);
++	if (originalOffline === undefined) delete process.env.PI_OFFLINE;
++	else process.env.PI_OFFLINE = originalOffline;
++	vi.unstubAllEnvs();
++	vi.unstubAllGlobals();
++});
++
++describe("Haiku", () => {
++	it("opens URLs with the Haiku open command", () => {
++		const child = { on: vi.fn(), unref: vi.fn() };
++		child.on.mockReturnValue(child);
++		mocks.spawn.mockReturnValue(child);
++		openBrowser("https://pi.dev/?a=1&b=2");
++		expect(mocks.spawn).toHaveBeenCalledWith("open", ["https://pi.dev/?a=1&b=2"], {
++			stdio: "ignore",
++			detached: true,
++		});
++	});
++
++	it("reads text with `clipboard -p` and drops its trailing newline", async () => {
++		mocks.command.mockResolvedValue(Buffer.from("line one\nline two\n\n"));
++		await expect(readClipboardText()).resolves.toBe("line one\nline two\n");
++		expect(mocks.command).toHaveBeenCalledWith("clipboard", ["-p"], { timeoutMs: 5000 });
++	});
++
++	it("treats an empty or failed clipboard read as no text", async () => {
++		mocks.command.mockResolvedValueOnce(Buffer.alloc(0));
++		await expect(readClipboardText()).resolves.toBeNull();
++		mocks.command.mockResolvedValueOnce(undefined);
++		await expect(readClipboardText()).resolves.toBeNull();
++	});
++
++	it("writes text through `clipboard -i`", async () => {
++		mocks.command.mockResolvedValue(Buffer.alloc(0));
++		await copyToClipboard("héllo");
++		expect(mocks.command).toHaveBeenCalledWith("clipboard", ["-i"], { input: "héllo", timeoutMs: 5000 });
++	});
++
++	it("reports a Haiku-specific error when the clipboard command fails", async () => {
++		mocks.command.mockResolvedValue(undefined);
++		await expect(copyToClipboard("x")).rejects.toThrow("`clipboard` command failed");
++	});
++
++	it("points to pkgman instead of downloading unsupported binaries", async () => {
++		const fetchMock = vi.fn();
++		vi.stubGlobal("fetch", fetchMock);
++		const statuses: unknown[] = [];
++		await expect(ensureTool("rg", (s) => statuses.push(s))).resolves.toBeUndefined();
++		await expect(ensureTool("fd", (s) => statuses.push(s))).resolves.toBeUndefined();
++		expect(fetchMock).not.toHaveBeenCalled();
++		expect(statuses).toEqual([
++			{ type: "warning", message: "ripgrep not found. Install with: pkgman install ripgrep" },
++			{ type: "warning", message: "fd not found. Install with: pkgman install fd" },
++		]);
++	});
++});
+-- 
+2.43.0
+

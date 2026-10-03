@@ -161,6 +161,7 @@
     <div class="hero-actions">
       <a class="btn primary" href="#install">Install</a>
       <a class="btn" href="#packages">Packages</a>
+      <a class="btn" href="#rebuild">Rebuild</a>
       <a class="btn" href="https://github.com/duncanmcqueen/haikuports/tree/personal-packages">Source &amp; maintenance</a>
     </div>
   </div>
@@ -274,6 +275,52 @@ pi</pre></div>
       Register it with pi using <code class="inline">pi install /boot/system/data/haiku-agent-library</code>,
       then check it inside pi with <code class="inline">/skill:haiku-api</code>.
     </p>
+  </div>
+</section>
+
+<section id="rebuild">
+  <div class="wrap">
+    <h2>Rebuild it yourself</h2>
+    <p class="sub">
+      The recipes, patchsets, and build scripts are public. Rebuild any package in a
+      HaikuPorts tree with HaikuPorter, or use the scripts below.
+    </p>
+    <div class="grid">
+      <div class="card">
+        <span class="tag">nodejs22</span>
+        <h3>Node.js 22 recipe &amp; patches</h3>
+        <p>
+          Recipe and the five-part patchset on the
+          <a href="https://github.com/duncanmcqueen/haikuports/tree/nodejs22/net-libs/nodejs">nodejs22 branch</a>.
+          Rebuild with <code class="inline">sources/nodejs22/rebuild-node-haiku.sh</code>.
+        </p>
+      </div>
+      <div class="card">
+        <span class="tag">icu77</span>
+        <h3>ICU 77 recipe</h3>
+        <p>
+          Recipe on the
+          <a href="https://github.com/duncanmcqueen/haikuports/tree/icu77/dev-libs/icu">icu77 branch</a>.
+        </p>
+      </div>
+      <div class="card">
+        <span class="tag">fd · pi · skill</span>
+        <h3>fd, pi, and skill sources</h3>
+        <p>
+          The <code class="inline">fd</code> recipe, the pi patch and build scripts,
+          and the agent-library archive and builder are in
+          <a href="https://github.com/duncanmcqueen/haikuports/tree/personal-packages/sources">sources/</a>.
+        </p>
+      </div>
+    </div>
+    <div class="code" style="margin-top:18px"><button class="copy" data-copy>Copy</button><pre># Full rebuild guide
+https://github.com/duncanmcqueen/haikuports/tree/personal-packages/sources/README.md
+
+# Node.js 22 recipe and patchset
+https://github.com/duncanmcqueen/haikuports/tree/nodejs22/net-libs/nodejs
+
+# ICU 77 recipe
+https://github.com/duncanmcqueen/haikuports/tree/icu77/dev-libs/icu</pre></div>
   </div>
 </section>
 

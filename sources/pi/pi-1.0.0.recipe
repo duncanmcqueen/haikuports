@@ -1,0 +1,54 @@
+SUMMARY="AI coding agent for the terminal"
+DESCRIPTION="pi is an AI coding assistant with read, bash, edit and write tools. \
+It runs on Node.js. pi's own build uses esbuild and tsgo, neither of which has a \
+Haiku build, so this recipe installs the prebuilt, platform-independent \
+JavaScript bundle produced by pack-pi.sh on a Linux build host (see the \
+haiku-port packaging notes). Node.js, ripgrep and fd are supplied by HaikuPorts."
+HOMEPAGE="https://github.com/earendil-works/pi"
+COPYRIGHT="2026 The pi authors"
+LICENSE="MIT"
+REVISION="1"
+# Source is the output of haiku-port/pack-pi.sh: a directory with package.json,
+# tarballs/ and install-on-haiku.sh. It must also vendor the resolved runtime
+# dependencies (or an npm cache) so BUILD can run offline in the build chroot.
+# Replace with the URL of the hosted bundle and its SHA256.
+SOURCE_URI="TODO"
+CHECKSUM_SHA256="TODO"
+SOURCE_DIR="pi-haiku"
+
+ARCHITECTURES="any"
+
+PROVIDES="
+	pi = $portVersion
+	cmd:pi = $portVersion
+	"
+REQUIRES="
+	haiku
+	nodejs22$secondaryArchSuffix
+	cmd:rg
+	cmd:fd
+	"
+
+BUILD_REQUIRES=""
+BUILD_PREREQUIRES="
+	cmd:node$secondaryArchSuffix
+	cmd:npm
+	"
+
+BUILD()
+{
+	# Source must include package-lock.json, tarballs/, and npm-cache/.
+	# Complete the cache on Haiku before distribution.
+	# Facet bundles still need a working esbuild executable at runtime.
+	npm ci --offline --cache ./npm-cache --ignore-scripts --omit=dev --no-audit --no-fund
+}
+
+INSTALL()
+{
+	mkdir -p "$dataDir/pi" "$binDir"
+	cp -a node_modules "$dataDir/pi/node_modules"
+	cp package.json "$dataDir/pi/package.json"
+	symlinkRelative -s "$dataDir/pi/node_modules/.bin/pi" "$binDir/pi"
+	mkdir -p "$docDir"
+	cp UPSTREAM-LICENSE.txt build-info.json "$docDir/"
+}

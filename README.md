@@ -63,6 +63,20 @@ ICU development files and tools are also optional; they are not needed to run No
 | `pi` | The `pi` coding agent (`pi` command) |
 | `haiku_agent_library` | Haiku developer skills for `pi`, including the Haiku Book API reference |
 
+## Rebuild the packages
+
+Recipes, patchsets, and build scripts are public:
+
+- Full rebuild guide: `sources/README.md`, at
+  `https://github.com/duncanmcqueen/haikuports/tree/personal-packages/sources`.
+- Node.js 22 recipe and patchset:
+  `https://github.com/duncanmcqueen/haikuports/tree/nodejs22/net-libs/nodejs`.
+  Rebuild with `sources/nodejs22/rebuild-node-haiku.sh`.
+- ICU 77 recipe:
+  `https://github.com/duncanmcqueen/haikuports/tree/icu77/dev-libs/icu`.
+- `fd` recipe, the pi patch and build scripts, and the agent-library archive and
+  builder: the `sources/` directory.
+
 ## Future updates and SoftwareUpdater
 
 `pkgman add-repo` saves a system repository configuration. It persists across restarts.

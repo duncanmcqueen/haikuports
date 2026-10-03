@@ -30,6 +30,11 @@ They have not been relabeled or stripped of upstream license metadata.
   Candidate dependencies were official-package files plus this repository's packages.
   Installed personal Node, ICU 77, and the local guard package were excluded.
 - All index/package SHA-256 checksums passed.
+- After GitHub Pages deployment, Haiku downloaded all five packages and the index
+  over HTTPS. Their checksums matched the published manifest.
+- `pkgman add-repo` registered `DuncanHaikuPackages` successfully, and
+  `pkgman refresh DuncanHaikuPackages` validated its index.
+- A `pkgman full-sync` check with the repository registered reported `Nothing to do`.
 
 The test kernel reported Haiku R1/beta6 hrev59866+79, x86_64. This was an existing
 VM, not a newly installed VM. A successful dependency-solver check does not replace

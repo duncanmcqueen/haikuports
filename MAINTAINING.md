@@ -95,6 +95,16 @@ This command explicitly commits and pushes. The checkout must be clean and must 
 `personal-packages` selected. It does not create the initial hosting branch or change
 GitHub Pages settings.
 
+Obtain a hosting checkout on that host with:
+
+```sh
+git clone --branch personal-packages --single-branch \
+  https://github.com/duncanmcqueen/haikuports.git hosting-checkout
+```
+
+Transfer the complete Haiku-generated index directory to the same host before running
+the publisher. Do not omit its `packages/` directory or checksum files.
+
 GitHub Pages publication is asynchronous. Wait for it to finish, then verify:
 
 ```sh

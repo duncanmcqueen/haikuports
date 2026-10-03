@@ -40,6 +40,9 @@ ICU development files and tools are also optional; they are not needed to run No
 ## Future updates and SoftwareUpdater
 
 `pkgman add-repo` saves a system repository configuration. It persists across restarts.
+You can also use **Deskbar → Preferences → Repositories**: press the add (`+`)
+button, paste `https://duncanmcqueen.github.io/haikuports/r1beta6/x86_64`, and enable
+the new entry. Keep `Haiku`, `HaikuPorts`, and `DuncanHaikuPackages` enabled.
 SoftwareUpdater uses the registered repositories, including this one, when it checks
 for updates. It can then offer newer packages published here. Installation of updates
 still follows SoftwareUpdater's normal confirmation flow.

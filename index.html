@@ -1,18 +1,333 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Additional HaikuPorts packages</title></head>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Duncan's Haiku packages</title>
+<meta name="description" content="Additional packages for Haiku R1/beta6 x86_64: Node.js 22, ICU 77, fd, and the pi coding agent with Haiku developer skills.">
+<style>
+  :root {
+    --bg: #0b0f1a;
+    --panel: #141a2b;
+    --panel-2: #1b2338;
+    --line: #263050;
+    --text: #e8ecf6;
+    --muted: #9aa6c2;
+    --accent: #4fd1c5;
+    --accent-2: #7c6cff;
+    --warn: #f6c177;
+    --radius: 16px;
+    --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "DejaVu Sans Mono", monospace;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    font-family: var(--sans);
+    color: var(--text);
+    background: var(--bg);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .wrap { max-width: 980px; margin: 0 auto; padding: 0 20px; }
+
+  header.hero {
+    position: relative;
+    overflow: hidden;
+    padding: 72px 0 56px;
+    background:
+      radial-gradient(900px 400px at 15% -10%, rgba(124,108,255,.35), transparent 60%),
+      radial-gradient(700px 360px at 90% 0%, rgba(79,209,197,.28), transparent 55%),
+      linear-gradient(180deg, #0d1324, #0b0f1a);
+    border-bottom: 1px solid var(--line);
+  }
+  .badge {
+    display: inline-block;
+    font-size: 12.5px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 1px solid rgba(79,209,197,.35);
+    background: rgba(79,209,197,.08);
+    padding: 5px 12px;
+    border-radius: 999px;
+    margin-bottom: 18px;
+  }
+  h1 {
+    font-size: clamp(2rem, 5.5vw, 3.1rem);
+    line-height: 1.1;
+    margin: 0 0 14px;
+    letter-spacing: -.02em;
+    background: linear-gradient(90deg, #ffffff, #b9c4ff 60%, #4fd1c5);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .lead { font-size: 1.12rem; color: var(--muted); max-width: 68ch; margin: 0 0 24px; }
+  .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+  .btn {
+    display: inline-block;
+    padding: 11px 18px;
+    border-radius: 10px;
+    font-weight: 600;
+    border: 1px solid var(--line);
+    color: var(--text);
+    background: var(--panel);
+    transition: transform .12s ease, border-color .12s ease;
+  }
+  .btn:hover { transform: translateY(-1px); text-decoration: none; border-color: var(--accent); }
+  .btn.primary { background: linear-gradient(90deg, var(--accent-2), var(--accent)); color: #06121a; border: none; }
+
+  section { padding: 48px 0; border-bottom: 1px solid var(--line); }
+  h2 { font-size: 1.5rem; margin: 0 0 6px; letter-spacing: -.01em; }
+  .sub { color: var(--muted); margin: 0 0 24px; }
+
+  .code {
+    position: relative;
+    background: #0a0e18;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 18px 54px 18px 18px;
+    overflow-x: auto;
+    margin: 0 0 18px;
+  }
+  .code pre { margin: 0; font-family: var(--mono); font-size: 14px; color: #d7e0f5; }
+  .copy {
+    position: absolute; top: 10px; right: 10px;
+    font: 600 12px var(--sans);
+    color: var(--muted);
+    background: var(--panel-2);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 6px 10px;
+    cursor: pointer;
+  }
+  .copy:hover { color: var(--text); border-color: var(--accent); }
+  .copy.done { color: var(--accent); border-color: var(--accent); }
+
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+  .card {
+    background: linear-gradient(180deg, var(--panel), var(--panel-2));
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 20px;
+  }
+  .card h3 { margin: 0 0 6px; font-size: 1.05rem; }
+  .card .tag {
+    font-family: var(--mono); font-size: 12px; color: var(--accent);
+    background: rgba(79,209,197,.08); border: 1px solid rgba(79,209,197,.25);
+    padding: 2px 8px; border-radius: 6px; display: inline-block; margin-bottom: 10px;
+  }
+  .card p { margin: 0; color: var(--muted); font-size: .95rem; }
+
+  .callout {
+    background: rgba(246,193,119,.07);
+    border: 1px solid rgba(246,193,119,.3);
+    border-radius: var(--radius);
+    padding: 18px 20px;
+    color: #f4e6cf;
+    font-size: .96rem;
+  }
+  .callout strong { color: var(--warn); }
+
+  .note { color: var(--muted); font-size: .95rem; }
+  ul.checks { list-style: none; padding: 0; margin: 0; }
+  ul.checks li { position: relative; padding-left: 28px; margin: 8px 0; color: var(--muted); }
+  ul.checks li::before {
+    content: "✓"; position: absolute; left: 0; top: 0;
+    color: var(--accent); font-weight: 700;
+  }
+
+  footer { padding: 36px 0 56px; color: var(--muted); font-size: .93rem; }
+  footer a { color: var(--text); }
+  .muted-link { color: var(--muted); }
+  code.inline { font-family: var(--mono); background: var(--panel-2); padding: 1px 6px; border-radius: 6px; font-size: .9em; }
+</style>
+</head>
 <body>
-<h1>Additional packages for HaikuPorts</h1>
-<p>A personal repository for Haiku R1/beta6 x86_64. Keep the official Haiku and HaikuPorts repositories enabled.</p>
-<p>I worked on <a href="https://bekaffe.sourceforge.net/">BeKaffe</a>, the project that brought Java to BeOS, a long time ago. I am not part of the pi or HaikuPorts projects. I publish these packages because I want to help move Haiku forward.</p>
-<p>Some packages may have been created with AI assistance. Human review and validation occur, but defects remain possible. <strong>Everything is provided AS-IS, without warranties.</strong> This repository is not endorsed by Haiku or HaikuPorts.</p>
-<h2>Configure Haiku</h2>
-<pre>pkgman add-repo https://duncanmcqueen.github.io/haikuports/r1beta6/x86_64
-pkgman install nodejs22 npm</pre>
-<p>Node 22.23.3 currently loads ICU 77; this repository supplies that runtime automatically. SoftwareUpdater uses the saved repository registration for future updates.</p>
-<h2>pi coding agent</h2>
-<pre>pkgman install pi haiku_agent_library
+
+<header class="hero">
+  <div class="wrap">
+    <span class="badge">Haiku R1/beta6 · x86_64</span>
+    <h1>Extra packages for HaikuPorts</h1>
+    <p class="lead">
+      A personal package repository that adds what the official channels don't: Node.js 22,
+      ICU 77, <code class="inline">fd</code>, and the <strong>pi</strong> coding agent with
+      Haiku developer skills. Keep the official Haiku and HaikuPorts repositories enabled.
+    </p>
+    <div class="hero-actions">
+      <a class="btn primary" href="#install">Install</a>
+      <a class="btn" href="#packages">Packages</a>
+      <a class="btn" href="https://github.com/duncanmcqueen/haikuports/tree/personal-packages">Source &amp; maintenance</a>
+    </div>
+  </div>
+</header>
+
+<section id="about">
+  <div class="wrap">
+    <h2>About this repository</h2>
+    <p class="sub">
+      I worked on <a href="https://bekaffe.sourceforge.net/">BeKaffe</a>, the project that
+      brought Java to BeOS, a long time ago. I am not part of the pi or HaikuPorts projects.
+      I publish these packages because I want to help move Haiku forward.
+    </p>
+    <div class="callout">
+      <strong>AI assistance, human review, and AS-IS software.</strong>
+      Some packages may have been created with AI assistance and checked by hand before release.
+      That review does not guarantee correctness, and defects remain possible.
+      <strong>Everything here is provided AS-IS, without warranties of any kind.</strong>
+      This repository is not endorsed by Haiku or HaikuPorts. Review package-manager
+      proposals before installing or updating.
+    </div>
+  </div>
+</section>
+
+<section id="install">
+  <div class="wrap">
+    <h2>Install</h2>
+    <p class="sub">Open Terminal on Haiku R1/beta6 x86_64 and run these commands.</p>
+
+    <h3 style="margin:24px 0 8px">1. Add the repository</h3>
+    <div class="code"><button class="copy" data-copy>Copy</button><pre>pkgman add-repo https://duncanmcqueen.github.io/haikuports/r1beta6/x86_64
+pkgman refresh DuncanHaikuPackages</pre></div>
+
+    <h3 style="margin:24px 0 8px">2. Install Node.js</h3>
+    <div class="code"><button class="copy" data-copy>Copy</button><pre>pkgman install nodejs22 npm
+node --version
+node -p 'process.versions.icu'</pre></div>
+    <p class="note">
+      Node 22.23.3 loads ICU 77, so this repository supplies <code class="inline">icu77</code>
+      and pkgman installs it automatically. If Node.js 20 is installed, Node 22 conflicts with
+      it; inspect the solver proposal before accepting.
+    </p>
+
+    <h3 style="margin:24px 0 8px">3. Install the pi coding agent and its Haiku skills</h3>
+    <div class="code"><button class="copy" data-copy>Copy</button><pre>pkgman install pi haiku_agent_library
 pi install /boot/system/data/haiku-agent-library
-pi</pre>
-<p>Reboot Haiku if the <code>pi</code> command is not found after installation.</p>
-<p><a href="https://github.com/duncanmcqueen/haikuports/tree/personal-packages">Instructions, package provenance, and maintenance information</a></p>
-</body></html>
+pi</pre></div>
+    <p class="note">
+      If the <code class="inline">pi</code> command is not found, reboot Haiku: new system
+      packages become available on the next boot. Then configure pi with a model and API key
+      as its documentation describes.
+    </p>
+  </div>
+</section>
+
+<section id="packages">
+  <div class="wrap">
+    <h2>Packages in this repository</h2>
+    <p class="sub">Priority 0; the official repositories stay enabled and provide the rest.</p>
+    <div class="grid">
+      <div class="card">
+        <span class="tag">nodejs22</span>
+        <h3>Node.js 22 runtime</h3>
+        <p>Node.js 22.23.3 for x86_64. Development files in <code class="inline">nodejs22_devel</code>.</p>
+      </div>
+      <div class="card">
+        <span class="tag">icu77</span>
+        <h3>ICU 77</h3>
+        <p>The Unicode runtime this compiled Node binary loads, with optional
+           <code class="inline">icu77_devel</code> and <code class="inline">icu77_tools</code>.</p>
+      </div>
+      <div class="card">
+        <span class="tag">fd</span>
+        <h3>fd</h3>
+        <p>A fast, user-friendly <code class="inline">find</code> replacement used by the pi agent.</p>
+      </div>
+      <div class="card">
+        <span class="tag">pi</span>
+        <h3>pi coding agent</h3>
+        <p>An AI coding assistant for the terminal with read, bash, edit, and write tools.
+           Provides the <code class="inline">pi</code> command.</p>
+      </div>
+      <div class="card">
+        <span class="tag">haiku_agent_library</span>
+        <h3>Haiku developer skills</h3>
+        <p>Ready-made context that teaches pi how Haiku works. See below.</p>
+      </div>
+    </div>
+
+    <h3 style="margin:32px 0 8px">What is <code class="inline">haiku_agent_library</code>?</h3>
+    <p class="note">
+      It is a package of <strong>Agent Skills</strong> for AI coding assistants (pi, Maki, and
+      anything that reads <code class="inline">AGENTS.md</code> and Agent Skills) that work on
+      Haiku OS code. It installs under
+      <code class="inline">/boot/system/data/haiku-agent-library</code> and contains:
+    </p>
+    <ul class="checks">
+      <li><strong>haiku-api skill</strong> — a native Haiku C++ API model plus the
+          <strong>Haiku Book</strong> sources (<code class="inline">.dox</code>) for
+          <code class="inline">BApplication</code>, <code class="inline">BWindow</code>,
+          <code class="inline">BMessage</code>, layouts, the Storage Kit, networking, and more,
+          with an index to search.</li>
+      <li><strong>haikuports-recipe skill</strong> — how to write, build, patch, and submit a
+          HaikuPorts recipe, with a variable reference and a starter template.</li>
+      <li><strong>AGENTS.md rules</strong> — always-on reminders that Haiku is not Linux:
+          package-managed read-only <code class="inline">/boot/system</code>,
+          <code class="inline">libnetwork</code>/<code class="inline">libbsd</code>, and how to
+          look up API documentation.</li>
+    </ul>
+    <p class="note" style="margin-top:12px">
+      Register it with pi using <code class="inline">pi install /boot/system/data/haiku-agent-library</code>,
+      then check it inside pi with <code class="inline">/skill:haiku-api</code>.
+    </p>
+  </div>
+</section>
+
+<section id="updates">
+  <div class="wrap">
+    <h2>Updates</h2>
+    <p class="sub">
+      <code class="inline">pkgman add-repo</code> saves the repository across restarts, and
+      SoftwareUpdater uses it for future updates. Update from Terminal any time:
+    </p>
+    <div class="code"><button class="copy" data-copy>Copy</button><pre>pkgman refresh DuncanHaikuPackages
+pkgman update</pre></div>
+    <p class="note">
+      You can also add it in <strong>Deskbar → Preferences → Repositories</strong> with the
+      <code class="inline">+</code> button. Keep <code class="inline">Haiku</code>,
+      <code class="inline">HaikuPorts</code>, and <code class="inline">DuncanHaikuPackages</code>
+      enabled. To stop using it: <code class="inline">pkgman drop-repo DuncanHaikuPackages</code>.
+    </p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>
+      Maintained by Duncan McQueen.
+      <a href="https://github.com/duncanmcqueen/haikuports/tree/personal-packages">Instructions, provenance, and maintenance</a>
+      · <a class="muted-link" href="https://github.com/duncanmcqueen/haikuports">Repository</a>
+    </p>
+    <p class="note">Upstream component licenses apply. Everything here is provided AS-IS.</p>
+  </div>
+</footer>
+
+<script>
+  document.querySelectorAll('[data-copy]').forEach(function (button) {
+    button.addEventListener('click', function () {
+      var text = button.parentElement.querySelector('pre').innerText;
+      var done = function () {
+        button.textContent = 'Copied';
+        button.classList.add('done');
+        setTimeout(function () { button.textContent = 'Copy'; button.classList.remove('done'); }, 1500);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(done, done);
+      } else {
+        var area = document.createElement('textarea');
+        area.value = text;
+        document.body.appendChild(area);
+        area.select();
+        try { document.execCommand('copy'); } catch (e) {}
+        document.body.removeChild(area);
+        done();
+      }
+    });
+  });
+</script>
+</body>
+</html>

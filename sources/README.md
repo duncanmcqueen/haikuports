@@ -12,13 +12,15 @@ The packages use HaikuPorter (`pkgman install haikuporter`) and a HaikuPorts tre
 ## Node.js 22 (`nodejs22`, `nodejs22_devel`)
 
 - Recipe:
-  `net-libs/nodejs/nodejs22-22.23.3.recipe`
+  `haikuports/net-libs/nodejs/nodejs22-22.23.3.recipe`
 - Patchset:
-  `net-libs/nodejs/patches/nodejs-22.23.3.patchset`
+  `haikuports/net-libs/nodejs/patches/nodejs-22.23.3.patchset`
 
-Both are on the public branch
-<https://github.com/duncanmcqueen/haikuports/tree/nodejs22> (copy them into a
-HaikuPorts tree, then `haikuporter nodejs22`).
+They are stored here (exactly the ones that produced the published
+`nodejs22-22.23.3-1` package) and are also on the public branch
+<https://github.com/duncanmcqueen/haikuports/tree/nodejs22>. Copy them into a
+HaikuPorts tree and run `haikuporter nodejs22`, or use
+`scripts/rebuild-node-haiku.sh`, which reads the copies in this directory.
 
 The patchset has five parts:
 
@@ -33,7 +35,7 @@ The patchset has five parts:
 5. **C++20 and pthread_t fixes** — `common_node.gypi` and the V8 abseil
    `sysinfo.cc` thread id (`find_thread`).
 
-`nodejs22/rebuild-node-haiku.sh` rebuilds Node in an isolated tree and pins the
+`scripts/rebuild-node-haiku.sh` rebuilds Node in an isolated tree and pins the
 recipe and patch hashes. Node is built with the system ICU
 (`--with-intl=system-icu`) and shared brotli, c-ares, libuv, nghttp2, OpenSSL,
 and zlib.

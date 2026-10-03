@@ -1,0 +1,7 @@
+name DuncanHaikuPackages
+identifier "tag:github.com,2026:duncanmcqueen/haikuports/DuncanHaikuPackages/r1beta6/x86_64"
+baseurl "https://duncanmcqueen.github.io/haikuports/r1beta6/x86_64"
+vendor "Haiku Project"
+summary "Personal packages for Haiku R1/beta6 x86_64"
+priority 0
+architecture x86_64

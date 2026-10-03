@@ -1,0 +1,14 @@
+repository-info:
+	name: DuncanHaikuPackages
+	summary: Personal packages for Haiku R1/beta6 x86_64
+	base-url: https://duncanmcqueen.github.io/haikuports/r1beta6/x86_64
+	identifier: tag:github.com,2026:duncanmcqueen/haikuports/DuncanHaikuPackages/r1beta6/x86_64
+	vendor: Haiku Project
+	priority: 0
+	architecture: x86_64
+packages:
+	icu77-77.1-1-x86_64.hpkg
+	icu77_devel-77.1-1-x86_64.hpkg
+	icu77_tools-77.1-1-x86_64.hpkg
+	nodejs22-22.23.3-1-x86_64.hpkg
+	nodejs22_devel-22.23.3-1-x86_64.hpkg

@@ -1,0 +1,32 @@
+change-id = "ignore"
+
+[llvm]
+link-shared = false
+
+[build]
+build = "x86_64-unknown-haiku"
+host = ["x86_64-unknown-haiku"]
+target = ["x86_64-unknown-haiku"]
+rustc = "/boot/system/develop/tools/rust/bin/rustc"
+cargo = "/boot/system/develop/tools/rust/bin/cargo"
+docs = false
+vendor = true
+locked-deps = true
+jobs = 3
+extended = true
+tools = ["cargo", "clippy", "rustfmt", "rustdoc", "src"]
+
+[rust]
+channel = "stable"
+debuginfo-level = 0
+download-rustc = false
+
+[dist]
+compression-formats = ["xz"]
+# The plain rustc-<ver>-src tarball is not needed for the Haiku package.
+src-tarball = false
+
+[target.x86_64-unknown-haiku]
+llvm-config = "/boot/system/bin/llvm-config"
+# FileCheck is only used by codegen tests; Haiku llvm packages do not ship it.
+llvm-filecheck = "/bin/true"

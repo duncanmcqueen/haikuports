@@ -85,6 +85,16 @@ archive exists.
 skill (with the Haiku Book sources), the `haikuports-recipe` skill, and
 `AGENTS.md`.
 
+## Rust 1.99.0 (`rust_bin`)
+
+See `rust/README.md`. The recipe (`rust/rust_bin-1.99.0.recipe`) repackages a
+prebuilt tarball and compiles nothing, so it has no patchset. The one source
+patch for building the tarball is
+`rust/patches/0001-std-haiku-file-locking-via-flock.patch`; the build settings,
+the `nofilemmap` workaround, and the pending tasks (checksum, `lib:libssh2`,
+`SOURCE_URI`, hosting) are described there. The 1.99.0 `.hpkg` is about 147 MiB
+and is too large for the GitHub Pages repository.
+
 ## Publishing
 
 `../MAINTAINING.md` describes the repository index generation and the

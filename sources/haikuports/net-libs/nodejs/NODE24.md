@@ -29,6 +29,10 @@ haikuporter --get-dependencies -j3 nodejs24
   and isolation. The rebuilt V8 `api.o` has dynamic TLS relocations and no
   `R_X86_64_TPOFF32` relocations.
 - `mksnapshot` and Node linked, and the three `.hpkg` files were created.
+- HaikuPorter exited with status 149 during final chroot cleanup, after package
+  creation. The completed packages were checked independently and copied to
+  `haikuports/packages/` manually; the overall HaikuPorter command did not exit
+  successfully. Its cleanup failure remains distinct from the fixed linker issue.
 - The extracted runtime package reports `v24.21.0`, ICU `77.1`, and six CPUs
   on the test VM. Intl, GC, four worker threads, and SQLite checks passed.
 - An HTTP/2 loopback response was received using system nghttp2 1.63.0. The

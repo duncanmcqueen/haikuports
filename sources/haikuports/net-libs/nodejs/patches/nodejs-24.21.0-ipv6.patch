@@ -1,0 +1,43 @@
+diff --git a/src/tcp_wrap.cc b/src/tcp_wrap.cc
+--- a/src/tcp_wrap.cc
++++ b/src/tcp_wrap.cc
+@@ -45,11 +45,6 @@
+ #include <unistd.h>  // dup(), close()
+ #endif
+ 
+-// Haiku does not define IPV6_TCLASS; use the standard value (RFC 3542).
+-#ifndef IPV6_TCLASS
+-#define IPV6_TCLASS 67
+-#endif
+-
+ namespace node {
+ 
+ using v8::Boolean;
+@@ -266,8 +261,13 @@ void TCPWrap::SetTypeOfService(const FunctionCallbackInfo<Value>& args) {
+     level = IPPROTO_IP;
+     option = IP_TOS;
+   } else if (storage.ss_family == AF_INET6) {
++#ifdef IPV6_TCLASS
+     level = IPPROTO_IPV6;
+     option = IPV6_TCLASS;
++#else
++    args.GetReturnValue().Set(UV_ENOTSUP);
++    return;
++#endif
+   } else {
+     // Unsupported socket family (e.g. AF_UNIX)
+     args.GetReturnValue().Set(UV_EINVAL);
+@@ -321,8 +321,13 @@ void TCPWrap::GetTypeOfService(const FunctionCallbackInfo<Value>& args) {
+       level = IPPROTO_IP;
+       option = IP_TOS;
+     } else if (storage.ss_family == AF_INET6) {
++#ifdef IPV6_TCLASS
+       level = IPPROTO_IPV6;
+       option = IPV6_TCLASS;
++#else
++      args.GetReturnValue().Set(UV_ENOTSUP);
++      return;
++#endif
+     } else {
+       // Unknown or unsupported family
+       args.GetReturnValue().Set(UV_EINVAL);

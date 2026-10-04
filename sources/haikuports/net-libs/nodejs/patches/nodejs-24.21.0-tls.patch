@@ -1,0 +1,13 @@
+diff --git a/deps/v8/src/common/thread-local-storage.h b/deps/v8/src/common/thread-local-storage.h
+--- a/deps/v8/src/common/thread-local-storage.h
++++ b/deps/v8/src/common/thread-local-storage.h
+@@ -33,7 +33,8 @@
+ #else
+ #if defined(V8_TARGET_OS_WIN)
+ #define V8_TLS_MODEL "initial-exec"
+-#elif defined(V8_TARGET_OS_ANDROID)
++#elif defined(V8_TARGET_OS_ANDROID) || defined(V8_OS_HAIKU)
++// Haiku executables are linked as shared objects and cannot use local-exec TLS.
+ #define V8_TLS_MODEL "local-dynamic"
+ #else
+ #define V8_TLS_MODEL "local-exec"

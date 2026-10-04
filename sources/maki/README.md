@@ -4,7 +4,7 @@
 source patches used to build the published `maki-0.5.7-1` package.
 
 - `maki-0.5.7.recipe`
-- `patches/maki-0.5.7.patchset` (3 patches)
+- `patches/maki-0.5.7.patchset` (4 patches)
 
 ## Recipe
 
@@ -19,7 +19,7 @@ and two git dependencies, crossterm and syntect). `BUILD()` builds a cargo
   paths for the rustc it spawns and otherwise rustc cannot load `libroot`.
 - Produces `maki` and a separate `maki_debuginfo` package.
 
-## Patchset (3 subjects)
+## Patchset (4 subjects)
 
 1. **Haiku: drop the arboard Wayland backend, stub the 12h clock.**
    `arboard`'s `wayland-data-control` feature does not compile on Haiku, so
@@ -28,6 +28,7 @@ and two git dependencies, crossterm and syntect). `BUILD()` builds a cargo
    not bind for Haiku, so it defaults to 24-hour time there.
 2. **Use monty 0.0.21 from crates.io instead of the git tag.**
 3. **Link the system libcurl and OpenSSL on Haiku.**
+4. **Read terminal input with crossterm's `use-dev-tty` feature on Haiku.**
 
 ## Build requirements
 

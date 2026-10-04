@@ -1,0 +1,195 @@
+From 8f74a23029380db0cfe2b9252ea9463b28e0b050 Mon Sep 17 00:00:00 2001
+From: Duncan McQueen <dwmcqueen@gmail.com>
+Date: Sat, 3 Oct 2026 22:44:48 -0500
+Subject: [PATCH 1/3] Haiku: drop arboard Wayland backend, stub 12h clock
+ detection
+
+arboard's wayland-data-control feature pulls in wayland-backend, which
+does not build on Haiku; the clipboard falls back to OSC 52 there.
+The libc crate does not bind newlocale/nl_langinfo_l/T_FMT for Haiku,
+so system_uses_12h() returns false (24-hour clock) on Haiku.
+---
+ maki-ui/Cargo.toml   | 7 ++++++-
+ maki-ui/src/clock.rs | 8 +++++++-
+ 2 files changed, 13 insertions(+), 2 deletions(-)
+
+diff --git a/maki-ui/Cargo.toml b/maki-ui/Cargo.toml
+index 53d2659..1846eac 100644
+--- a/maki-ui/Cargo.toml
++++ b/maki-ui/Cargo.toml
+@@ -21,7 +21,6 @@ syntect = { workspace = true }
+ unicode-width = { workspace = true }
+ unicode-segmentation = { workspace = true }
+ serde_json = { workspace = true }
+-arboard = { workspace = true }
+ jiff = { workspace = true }
+ smol = { workspace = true }
+ flume = { workspace = true }
+@@ -46,6 +45,12 @@ shell-words = { workspace = true }
+ open = { workspace = true }
+ 
+ 
++[target.'cfg(not(target_os = "haiku"))'.dependencies]
++arboard = { workspace = true }
++
++[target.'cfg(target_os = "haiku")'.dependencies]
++arboard = { version = "3", default-features = false, features = ["image-data"] }
++
+ [target.'cfg(windows)'.dependencies]
+ windows-sys = { workspace = true }
+ 
+diff --git a/maki-ui/src/clock.rs b/maki-ui/src/clock.rs
+index 1e9fc30..fdbf8ac 100644
+--- a/maki-ui/src/clock.rs
++++ b/maki-ui/src/clock.rs
+@@ -31,7 +31,7 @@ fn posix_fmt_is_12h(fmt: &[u8]) -> bool {
+         .any(|w| matches!(w, b"%I" | b"%l" | b"%p" | b"%r"))
+ }
+ 
+-#[cfg(unix)]
++#[cfg(all(unix, not(target_os = "haiku")))]
+ fn system_uses_12h() -> bool {
+     use std::ffi::CStr;
+     // The libc crate does not bind `nl_langinfo_l` on Apple targets,
+@@ -54,6 +54,12 @@ fn system_uses_12h() -> bool {
+     }
+ }
+ 
++// Haiku: libc crate lacks newlocale/nl_langinfo_l/T_FMT bindings; default to 24h.
++#[cfg(target_os = "haiku")]
++fn system_uses_12h() -> bool {
++    false
++}
++
+ #[cfg(windows)]
+ fn system_uses_12h() -> bool {
+     use windows_sys::Win32::Globalization::{GetLocaleInfoEx, LOCALE_STIMEFORMAT};
+-- 
+2.56.0
+
+
+From c27057ffd078fb3b159b3b18fa83a027b0695cff Mon Sep 17 00:00:00 2001
+From: Duncan McQueen <dwmcqueen@gmail.com>
+Date: Sat, 3 Oct 2026 22:44:56 -0500
+Subject: [PATCH 2/3] Use monty 0.0.21 from crates.io instead of the git tag
+
+The crates.io release has the same sources as tag v0.0.21 and normalized
+manifests, so it can be vendored for an offline build. With the git tag,
+the vendored monty crates inherit fields from the monty workspace and
+monty-types ends up in the build twice.
+---
+ Cargo.lock | 9 ++++++---
+ Cargo.toml | 4 ++--
+ 2 files changed, 8 insertions(+), 5 deletions(-)
+
+diff --git a/Cargo.lock b/Cargo.lock
+index 30b5456..a40b8a1 100644
+--- a/Cargo.lock
++++ b/Cargo.lock
+@@ -3235,7 +3235,8 @@ dependencies = [
+ [[package]]
+ name = "monty"
+ version = "0.0.21"
+-source = "git+https://github.com/pydantic/monty.git?tag=v0.0.21#70fe3f5781381eb33579e45046f8cb3845953373"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "db44565f603ada5dd98bd580623cd9ce299c8b823bd7195c654826fa536b4d48"
+ dependencies = [
+  "ahash",
+  "chrono",
+@@ -3271,7 +3272,8 @@ dependencies = [
+ [[package]]
+ name = "monty-macros"
+ version = "0.0.21"
+-source = "git+https://github.com/pydantic/monty.git?tag=v0.0.21#70fe3f5781381eb33579e45046f8cb3845953373"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "40ed428288161f63d2bec7929438563fe31390f08e014e58ce20be96d7ef82ee"
+ dependencies = [
+  "proc-macro2",
+  "quote",
+@@ -3281,7 +3283,8 @@ dependencies = [
+ [[package]]
+ name = "monty-types"
+ version = "0.0.21"
+-source = "git+https://github.com/pydantic/monty.git?tag=v0.0.21#70fe3f5781381eb33579e45046f8cb3845953373"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "00b4b3318107fee36c5eee05c52f16f6565a63aa29d04f8608ebc221e3fe5dd8"
+ dependencies = [
+  "chrono",
+  "monty-macros",
+diff --git a/Cargo.toml b/Cargo.toml
+index fc86516..6a45000 100644
+--- a/Cargo.toml
++++ b/Cargo.toml
+@@ -192,8 +192,8 @@ tree-sitter-css = "0.25"
+ tree-sitter-hcl = "1.1"
+ tree-sitter-json = "0.24"
+ tree-sitter-make = "1.1"
+-monty = { git = "https://github.com/pydantic/monty.git", tag = "v0.0.21", package = "monty" }
+-monty-types = { git = "https://github.com/pydantic/monty.git", tag = "v0.0.21", package = "monty-types" }
++monty = "=0.0.21"
++monty-types = "=0.0.21"
+ get-size2 = "=0.10.1"
+ notify = { version = "9.0.0-rc.2", default-features = false, features = ["flume", "macos_fsevent"] }
+ serde_yaml = "0.9"
+-- 
+2.56.0
+
+
+From 3c15cf2961e853cedd729c3ecf75f2d01119d6dc Mon Sep 17 00:00:00 2001
+From: Duncan McQueen <dwmcqueen@gmail.com>
+Date: Sat, 3 Oct 2026 22:45:46 -0500
+Subject: [PATCH 3/3] Link the system libcurl and OpenSSL on Haiku
+
+Drop isahc's static-curl and static-ssl features so curl-sys and
+openssl-sys use the HaikuPorts libcurl and OpenSSL 3. The libcurl that
+curl-sys 0.4.88+ builds from source (curl >= 8.20) hangs on Haiku before
+the first HTTP request completes; the system libcurl 8.22 works.
+---
+ Cargo.lock | 10 ----------
+ Cargo.toml |  2 +-
+ 2 files changed, 1 insertion(+), 11 deletions(-)
+
+diff --git a/Cargo.lock b/Cargo.lock
+index a40b8a1..fd57eb4 100644
+--- a/Cargo.lock
++++ b/Cargo.lock
+@@ -3627,15 +3627,6 @@ version = "0.1.6"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+ checksum = "d05e27ee213611ffe7d6348b942e8f942b37114c00cc03cec254295a4a17852e"
+ 
+-[[package]]
+-name = "openssl-src"
+-version = "300.6.1+3.6.3"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "46eb8fb9fb3b61ce1c0f8a026c4c1a0714d3a9e138e7fbde78753ce2babc3846"
+-dependencies = [
+- "cc",
+-]
+-
+ [[package]]
+ name = "openssl-sys"
+ version = "0.9.117"
+@@ -3644,7 +3635,6 @@ checksum = "b47e7e6bb2c38cd930d25a23b40fa52e068c10e85f3e03a7f5ba5aaca5713695"
+ dependencies = [
+  "cc",
+  "libc",
+- "openssl-src",
+  "pkg-config",
+  "vcpkg",
+ ]
+diff --git a/Cargo.toml b/Cargo.toml
+index 6a45000..2e50743 100644
+--- a/Cargo.toml
++++ b/Cargo.toml
+@@ -145,7 +145,7 @@ async-io = "2"
+ event-listener = "5"
+ futures-lite = "2"
+ futures = "0.3"
+-isahc = { version = "1.7", default-features = false, features = ["text-decoding", "static-curl", "static-ssl", "http2"] }
++isahc = { version = "1.7", default-features = false, features = ["text-decoding", "http2"] }
+ flate2 = "1"
+ libc = "0.2"
+ windows-sys = { version = "0.61", features = ["Win32_Globalization"] }
+-- 
+2.56.0
+

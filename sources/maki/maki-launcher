@@ -1,0 +1,37 @@
+#!/bin/sh
+# Maki logging-path workaround for Haiku.
+#
+# maki derives its log directory from the parent of its XDG state base. With
+# Haiku's XDG_STATE_HOME=/boot/home/config/var that parent is
+# /boot/home/config (packagefs, read-only), so maki prints
+# "logging disabled, cannot open the log file".
+#
+# Redirect XDG_STATE_HOME through a writable ".maki-log-state" directory whose
+# "maki" child is a symlink back to the real state directory. Sessions, auth and
+# the saved model stay in the real location; logs land in <base>/logs/maki
+# (e.g. /boot/home/config/var/logs/maki), which is writable.
+#
+# This is a local user launcher, not part of the package. Invoke
+# /boot/system/bin/maki directly to bypass it.
+
+MAKI=/boot/system/bin/maki
+
+# Real XDG state base: the environment value, or maki's own default.
+BASE=${XDG_STATE_HOME:-$HOME/.local/state}
+
+# Already redirected by an outer invocation? Then run maki directly.
+case $BASE in
+	*/.maki-log-state) exec "$MAKI" "$@" ;;
+esac
+
+REDIR=$BASE/.maki-log-state
+mkdir -p "$REDIR" || exec "$MAKI" "$@"
+
+if [ ! -e "$REDIR/maki" ] && [ ! -L "$REDIR/maki" ]; then
+	ln -sT "$BASE/maki" "$REDIR/maki" 2>/dev/null \
+		|| ln -s "$BASE/maki" "$REDIR/maki" 2>/dev/null \
+		|| true
+fi
+
+export XDG_STATE_HOME=$REDIR
+exec "$MAKI" "$@"

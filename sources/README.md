@@ -85,13 +85,13 @@ archive exists.
 skill (with the Haiku Book sources), the `haikuports-recipe` skill, and
 `AGENTS.md`.
 
-## maki 0.5.7 (`maki`, `maki_debuginfo`)
+## maki 0.6.0 (`maki`, `maki_debuginfo`)
 
-See `maki/README.md`. The recipe (`maki/maki-0.5.7.recipe`) builds the Rust
-binary from upstream `v0.5.7` plus 687 vendored dependency sources, and
-`maki/patches/maki-0.5.7.patchset` has three patches (arboard Wayland backend and
-12h clock on Haiku, monty from crates.io, system libcurl/OpenSSL). It needs
-`rust_bin >= 1.95`.
+See `maki/README.md`. The recipe (`maki/maki-0.6.0.recipe`) builds the Rust
+binary from upstream `v0.6.0` plus 705 vendored dependency sources, and
+`maki/patches/maki-0.6.0.patchset` has two commits (arboard Wayland backend,
+12h clock and crossterm terminal input on Haiku; crates.io monty and the system
+libcurl/OpenSSL). It needs `rust_bin >= 1.95`.
 
 ## Rust 1.99.0 (`rust_bin`)
 

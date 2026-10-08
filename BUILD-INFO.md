@@ -68,3 +68,26 @@ before it replaces a package in this repository.
 Package-specific source URLs and licenses remain embedded in the `.hpkg` metadata.
 The channel's `SHA256SUMS` contains hashes for every currently indexed package.
 AI assistance, human review, and the AS-IS terms are described in the README.
+
+## maki 0.6.0
+
+`maki-0.6.0-1` (and `maki_debuginfo-0.6.0-1`) was built with HaikuPorter on the
+owner's VM from upstream `v0.6.0` plus the two-commit patchset in `sources/maki`.
+The toolchain was `rustc`/`cargo` 1.99.0; the build links the system libcurl 8.22,
+OpenSSL 3.5, and zlib.
+
+Verification before publication:
+
+- `maki --version` reports `maki 0.6.0`.
+- `maki models` lists the configured model without error.
+- `maki -p "Reply with exactly: MAKI060_OK"` returned `MAKI060_OK`.
+- On the native `XDG_STATE_HOME=/boot/home/config/var` path, maki wrote
+  `/boot/home/config/var/logs/maki/maki.log` when started through the local
+  `sources/maki/maki-launcher` wrapper.
+- Extracted-package SHA-256 `maki-0.6.0-1-x86_64.hpkg`:
+  `0ff64de87661ee3de7ae4ee8c0edd9726ac83997a4318cedd1a91d3b1e233328`.
+- The test kernel reported Haiku R1/beta6 hrev59866+88, x86_64.
+
+The previous `maki-0.5.7-1` files remain on the site for older indexes but are not
+in the current index. An upstream support request with the source changes needed on
+Haiku is at `tontinton/maki` issue 1199.

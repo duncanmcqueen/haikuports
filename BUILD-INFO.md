@@ -69,7 +69,41 @@ Package-specific source URLs and licenses remain embedded in the `.hpkg` metadat
 The channel's `SHA256SUMS` contains hashes for every currently indexed package.
 AI assistance, human review, and the AS-IS terms are described in the README.
 
-## maki 0.6.0
+## maki 0.6.0-2
+
+Published on 2026-10-14. This revision fixes the polling notification-pipe race
+that caused `agent thread terminated with error` / `WouldBlock` at
+`isahc-2.0.1/src/agent/mod.rs:252`.
+
+The corrected executable was already built natively on the VM. Revision 2 was
+assembled with `package create` from that fixed runtime and its matching debug
+package, with package versions raised from 0.6.0-1 to 0.6.0-2. No fresh full
+compilation was performed. The older public revision 1 is preserved at its
+original URL but is no longer selected by the current index.
+
+The recipe now applies `PATCHES_392="polling-3.11.0.patch"`. Its generator emits
+the same declaration, so future builds keep the fix.
+
+Verification:
+
+- On the Mi Air (hrev60232, Rust 1.99), the unmodified polling 3.11.0 concurrent
+  wakeup test reported 149 WouldBlock errors. Three runs with the patch reported
+  zero errors (36,165, 37,369 and 34,371 waits).
+- The dependency patch applies to a clean polling source and yields the tested
+  source. Regenerating the recipe from the patched Cargo.lock yields the exact
+  maintained recipe. `haikuporter --lint maki-0.6.0` passed.
+- The new runtime package was extracted again. Its executable matches the fixed
+  input byte for byte and reports `maki 0.6.0`.
+- The fixed executable's version and help commands ran on the Mi Air. Normal
+  long-running Maki use with the replacement remains unverified.
+
+SHA-256:
+
+- Runtime package: `adff540f24eee176bf8e1f569e133b63c293e127d0e59a50185d75d1aa152f16`.
+- Debug package: `2c7935c68355909b2de0722796442ab80d8c66dbf91c58917f2b7baca4815534`.
+- Executable: `1ec02261765590ecf90618bddcc96abbb824d08fcc5d26d1e2d73a25d81c0611`.
+
+## maki 0.6.0-1 (historical)
 
 `maki-0.6.0-1` (and `maki_debuginfo-0.6.0-1`) was built with HaikuPorter on the
 owner's VM from upstream `v0.6.0` plus the two-commit patchset in `sources/maki`.

@@ -93,6 +93,10 @@ binary from upstream `v0.6.0` plus 705 vendored dependency sources, and
 12h clock and crossterm terminal input on Haiku; crates.io monty and the system
 libcurl/OpenSSL). It needs `rust_bin >= 1.95`.
 
+Revision 2 also applies `maki/patches/polling-3.11.0.patch` through `PATCHES_392`.
+It fixes the notification-pipe race that returns WouldBlock and terminates the
+HTTP worker. The recipe generator preserves this dependency patch.
+
 ## Rust 1.99.0 (`rust_bin`)
 
 See `rust/README.md`. The recipe (`rust/rust_bin-1.99.0.recipe`) repackages a

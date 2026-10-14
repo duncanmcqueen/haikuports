@@ -1,0 +1,17 @@
+--- a/polling-3.11.0/src/poll.rs
++++ b/polling-3.11.0/src/poll.rs
+@@ -744,9 +744,11 @@
+                 rustix::fs::fcntl_getfl(&self.read_pipe)? | rustix::fs::OFlags::NONBLOCK,
+             )?;
+ 
+-            result?;
+-
+-            Ok(())
++            match result {
++                Ok(_) => Ok(()),
++                Err(error) if error.kind() == io::ErrorKind::WouldBlock => Ok(()),
++                Err(error) => Err(error.into()),
++            }
+         }
+ 
+         /// Pops all notifications from the pipe.

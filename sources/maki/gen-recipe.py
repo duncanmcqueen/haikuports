@@ -45,7 +45,7 @@ and extensible in Lua."
 HOMEPAGE="https://github.com/tontinton/maki"
 COPYRIGHT="2026 Tony Solomonik"
 LICENSE="MIT"
-REVISION="1"
+REVISION="2"
 SOURCE_URI="$HOMEPAGE/archive/refs/tags/v$portVersion.tar.gz"
 CHECKSUM_SHA256="%s"
 SOURCE_FILENAME="maki-$portVersion.tar.gz"
@@ -57,6 +57,8 @@ n = 2
 for name, version, sha in crates:
 	w(f'SOURCE_URI_{n}="https://static.crates.io/crates/{name}/{name}-{version}.crate"')
 	w(f'CHECKSUM_SHA256_{n}="{sha}"')
+	if (name, version) == ("polling", "3.11.0"):
+		w(f'PATCHES_{n}="polling-3.11.0.patch"')
 	w('')
 	n += 1
 lastCrate = n - 1

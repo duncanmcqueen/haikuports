@@ -8,7 +8,7 @@ and extensible in Lua."
 HOMEPAGE="https://github.com/tontinton/maki"
 COPYRIGHT="2026 Tony Solomonik"
 LICENSE="MIT"
-REVISION="1"
+REVISION="2"
 SOURCE_URI="$HOMEPAGE/archive/refs/tags/v$portVersion.tar.gz"
 CHECKSUM_SHA256="7e70e303d849d0d6cd35c869237f427bf747a920517695d395769a8c4df2f191"
 SOURCE_FILENAME="maki-$portVersion.tar.gz"
@@ -1187,6 +1187,7 @@ CHECKSUM_SHA256_391="60769b8b31b2a9f263dae2776c37b1b28ae246943cf719eb6946a1db051
 
 SOURCE_URI_392="https://static.crates.io/crates/polling/polling-3.11.0.crate"
 CHECKSUM_SHA256_392="5d0e4f59085d47d8241c88ead0f274e8a0cb551f3625263c05eb8dd897c34218"
+PATCHES_392="polling-3.11.0.patch"
 
 SOURCE_URI_393="https://static.crates.io/crates/portable-atomic/portable-atomic-1.15.0.crate"
 CHECKSUM_SHA256_393="05c8b63e8d9609db387f0324918f81d68fe27748f084ef092fb35954d0539a85"

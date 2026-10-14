@@ -2,10 +2,11 @@
 
 `maki` is a terminal AI coding agent. This directory holds the recipe, the
 source patches, the recipe generator, and the local logging launcher used to
-build and run the published `maki-0.6.0-1` package.
+build and run the published `maki-0.6.0-2` package.
 
 - `maki-0.6.0.recipe`
 - `patches/maki-0.6.0.patchset` (2 commits)
+- `patches/polling-3.11.0.patch` (notification-pipe race fix)
 - `maki-launcher` (optional local wrapper; see Runtime notes)
 - `gen-recipe.py` (regenerates the recipe from the patched `Cargo.lock`)
 
@@ -50,6 +51,24 @@ python3 gen-recipe.py <patched Cargo.lock> > maki-<version>.recipe
 
 The previous 0.5.7 patchset had four commits; the same changes are regrouped
 here because 0.6.0 moved `isahc` to 2.0 and `monty` to 0.0.23.
+
+## Revision 2: HTTP worker panic
+
+`PATCHES_392` applies the polling patch to its vendored source before Cargo builds.
+The recipe generator also emits this entry, so regeneration preserves the fix.
+
+The polling wakeup flag can become visible before its notification byte reaches
+the pipe. A concurrent waiter then reads an empty nonblocking pipe and gets
+`WouldBlock`. That error terminates isahc's HTTP worker and Maki later panics at
+`isahc-2.0.1/src/agent/mod.rs:252`.
+
+The fix accepts `WouldBlock` only when consuming a pipe notification. Other
+errors still propagate. On the Mi Air, the standalone concurrent-wakeup test
+reported 149 errors before the fix and zero errors in each of three patched runs.
+
+Revision 2 packages the existing fixed VM build under a new package revision.
+It is not a fresh full compilation. Its executable is the same one checked on
+the Mi Air. A long-running Maki session with the replacement remains to be tested.
 
 ## Runtime notes
 

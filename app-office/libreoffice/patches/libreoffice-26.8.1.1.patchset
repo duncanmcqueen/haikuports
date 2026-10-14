@@ -1,33 +1,44 @@
-From 75e23314b347f9704eaa36b9463a34138e023c57 Mon Sep 17 00:00:00 2001
+From 6edadec09004523cf1c721dc4d6d159fbc68c407 Mon Sep 17 00:00:00 2001
 From: Gerasim Troeglazov <3dEyes@gmail.com>
 Date: Tue, 27 Aug 2024 13:25:47 +1000
 Subject: Make Elementary the default on Haiku
 
+---
+ vcl/source/app/IconThemeSelector.cxx | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/vcl/source/app/IconThemeSelector.cxx b/vcl/source/app/IconThemeSelector.cxx
+index 0a8f0fa..154abf6 100644
 --- a/vcl/source/app/IconThemeSelector.cxx
 +++ b/vcl/source/app/IconThemeSelector.cxx
-@@ -68,6 +68,9 @@
+@@ -68,6 +68,9 @@ IconThemeSelector::IconThemeSelector()
          return "colibre";
      else
          return "colibre_dark";
 +#elif defined(__HAIKU__)
-+    (void)desktopEnvironment;
++    (void)eDesktop;
 +    return "elementary";
  #else
      OUString r;
      if (eDesktop == DesktopType::Plasma5 || eDesktop == DesktopType::Plasma6
-
 -- 
-2.45.2
+2.56.0
 
 
-From aa39e6bf186ac566f020be71ee6e4d5d794e44ad Mon Sep 17 00:00:00 2001
+From bd25b8030e36445b7c82974da18453261fa15099 Mon Sep 17 00:00:00 2001
 From: Gerasim Troeglazov <3dEyes@gmail.com>
 Date: Tue, 27 Aug 2024 13:26:05 +1000
 Subject: Show used vcl backend in About window on Haiku
 
+---
+ vcl/source/app/svapp.cxx | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/vcl/source/app/svapp.cxx b/vcl/source/app/svapp.cxx
+index 6973574..fb74590 100644
 --- a/vcl/source/app/svapp.cxx
 +++ b/vcl/source/app/svapp.cxx
-@@ -1253,7 +1253,7 @@
+@@ -1253,7 +1253,7 @@ OUString Application::GetHWOSConfInfo(const int bSelection, const bool bLocalize
  #endif
              appendDetails(u"", Localize(SV_APP_DEFAULT, bLocalize));
  
@@ -36,16 +47,21 @@ Subject: Show used vcl backend in About window on Haiku
          appendDetails(u"; ", SV_APP_VCLBACKEND + GetToolkitName());
  #endif
      }
-
 -- 
-2.45.2
+2.56.0
 
 
-From 4697ffc260969a201b5a5d98cf3e616c8f223699 Mon Sep 17 00:00:00 2001
+From 2d2cd6505ce6b694fbaba0f9572dd4b2a2aff971 Mon Sep 17 00:00:00 2001
 From: Gerasim Troeglazov <3dEyes@gmail.com>
 Date: Tue, 27 Aug 2024 13:26:29 +1000
 Subject: Identify Haiku in about window
 
+---
+ vcl/unx/generic/app/geninst.cxx | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
+
+diff --git a/vcl/unx/generic/app/geninst.cxx b/vcl/unx/generic/app/geninst.cxx
+index 37166c6..5bc837c 100644
 --- a/vcl/unx/generic/app/geninst.cxx
 +++ b/vcl/unx/generic/app/geninst.cxx
 @@ -29,6 +29,11 @@
@@ -60,10 +76,10 @@ Subject: Identify Haiku in about window
  #include <config_features.h>
  #if HAVE_FEATURE_OPENGL
  #include <vcl/opengl/OpenGLContext.hxx>
-@@ -92,3 +97,13 @@
- }
- 
- /* vim:set shiftwidth=4 softtabstop=4 expandtab: */
+@@ -87,6 +92,16 @@ OUString SalGenericInstance::getOSVersion()
+                  + OUString::number(__EMSCRIPTEN_minor__) + u"."_ustr
+                  + OUString::number(__EMSCRIPTEN_tiny__);
+ #endif
 +#elif defined(__HAIKU__)
 +    struct utsname stName;
 +    if ( uname( &stName ) != 0 )
@@ -74,19 +90,27 @@ Subject: Identify Haiku in about window
 +		return OUString::createFromAscii( stName.sysname ) + " " + OUString::createFromAscii(haikuRevision);
 +
 +	return OUString::createFromAscii( stName.sysname );
-
+ #endif
+     return aKernelVer;
+ }
 -- 
-2.45.2
+2.56.0
 
 
-From f5bb74715dcd1dfcac6d8f13bbfd217eba568a64 Mon Sep 17 00:00:00 2001
+From ce2e30b288a2f56e6d4a28f6bf1b4cc10099eeb4 Mon Sep 17 00:00:00 2001
 From: Gerasim Troeglazov <3dEyes@gmail.com>
 Date: Tue, 27 Aug 2024 13:26:59 +1000
 Subject: Implement ShellExec on Haiku
 
+---
+ shell/source/unix/exec/shellexec.cxx | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/shell/source/unix/exec/shellexec.cxx b/shell/source/unix/exec/shellexec.cxx
+index 0741437..8124e41 100644
 --- a/shell/source/unix/exec/shellexec.cxx
 +++ b/shell/source/unix/exec/shellexec.cxx
-@@ -188,6 +188,9 @@
+@@ -188,6 +188,9 @@ void SAL_CALL ShellExec::execute( const OUString& aCommand, const OUString& aPar
              aBuffer.append(" -R");
          }
          aBuffer.append(" --");
@@ -96,19 +120,25 @@ Subject: Implement ShellExec on Haiku
  #else
          // Just use xdg-open on non-Mac
          aBuffer.append("xdg-open");
-
 -- 
-2.45.2
+2.56.0
 
 
-From 02eb894fdcf7d6b7c6727373727886f615545cb0 Mon Sep 17 00:00:00 2001
+From 378d27515fcd9220263c4036b0ae6f9ff9d418bc Mon Sep 17 00:00:00 2001
 From: Gerasim Troeglazov <3dEyes@gmail.com>
 Date: Tue, 27 Aug 2024 13:27:34 +1000
 Subject: Add XP_HAIKU defs for xmlsec
 
+---
+ svl/Library_svl.mk                 | 6 ++++++
+ xmlsecurity/Library_xsec_xmlsec.mk | 6 ++++++
+ 2 files changed, 12 insertions(+)
+
+diff --git a/svl/Library_svl.mk b/svl/Library_svl.mk
+index f8fe1a0..3390529 100644
 --- a/svl/Library_svl.mk
 +++ b/svl/Library_svl.mk
-@@ -180,6 +180,12 @@
+@@ -180,6 +180,12 @@ $(eval $(call gb_Library_add_exception_objects,svl,\
      svl/source/uno/pathservice \
  ))
  
@@ -121,10 +151,11 @@ Subject: Add XP_HAIKU defs for xmlsec
  ifeq ($(OS),WNT)
  $(eval $(call gb_Library_add_exception_objects,svl,\
      svl/source/svdde/ddecli \
-
+diff --git a/xmlsecurity/Library_xsec_xmlsec.mk b/xmlsecurity/Library_xsec_xmlsec.mk
+index 4dc5b9d..0ff7e8e 100644
 --- a/xmlsecurity/Library_xsec_xmlsec.mk
 +++ b/xmlsecurity/Library_xsec_xmlsec.mk
-@@ -130,6 +130,12 @@
+@@ -130,6 +130,12 @@ endif
  
  else # !$(OS),WNT
  
@@ -137,19 +168,24 @@ Subject: Add XP_HAIKU defs for xmlsec
  ifeq ($(SYSTEM_XMLSEC),)
  $(eval $(call gb_Library_add_libs,xsec_xmlsec,\
         $(gb_UnpackedTarball_workdir)/xmlsec/src/.libs/libxmlsec1.a \
-
 -- 
-2.45.2
+2.56.0
 
 
-From 22144758f2bd4e8783fd8feeead1578a155cc4b7 Mon Sep 17 00:00:00 2001
+From be4a2eab97fce116973a2650df38495af99a4bcd Mon Sep 17 00:00:00 2001
 From: Gerasim Troeglazov <3dEyes@gmail.com>
 Date: Tue, 27 Aug 2024 13:34:18 +1000
 Subject: Don't use fontconfig
 
+---
+ vcl/qt5/QtGraphics.cxx | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/vcl/qt5/QtGraphics.cxx b/vcl/qt5/QtGraphics.cxx
+index af331ae..197d30f 100644
 --- a/vcl/qt5/QtGraphics.cxx
 +++ b/vcl/qt5/QtGraphics.cxx
-@@ -164,7 +164,11 @@
+@@ -164,7 +164,11 @@ void QtGraphics::GetDevFontList(vcl::font::PhysicalFontCollection* pPFC)
          rFontManager.AddFontFile(aFileName, nFaceNum, nVariantNum, nFontId, aFA);
      }
  
@@ -161,19 +197,27 @@ Subject: Don't use fontconfig
      if (bUseFontconfig)
          SalGenericInstance::RegisterFontSubstitutors(pPFC);
  #endif
-
 -- 
-2.45.2
+2.56.0
 
 
-From b7e12bf45e081431543f2501ef66ab022a8c5e8b Mon Sep 17 00:00:00 2001
+From e982520b69fe660d6f0c26007bce76ddfb6d6ff7 Mon Sep 17 00:00:00 2001
 From: Gerasim Troeglazov <3dEyes@gmail.com>
 Date: Tue, 27 Aug 2024 13:35:14 +1000
-Subject: Revert fstack-protector check removal in 9db11a8ab648f4d04e59e6bb94cd640f64835447
+Subject: Revert fstack-protector check removal in
+ 9db11a8ab648f4d04e59e6bb94cd640f64835447
 
+---
+ config_host.mk.in                      |  1 +
+ configure.ac                           | 17 +++++++++++++++--
+ solenv/gbuild/platform/com_GCC_defs.mk |  6 +++---
+ 3 files changed, 19 insertions(+), 5 deletions(-)
+
+diff --git a/config_host.mk.in b/config_host.mk.in
+index 67440ae..41dd6ee 100644
 --- a/config_host.mk.in
 +++ b/config_host.mk.in
-@@ -341,6 +341,7 @@
+@@ -341,6 +341,7 @@ export HAVE_DLLEXPORTINLINES=@HAVE_DLLEXPORTINLINES@
  export HAVE_EXTERNAL_DWARF=@HAVE_EXTERNAL_DWARF@
  export HAVE_LO_CLANG_DLLEXPORTINLINES=@HAVE_LO_CLANG_DLLEXPORTINLINES@
  export HAVE_GCC_AVX=@HAVE_GCC_AVX@
@@ -181,10 +225,11 @@ Subject: Revert fstack-protector check removal in 9db11a8ab648f4d04e59e6bb94cd64
  export HAVE_GCC_BUILTIN_ATOMIC=@HAVE_GCC_BUILTIN_ATOMIC@
  export HAVE_GCC_FNO_ENFORCE_EH_SPECS=@HAVE_GCC_FNO_ENFORCE_EH_SPECS@
  export HAVE_GCC_FNO_SIZED_DEALLOCATION=@HAVE_GCC_FNO_SIZED_DEALLOCATION@
-
+diff --git a/configure.ac b/configure.ac
+index cfe03b8..0cffe69 100644
 --- a/configure.ac
 +++ b/configure.ac
-@@ -1255,6 +1255,7 @@
+@@ -1255,6 +1255,7 @@ haiku*)
      test_gtk3=no
      test_gtk3_kde5=no
      test_kf5=yes
@@ -192,7 +237,7 @@ Subject: Revert fstack-protector check removal in 9db11a8ab648f4d04e59e6bb94cd64
      test_kf6=yes
      enable_odk=no
      enable_coinmp=no
-@@ -7995,6 +7996,17 @@
+@@ -7995,6 +7996,17 @@ if test "$GCC" = "yes" -o "$COM_IS_CLANG" = TRUE; then
          AC_MSG_RESULT([no])
      fi
  
@@ -210,7 +255,7 @@ Subject: Revert fstack-protector check removal in 9db11a8ab648f4d04e59e6bb94cd64
      AC_MSG_CHECKING([whether $CC_BASE supports atomic functions])
      AC_LINK_IFELSE([AC_LANG_PROGRAM([[]], [[
      int v = 0;
-@@ -8132,6 +8144,7 @@
+@@ -8132,6 +8144,7 @@ if test "$GCC" = "yes" -o "$COM_IS_CLANG" = TRUE; then
  fi
  
  AC_SUBST(HAVE_GCC_AVX)
@@ -218,7 +263,7 @@ Subject: Revert fstack-protector check removal in 9db11a8ab648f4d04e59e6bb94cd64
  AC_SUBST(HAVE_GCC_BUILTIN_ATOMIC)
  AC_SUBST(HAVE_GCC_STACK_CLASH_PROTECTION)
  AC_SUBST(HARDENING_LDFLAGS)
-@@ -14218,7 +14231,7 @@
+@@ -14218,7 +14231,7 @@ if test \( "$test_kf6" = "yes" -a "$ENABLE_KF6" = "TRUE" \) -o \
          \( "$test_qt6" = "yes" -a "$ENABLE_QT6" = "TRUE" \)
  then
      qt6_incdirs="$QT6INC /usr/include/qt6 /usr/include $x_includes"
@@ -227,7 +272,7 @@ Subject: Revert fstack-protector check removal in 9db11a8ab648f4d04e59e6bb94cd64
  
      if test -n "$supports_multilib"; then
          qt6_libdirs="$qt6_libdirs /usr/lib64/qt6 /usr/lib64/qt /usr/lib64"
-@@ -14358,7 +14371,7 @@
+@@ -14358,7 +14371,7 @@ then
          fi
      done
  
@@ -236,10 +281,11 @@ Subject: Revert fstack-protector check removal in 9db11a8ab648f4d04e59e6bb94cd64
      if test -n "${QT6DIR}"; then
          moc6_search_path=${QT6DIR}/libexec:${QT6DIR}/bin:${moc6_search_path}
      fi
-
+diff --git a/solenv/gbuild/platform/com_GCC_defs.mk b/solenv/gbuild/platform/com_GCC_defs.mk
+index 31900e8..ac8cb3e 100644
 --- a/solenv/gbuild/platform/com_GCC_defs.mk
 +++ b/solenv/gbuild/platform/com_GCC_defs.mk
-@@ -81,7 +81,7 @@
+@@ -81,7 +81,7 @@ gb_CFLAGS_COMMON := \
  	-fno-common \
  	-pipe \
  	$(if $(ENABLE_HARDENING_FLAGS),$(HARDENING_CFLAGS)) \
@@ -248,7 +294,7 @@ Subject: Revert fstack-protector check removal in 9db11a8ab648f4d04e59e6bb94cd64
  
  gb_CXXFLAGS_COMMON := \
  	-Wall \
-@@ -98,7 +98,7 @@
+@@ -98,7 +98,7 @@ gb_CXXFLAGS_COMMON := \
  	-fno-common \
  	-pipe \
  	$(if $(ENABLE_HARDENING_FLAGS),$(HARDENING_CFLAGS)) \
@@ -257,7 +303,7 @@ Subject: Revert fstack-protector check removal in 9db11a8ab648f4d04e59e6bb94cd64
  
  ifeq ($(HAVE_WDEPRECATED_COPY_DTOR),TRUE)
  gb_CXXFLAGS_COMMON += -Wdeprecated-copy-dtor
-@@ -157,7 +157,7 @@
+@@ -157,7 +157,7 @@ endif
  gb_VISIBILITY_FLAGS_CXX := -fvisibility-inlines-hidden
  gb_CXXFLAGS_COMMON += $(gb_VISIBILITY_FLAGS_CXX)
  
@@ -266,19 +312,25 @@ Subject: Revert fstack-protector check removal in 9db11a8ab648f4d04e59e6bb94cd64
  
  ifneq ($(gb_ENABLE_PCH),)
  ifeq ($(COM_IS_CLANG),TRUE)
-
 -- 
-2.45.2
+2.56.0
 
 
-From a2c7144f4f742c6a25ecd3c1c6644ae98bb77fef Mon Sep 17 00:00:00 2001
+From 9ed693179fe4244efbf8a910973a5edd6edefe78 Mon Sep 17 00:00:00 2001
 From: Gerasim Troeglazov <3dEyes@gmail.com>
 Date: Tue, 27 Aug 2024 13:35:38 +1000
 Subject: Qt::Popup window handling
 
+---
+ vcl/qt5/QtFrame.cxx  | 3 +--
+ vcl/qt5/QtWidget.cxx | 2 ++
+ 2 files changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/vcl/qt5/QtFrame.cxx b/vcl/qt5/QtFrame.cxx
+index 96d343e..841b2dd 100644
 --- a/vcl/qt5/QtFrame.cxx
 +++ b/vcl/qt5/QtFrame.cxx
-@@ -101,7 +101,7 @@
+@@ -101,7 +101,7 @@ QtFrame::QtFrame(QtFrame* pParent, SalFrameStyleFlags nStyle)
          else if ((nStyle & SalFrameStyleFlags::FLOAT)
                   && (nStyle & SalFrameStyleFlags::OWNERDRAWDECORATION))
              aWinFlags = Qt::Tool | Qt::FramelessWindowHint;
@@ -287,7 +339,7 @@ Subject: Qt::Popup window handling
              aWinFlags = Qt::ToolTip;
          // Can't use Qt::Popup, because it grabs the input focus and generates a focus-out event,
          // instantly auto-closing the LO's editable ComboBox popup.
-@@ -223,7 +223,6 @@
+@@ -223,7 +223,6 @@ QWindow* QtFrame::windowHandle() const
              pChild->setAttribute(Qt::WA_NativeWindow);
              break;
          case Platform::Other:
@@ -295,10 +347,11 @@ Subject: Qt::Popup window handling
              break;
      }
      return pChild->windowHandle();
-
+diff --git a/vcl/qt5/QtWidget.cxx b/vcl/qt5/QtWidget.cxx
+index c6b179e..ff57113 100644
 --- a/vcl/qt5/QtWidget.cxx
 +++ b/vcl/qt5/QtWidget.cxx
-@@ -117,9 +117,11 @@
+@@ -117,9 +117,11 @@ void QtWidget::handleMouseButtonEvent(const QMouseEvent* pEvent) const
  void QtWidget::mousePressEvent(QMouseEvent* pEvent)
  {
      handleMouseButtonEvent(pEvent);
@@ -310,19 +363,24 @@ Subject: Qt::Popup window handling
  }
  
  void QtWidget::mouseReleaseEvent(QMouseEvent* pEvent) { handleMouseButtonEvent(pEvent); }
-
 -- 
-2.45.2
+2.56.0
 
 
-From 10a1c329aafc5d3eada890e6e8b253f99292ab10 Mon Sep 17 00:00:00 2001
+From f150c05b9ccaada5e493c5180c3d6f4354fda0ef Mon Sep 17 00:00:00 2001
 From: Gerasim Troeglazov <3dEyes@gmail.com>
 Date: Tue, 27 Aug 2024 13:36:26 +1000
 Subject: Use Noto Sans as default font
 
+---
+ unotools/source/config/fontcfg.cxx | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/unotools/source/config/fontcfg.cxx b/unotools/source/config/fontcfg.cxx
+index 8edb1a5..5ccac47 100644
 --- a/unotools/source/config/fontcfg.cxx
 +++ b/unotools/source/config/fontcfg.cxx
-@@ -229,6 +229,11 @@
+@@ -229,6 +229,11 @@ OUString DefaultFontConfiguration::getUserInterfaceFont( const LanguageTag& rLan
      if( !aUIFont.isEmpty() )
          return aUIFont;
  
@@ -334,16 +392,21 @@ Subject: Use Noto Sans as default font
      // fallback mechanism (either no configuration or no entry in configuration
  
      static constexpr OUStringLiteral FALLBACKFONT_UI_SANS = u"Andale Sans UI;Albany;Albany AMT;Tahoma;Arial Unicode MS;Arial;Nimbus Sans L;Bitstream Vera Sans;gnu-unifont;Interface User;Geneva;WarpSans;Dialog;Swiss;Lucida;Helvetica;Charcoal;Chicago;MS Sans Serif;Helv;Times;Times New Roman;Interface System";
-
 -- 
-2.45.2
+2.56.0
 
 
-From 65fd0a008dc1ea08f5b6028916b5687fe116973f Mon Sep 17 00:00:00 2001
+From 3382be82c3918724bbe90e8055f12a16e000efa2 Mon Sep 17 00:00:00 2001
 From: Gerasim Troeglazov <3dEyes@gmail.com>
 Date: Tue, 27 Aug 2024 13:37:05 +1000
 Subject: Use system font
 
+---
+ vcl/source/app/settings.cxx | 18 ++++++++++++++++++
+ 1 file changed, 18 insertions(+)
+
+diff --git a/vcl/source/app/settings.cxx b/vcl/source/app/settings.cxx
+index 2dd64e8..06e59fe 100644
 --- a/vcl/source/app/settings.cxx
 +++ b/vcl/source/app/settings.cxx
 @@ -26,6 +26,12 @@
@@ -359,7 +422,7 @@ Subject: Use system font
  #include <comphelper/processfactory.hxx>
  #include <o3tl/test_info.hxx>
  #include <rtl/bootstrap.hxx>
-@@ -475,10 +481,22 @@
+@@ -475,10 +481,22 @@ void ImplStyleData::SetStandardStyles()
      vcl::Font aStdFont( FAMILY_SWISS, Size( 0, 8 ) );
      aStdFont.SetCharSet( osl_getThreadTextEncoding() );
      aStdFont.SetWeight( WEIGHT_NORMAL );
@@ -382,19 +445,24 @@ Subject: Use system font
      maFonts.maAppFont                   = aStdFont;
      maFonts.maHelpFont                  = aStdFont;
      maFonts.maMenuFont                  = aStdFont;
-
 -- 
-2.45.2
+2.56.0
 
 
-From b5ca53b58e035cfea0cb0fb46578e827dadfd3c1 Mon Sep 17 00:00:00 2001
+From e7c4fd54d127046e3b29c6b507947dfc7a1d3673 Mon Sep 17 00:00:00 2001
 From: Gerasim Troeglazov <3dEyes@gmail.com>
 Date: Tue, 27 Aug 2024 20:57:22 +1000
 Subject: Qt::Popup window handling; Don't use Cairo by default
 
+---
+ vcl/qt5/QtInstance.cxx | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/vcl/qt5/QtInstance.cxx b/vcl/qt5/QtInstance.cxx
+index 8fec94a..a2c0282 100644
 --- a/vcl/qt5/QtInstance.cxx
 +++ b/vcl/qt5/QtInstance.cxx
-@@ -267,7 +267,11 @@
+@@ -267,7 +267,11 @@ void QtInstance::EmscriptenLightweightRunInMainThread_(std::function<void()> fun
  
  bool QtInstance::useCairo()
  {
@@ -406,7 +474,7 @@ Subject: Qt::Popup window handling; Don't use Cairo by default
      return bUseCairo;
  }
  
-@@ -643,7 +647,7 @@
+@@ -643,7 +647,7 @@ Platform QtInstance::GetPlatform() const
          return Platform::Wayland;
      if (sPlatformName == u"xcb")
          return Platform::Xcb;
@@ -415,16 +483,21 @@ Subject: Qt::Popup window handling; Don't use Cairo by default
          return Platform::WASM;
      if (sPlatformName == u"windows")
          return Platform::Windows;
-
 -- 
-2.45.2
+2.56.0
 
 
-From 1f765f20991f98d2098336c01372070b12b5c15a Mon Sep 17 00:00:00 2001
+From 0341030b024a583a12068cf7ff96bbe0b3b736cb Mon Sep 17 00:00:00 2001
 From: Gerasim Troeglazov <3dEyes@gmail.com>
 Date: Tue, 27 Aug 2024 20:57:53 +1000
 Subject: Add alias for SIGIOT signal
 
+---
+ sal/osl/unx/signal.cxx | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/sal/osl/unx/signal.cxx b/sal/osl/unx/signal.cxx
+index 70edcdf..1e71536 100644
 --- a/sal/osl/unx/signal.cxx
 +++ b/sal/osl/unx/signal.cxx
 @@ -48,6 +48,10 @@
@@ -438,16 +511,14 @@ Subject: Add alias for SIGIOT signal
  namespace
  {
  extern "C" using Handler1_t = void (*)(int);
-
 -- 
-2.45.2
+2.56.0
 
 
-
-From add708fc7393aa063257dca36b7c4d9c0a936a87 Mon Sep 17 00:00:00 2001
+From afc03570469b879ce45a3236a91176d7a731faa6 Mon Sep 17 00:00:00 2001
 From: Gerasim Troeglazov <3dEyes@gmail.com>
 Date: Mon, 12 Oct 2026 14:47:46 -0500
-Subject: [PATCH] Register postprocess_fontconfig when headless code is built
+Subject: Register postprocess_fontconfig when headless code is built
 
 ---
  Repository.mk | 2 +-
@@ -470,10 +541,10 @@ index 3a9b342..8c788e2 100644
 2.56.0
 
 
-From 7a9a235e47727a8774b7de03b9213c41e7782c2f Mon Sep 17 00:00:00 2001
+From 8bd5c139124893ff3b56234633611e556b5c12d9 Mon Sep 17 00:00:00 2001
 From: Gerasim Troeglazov <3dEyes@gmail.com>
 Date: Mon, 12 Oct 2026 15:49:59 -0500
-Subject: [PATCH] Add Haiku to platform list in LibreOfficeKitInit.h
+Subject: Add Haiku to platform list in LibreOfficeKitInit.h
 
 ---
  include/LibreOfficeKit/LibreOfficeKitInit.h | 3 ++-
@@ -496,10 +567,11 @@ index 2192322..16a840a 100644
 -- 
 2.56.0
 
-From 39a6ba2aba05ee5127688a582ed8737d1ce560fb Mon Sep 17 00:00:00 2001
+
+From 8af654c11247d2005d3f274ae69ebbcc5bd806d7 Mon Sep 17 00:00:00 2001
 From: Gerasim Troeglazov <3dEyes@gmail.com>
 Date: Mon, 12 Oct 2026 22:32:54 -0500
-Subject: [PATCH] gbuild: keep dep response file instead of deleting it
+Subject: gbuild: keep dep response file instead of deleting it
 
 Deleting a just-written file whose dirty pages were not flushed yet
 can leave stale cache block entries on the Haiku bfs volume. Later
@@ -525,75 +597,6 @@ index 3550b85..8a7f4ee 100644
  	$(call gb_Trace_EndRange,LNK:$(2),DEP)
  
  endef
--- 
-2.56.0
-
-From b2ed75347165967298eb10015e0d90b400047039 Mon Sep 17 00:00:00 2001
-From: Gerasim Troeglazov <3dEyes@gmail.com>
-Date: Mon, 12 Oct 2026 22:49:46 -0500
-Subject: [PATCH] Fix IconThemeSelector Haiku branch variable name
-
-The Elementary-default patch carried over from 24.8 referenced the
-old desktopEnvironment parameter; 26.8 renamed it to eDesktop.
----
- vcl/source/app/IconThemeSelector.cxx | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/vcl/source/app/IconThemeSelector.cxx b/vcl/source/app/IconThemeSelector.cxx
-index 08ea41e..154abf6 100644
---- a/vcl/source/app/IconThemeSelector.cxx
-+++ b/vcl/source/app/IconThemeSelector.cxx
-@@ -69,7 +69,7 @@ IconThemeSelector::IconThemeSelector()
-     else
-         return "colibre_dark";
- #elif defined(__HAIKU__)
--    (void)desktopEnvironment;
-+    (void)eDesktop;
-     return "elementary";
- #else
-     OUString r;
--- 
-2.56.0
-
-From 5ee50fd97bf9ddc3a9b7813aa6dadc65ae8fd29b Mon Sep 17 00:00:00 2001
-From: Gerasim Troeglazov <3dEyes@gmail.com>
-Date: Mon, 12 Oct 2026 23:12:25 -0500
-Subject: [PATCH] Fix misplaced Haiku branch in
- SalGenericInstance::getOSVersion
-
-The Haiku #elif block was appended after the end of the function
-instead of inside the platform #if chain, leaving it outside the
-function body where it does not compile. Move it before the chain's
-closing #endif.
----
- vcl/unx/generic/app/geninst.cxx | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
-
-diff --git a/vcl/unx/generic/app/geninst.cxx b/vcl/unx/generic/app/geninst.cxx
-index 62ffe27..5bc837c 100644
---- a/vcl/unx/generic/app/geninst.cxx
-+++ b/vcl/unx/generic/app/geninst.cxx
-@@ -92,11 +92,6 @@ OUString SalGenericInstance::getOSVersion()
-                  + OUString::number(__EMSCRIPTEN_minor__) + u"."_ustr
-                  + OUString::number(__EMSCRIPTEN_tiny__);
- #endif
--#endif
--    return aKernelVer;
--}
--
--/* vim:set shiftwidth=4 softtabstop=4 expandtab: */
- #elif defined(__HAIKU__)
-     struct utsname stName;
-     if ( uname( &stName ) != 0 )
-@@ -107,3 +102,8 @@ OUString SalGenericInstance::getOSVersion()
- 		return OUString::createFromAscii( stName.sysname ) + " " + OUString::createFromAscii(haikuRevision);
- 
- 	return OUString::createFromAscii( stName.sysname );
-+#endif
-+    return aKernelVer;
-+}
-+
-+/* vim:set shiftwidth=4 softtabstop=4 expandtab: */
 -- 
 2.56.0
 

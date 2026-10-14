@@ -568,17 +568,13 @@ index 2192322..16a840a 100644
 2.56.0
 
 
-From 8af654c11247d2005d3f274ae69ebbcc5bd806d7 Mon Sep 17 00:00:00 2001
+From 1086da4eecd00f2ba224bdc007b9cc9d29dabf24 Mon Sep 17 00:00:00 2001
 From: Gerasim Troeglazov <3dEyes@gmail.com>
 Date: Mon, 12 Oct 2026 22:32:54 -0500
 Subject: gbuild: keep dep response file instead of deleting it
 
-Deleting a just-written file whose dirty pages were not flushed yet
-can leave stale cache block entries on the Haiku bfs volume. Later
-files allocated over those blocks fail page-in during large writes,
-which surfaces as short writes/EFAULT and makes ld report a bogus
-'No space left on device'. The dep response file is consumed once by
-concat-deps; leaving it in the temporary directory is harmless.
+Avoid deleting the just-written response file: doing so has been
+observed to cause transient link failures on Haiku.
 ---
  solenv/gbuild/LinkTarget.mk | 3 +--
  1 file changed, 1 insertion(+), 2 deletions(-)

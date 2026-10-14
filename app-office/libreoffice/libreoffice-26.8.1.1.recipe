@@ -313,11 +313,8 @@ BUILD()
 	pkgconfig_libdir="`finddir B_SYSTEM_DIRECTORY`/$relativeDevelopLibDir/pkgconfig"
 	pkgconfig_datadir="`finddir B_SYSTEM_DIRECTORY`/$relativeDataDir/pkgconfig"
 
-	# system box2d ships no .pc file, so the `pkg-config --modversion box2d`
-	# check in configure.ac fails (BOX2D_LIB left empty -> "box2d library not
-	# found"). Synthesize one matching the system package (lowercase 2.x layout).
-	# /boot/system is read-only inside the chroot, so drop the .pc into a
-	# writable dir under the source tree and prepend it to PKG_CONFIG_LIBDIR.
+	# box2d has no .pc file in the system package; write one to a writable
+	# location and prepend it to PKG_CONFIG_LIBDIR
 	box2d_pcdir="`pwd`/.box2d-pkgconfig"
 	mkdir -p "$box2d_pcdir"
 	cat > "$box2d_pcdir/box2d.pc" <<EOF
@@ -334,10 +331,7 @@ EOF
 
 	export PKG_CONFIG_LIBDIR="$box2d_pcdir:$pkgconfig_libdir:$pkgconfig_datadir"
 
-	# Qt6 build tools (moc/rcc/uic) live in <system>/lib/Qt6 on Haiku, which
-	# is not on the default PATH. configure's moc search path ends with $PATH,
-	# so append the Qt tools dir (authoritative location from qmake6, with a
-	# finddir fallback).
+	# moc/rcc/uic are in <system>/lib/Qt6, which is not in the default PATH
 	qt6_toolsdir="`qmake6 -query QT_INSTALL_LIBEXECS 2>/dev/null`"
 	test -z "$qt6_toolsdir" && qt6_toolsdir="`finddir B_SYSTEM_DIRECTORY`/lib/Qt6"
 	export PATH="$PATH:$qt6_toolsdir"
@@ -380,10 +374,8 @@ EOF
 		--without-system-md4c \
 		--without-system-zxcvbn
 
-	# A failed link can leave unflushed dirty pages behind on Haiku's bfs,
-	# which may make a subsequent link fail with a bogus "No space left on
-	# device". Sync and retry so a transient link failure does not abort
-	# the whole build; make resumes incrementally on each retry.
+	# retry the build after link failures: make resumes incrementally, so a
+	# transient failure does not abort the whole build
 	sync
 	makeOK=0
 	for buildAttempt in 1 2 3 4 5; do

@@ -20,4 +20,4 @@ packages:
 	nodejs24_debuginfo-24.21.0-1-x86_64.hpkg
 	nodejs24_devel-24.21.0-1-x86_64.hpkg
 	pi-1.0.0-1-any.hpkg
-	wordcraft-0.6.1-1-x86_64.hpkg
+	wordcraft-0.6.1-2-x86_64.hpkg

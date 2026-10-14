@@ -1,5 +1,5 @@
 name wordcraft
-version 0.6.1-1
+version 0.6.1-2
 architecture x86_64
 summary "Word processor with an experimental Haiku frontend"
 description "Wordcraft edits word-processing documents using a Rust document engine.

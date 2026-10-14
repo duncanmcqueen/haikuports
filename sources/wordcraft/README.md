@@ -13,7 +13,9 @@ International composition and long-duration stability are not established.
 
 ## Package provenance
 
-The first package is version 0.6.1-1. It packages already-built, tested binaries;
+The current package is version 0.6.1-2. Revision 2 embeds the application
+resources in the executable; revision 1 only set attributes that mimeset then
+removed. The first file remains available for older repository indexes. It packages already-built, tested binaries;
 it does not claim a fresh HaikuPorter source build. The original GUI executable
 has SHA-256 bdc944062deb97e3256564ec89448551a8713611da85a1f2d134d6c0b68e16f7.
 Native application resources and 16/32-pixel icons are then added to the packaged
@@ -73,7 +75,7 @@ bash packaging/build-hpkg.sh /path/to/gui-r3 /path/to/wordcraft-cli \
   'Your Name <you@example.com>'
 ```
 
-It needs Haiku's package, rc, resattr, mimeset, C++ tools, Python 3 and translation
+It needs Haiku's package, rc, xres, mimeset, C++ tools, Python 3 and translation
 kit. It creates apps/Wordcraft/Wordcraft, bin/wordcraft-cli, a Deskbar link,
 licenses and documentation. Bump the PackageInfo revision for any changed binary.
 The vendor field matches this repository's existing vendor and does not imply

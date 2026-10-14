@@ -94,14 +94,17 @@ Haiku is at `tontinton/maki` issue 1199.
 
 ## Wordcraft 0.6.1
 
-Published package: `wordcraft-0.6.1-1-x86_64.hpkg`. It contains the tested r3
+Published package: `wordcraft-0.6.1-2-x86_64.hpkg`. It contains the tested r3
 experimental software-rendered frontend and wordcraft-cli. The package was
 assembled natively with `package create` from the existing binaries; this
 publication does not claim a new HaikuPorter build. Source commit, dependency
 patches and packaging inputs are in `sources/wordcraft/`. AI assistance was used.
 
 - Test VM: Haiku hrev60228 x86_64; compiler Rust/Cargo 1.99.
-- Native resources provide an application signature, version and bitmap icons.
+- Revision 2 embeds native application signature, flags, version and bitmap
+  icons in the ELF resources. The version command reads the expected string.
+  Revision 1 failed that metadata check and is no longer indexed. Its file is
+  retained unchanged for cached indexes.
 - A Deskbar Applications link launches the packaged executable.
 - Package installation in the home volume passed with no additional packages.
 - The installed executable passed native Save As to a filename with spaces,
@@ -110,7 +113,7 @@ patches and packaging inputs are in `sources/wordcraft/`. AI assistance was used
 - Standalone dependency resolution passed against system package files. The
   dependencies explicitly include the dynamically loaded Wayland libraries,
   in-process server, libxkbcommon and keyboard data.
-- Package SHA-256: `5809d5c109d9aaa7b52a7e9271741f5d4d6e37445fefe9a88623a5376428acb6`.
+- Package SHA-256: `f0c7353ccbc2d5b8ca1f49233c0ccfbaed15ed7c386984ecf06fcead95607551`.
 
 The source build previously passed blank-document physical keyboard input,
 native Open with a visibly refreshed page, and native close-button exit. Those

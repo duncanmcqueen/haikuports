@@ -36,13 +36,13 @@ s = '\n'.join('packager ' + json.dumps(sys.argv[2]) if l.startswith('packager ')
 p.write_text(s)
 PY
 rc -o "$out/Wordcraft.rsrc" "$script_dir/Wordcraft.rdef"
-resattr -o "$stage/apps/Wordcraft/Wordcraft" "$out/Wordcraft.rsrc"
+xres -o "$stage/apps/Wordcraft/Wordcraft" "$out/Wordcraft.rsrc"
 g++ -O2 -o "$out/set-icon" "$script_dir/set-icon.cpp" -lbe -ltranslation
 "$out/set-icon" "$stage/apps/Wordcraft/Wordcraft" \
     "$icons/32x32/apps/ai.storyteller.wordcraft.png" \
     "$icons/16x16/apps/ai.storyteller.wordcraft.png"
 mimeset -f "$stage/apps/Wordcraft/Wordcraft"
-package create -C "$stage" "$out/wordcraft-0.6.1-1-x86_64.hpkg"
-package list -i "$out/wordcraft-0.6.1-1-x86_64.hpkg" > "$out/package-info.txt"
-sha256sum "$out/wordcraft-0.6.1-1-x86_64.hpkg" > "$out/SHA256SUMS"
-echo "Created $out/wordcraft-0.6.1-1-x86_64.hpkg"
+package create -C "$stage" "$out/wordcraft-0.6.1-2-x86_64.hpkg"
+package list -i "$out/wordcraft-0.6.1-2-x86_64.hpkg" > "$out/package-info.txt"
+sha256sum "$out/wordcraft-0.6.1-2-x86_64.hpkg" > "$out/SHA256SUMS"
+echo "Created $out/wordcraft-0.6.1-2-x86_64.hpkg"

@@ -109,3 +109,10 @@ and is too large for the GitHub Pages repository.
 `publish-haiku-repository.sh` and `build-haiku-repository.sh` scripts. Only one
 version of each package belongs in an index; raise the package revision before
 replacing a binary.
+
+## Wordcraft (`wordcraft`)
+
+See [wordcraft/README.md](wordcraft/README.md) for source reconstruction, patches
+and the native package builder. This experimental port uses a custom packaging
+script rather than a HaikuPorter recipe. Its first package contains the tested
+r3 GUI and CLI binaries. A fresh clean reconstruction is not yet validated.

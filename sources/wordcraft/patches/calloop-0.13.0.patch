@@ -1,0 +1,46 @@
+--- a/src/loop_logic.rs
++++ b/src/loop_logic.rs
+@@ -669,7 +669,7 @@
+     }
+ }
+ 
+-#[cfg(unix)]
++#[cfg(all(unix, not(target_os = "haiku")))]
+ impl<'l, Data> AsRawFd for EventLoop<'l, Data> {
+     /// Get the underlying raw-fd of the poller.
+     ///
+@@ -683,7 +683,7 @@
+     }
+ }
+ 
+-#[cfg(unix)]
++#[cfg(all(unix, not(target_os = "haiku")))]
+ impl<'l, Data> AsFd for EventLoop<'l, Data> {
+     /// Get the underlying fd of the poller.
+     ///
+--- a/src/sources/ping/pipe.rs
++++ b/src/sources/ping/pipe.rs
+@@ -28,11 +28,22 @@
+     Ok((read, write))
+ }
+ 
+-#[cfg(not(target_os = "macos"))]
++#[cfg(not(any(target_os = "macos", target_os = "haiku")))]
+ #[inline]
+ fn make_ends() -> std::io::Result<(OwnedFd, OwnedFd)> {
+     use rustix::pipe::{pipe_with, PipeFlags};
+     Ok(pipe_with(PipeFlags::CLOEXEC | PipeFlags::NONBLOCK)?)
++}
++
++#[cfg(target_os = "haiku")]
++fn make_ends() -> std::io::Result<(OwnedFd, OwnedFd)> {
++    use rustix::fs::{fcntl_getfd, fcntl_getfl, fcntl_setfd, fcntl_setfl, FdFlags, OFlags};
++    let (read, write) = rustix::pipe::pipe()?;
++    for fd in [&read, &write] {
++        fcntl_setfd(fd, fcntl_getfd(fd)? | FdFlags::CLOEXEC)?;
++        fcntl_setfl(fd, fcntl_getfl(fd)? | OFlags::NONBLOCK)?;
++    }
++    Ok((read, write))
+ }
+ 
+ #[inline]

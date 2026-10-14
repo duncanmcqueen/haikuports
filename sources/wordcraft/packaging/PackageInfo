@@ -1,0 +1,39 @@
+name wordcraft
+version 0.6.1-1
+architecture x86_64
+summary "Word processor with an experimental Haiku frontend"
+description "Wordcraft edits word-processing documents using a Rust document engine.
+This personal build includes the experimental Haiku software-rendered editor and
+wordcraft-cli. Typing, native Open and Save As, and document saving were tested.
+System printing, clipboard integration, and settings persistence are not wired
+into this frontend. See the included build notes for limitations and sources."
+vendor "Haiku Project"
+packager "VM Builder <vm@localhost>"
+copyrights {
+    "2026 ArtCraft Team and the WordCraft contributors"
+    "Third-party authors listed in documentation/packages/wordcraft/licenses"
+}
+licenses {
+    "MIT"
+    "Apache v2"
+    "Wordcraft third-party notices"
+}
+urls { "https://github.com/storytold/wordcraft" }
+source-urls {
+    "https://github.com/storytold/wordcraft/archive/159b84f54c74e9e82fb3109b758ae7dd6f4e3ab0.tar.gz"
+    "https://github.com/duncanmcqueen/haikuports/tree/personal-packages/sources/wordcraft"
+}
+provides {
+    wordcraft = 0.6.1
+    app:Wordcraft = 0.6.1
+    cmd:wordcraft_cli = 0.6.1
+}
+requires {
+    haiku >= r1~beta6_hrev59866_5
+    lib:libgcc_s
+    lib:libwayland_client >= 0.21.90
+    lib:libwayland_server >= 0.21.90
+    lib:wayland_server_inproc >= 0.1.20251004
+    lib:libxkbcommon
+    xkeyboard_config
+}

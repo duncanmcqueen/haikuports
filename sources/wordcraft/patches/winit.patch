@@ -1,0 +1,224 @@
+--- a/src/event_loop.rs
++++ b/src/event_loop.rs
+@@ -338,6 +338,7 @@
+ }
+ 
+ #[cfg(any(x11_platform, wayland_platform))]
++#[cfg(not(target_os = "haiku"))]
+ impl<T> AsFd for EventLoop<T> {
+     /// Get the underlying [EventLoop]'s `fd` which you can register
+     /// into other event loop, like [`calloop`] or [`mio`]. When doing so, the
+@@ -352,6 +353,7 @@
+ }
+ 
+ #[cfg(any(x11_platform, wayland_platform))]
++#[cfg(not(target_os = "haiku"))]
+ impl<T> AsRawFd for EventLoop<T> {
+     /// Get the underlying [EventLoop]'s raw `fd` which you can register
+     /// into other event loop, like [`calloop`] or [`mio`]. When doing so, the
+--- a/src/platform_impl/linux/mod.rs
++++ b/src/platform_impl/linux/mod.rs
+@@ -832,12 +832,14 @@
+     }
+ }
+ 
++#[cfg(not(target_os = "haiku"))]
+ impl<T> AsFd for EventLoop<T> {
+     fn as_fd(&self) -> BorrowedFd<'_> {
+         x11_or_wayland!(match self; EventLoop(evlp) => evlp.as_fd())
+     }
+ }
+ 
++#[cfg(not(target_os = "haiku"))]
+ impl<T> AsRawFd for EventLoop<T> {
+     fn as_raw_fd(&self) -> RawFd {
+         x11_or_wayland!(match self; EventLoop(evlp) => evlp.as_raw_fd())
+@@ -1042,3 +1044,8 @@
+ fn is_main_thread() -> bool {
+     std::thread::current().name() == Some("main")
+ }
++
++#[cfg(target_os = "haiku")]
++fn is_main_thread() -> bool {
++    unsafe { libc::find_thread(std::ptr::null()) == libc::getpid() }
++}
+--- a/src/platform_impl/linux/wayland/event_loop/mod.rs
++++ b/src/platform_impl/linux/wayland/event_loop/mod.rs
+@@ -619,12 +619,14 @@
+     }
+ }
+ 
++#[cfg(not(target_os = "haiku"))]
+ impl<T> AsFd for EventLoop<T> {
+     fn as_fd(&self) -> BorrowedFd<'_> {
+         self.event_loop.as_fd()
+     }
+ }
+ 
++#[cfg(not(target_os = "haiku"))]
+ impl<T> AsRawFd for EventLoop<T> {
+     fn as_raw_fd(&self) -> RawFd {
+         self.event_loop.as_raw_fd()
+@@ -749,7 +751,7 @@
+         let control = Arc::new((Mutex::new(PumpEventNotifierAction::Pause), Condvar::new()));
+         let control_thread = Arc::clone(&control);
+ 
+-        let (read, write) = match pipe::pipe_with(PipeFlags::CLOEXEC | PipeFlags::NONBLOCK) {
++        let (read, write) = match make_notifier_pipe() {
+             Ok((read, write)) => (read, write),
+             Err(_) => return Self { control, handle: None, worker_waker: None },
+         };
+@@ -808,3 +810,19 @@
+     /// Shutdown the thread.
+     Shutdown,
+ }
++
++#[cfg(not(target_os = "haiku"))]
++fn make_notifier_pipe() -> rustix::io::Result<(OwnedFd, OwnedFd)> {
++    pipe::pipe_with(PipeFlags::CLOEXEC | PipeFlags::NONBLOCK)
++}
++
++#[cfg(target_os = "haiku")]
++fn make_notifier_pipe() -> rustix::io::Result<(OwnedFd, OwnedFd)> {
++    use rustix::fs::{fcntl_getfd, fcntl_getfl, fcntl_setfd, fcntl_setfl, FdFlags, OFlags};
++    let (read, write) = pipe::pipe()?;
++    for fd in [&read, &write] {
++        fcntl_setfd(fd, fcntl_getfd(fd)? | FdFlags::CLOEXEC)?;
++        fcntl_setfl(fd, fcntl_getfl(fd)? | OFlags::NONBLOCK)?;
++    }
++    Ok((read, write))
++}
+--- a/src/platform_impl/linux/wayland/state.rs
++++ b/src/platform_impl/linux/wayland/state.rs
+@@ -39,6 +39,8 @@
+ 
+ /// Winit's Wayland state.
+ pub struct WinitState {
++    #[cfg(target_os = "haiku")]
++    pub haiku_decoration_manager: Option<super::types::haiku_decoration::HaikuDecorationManager>,
+     /// The WlRegistry.
+     pub registry_state: RegistryState,
+ 
+@@ -159,6 +161,8 @@
+         let custom_cursor_pool = Arc::new(Mutex::new(SlotPool::new(2, &shm).unwrap()));
+ 
+         Ok(Self {
++            #[cfg(target_os = "haiku")]
++            haiku_decoration_manager: super::types::haiku_decoration::HaikuDecorationManager::bind(globals, queue_handle).ok(),
+             registry_state,
+             compositor_state: Arc::new(compositor_state),
+             subcompositor_state: subcompositor_state.map(Arc::new),
+--- /dev/null
++++ b/src/platform_impl/linux/wayland/types/haiku_decoration.rs
+@@ -0,0 +1,27 @@
++//! Native Haiku window borders through the legacy KDE decoration protocol.
++
++use sctk::reexports::client::globals::{BindError, GlobalList};
++use sctk::reexports::client::protocol::wl_surface::WlSurface;
++use sctk::reexports::client::{delegate_noop, QueueHandle};
++use wayland_protocols_plasma::server_decoration::client::{
++    org_kde_kwin_server_decoration::OrgKdeKwinServerDecoration,
++    org_kde_kwin_server_decoration_manager::OrgKdeKwinServerDecorationManager,
++};
++use crate::platform_impl::wayland::state::WinitState;
++
++pub struct HaikuDecorationManager(OrgKdeKwinServerDecorationManager);
++
++impl HaikuDecorationManager {
++    pub fn bind(globals: &GlobalList, queue: &QueueHandle<WinitState>) -> Result<Self, BindError> {
++        globals.bind(queue, 1..=1, ()).map(Self)
++    }
++
++    pub fn create(&self, surface: &WlSurface, queue: &QueueHandle<WinitState>) -> OrgKdeKwinServerDecoration {
++        let decoration = self.0.create(surface, queue, ());
++        decoration.request_mode(2);
++        decoration
++    }
++}
++
++delegate_noop!(WinitState: ignore OrgKdeKwinServerDecorationManager);
++delegate_noop!(WinitState: ignore OrgKdeKwinServerDecoration);
+--- a/src/platform_impl/linux/wayland/types/mod.rs
++++ b/src/platform_impl/linux/wayland/types/mod.rs
+@@ -5,3 +5,6 @@
+ pub mod wp_fractional_scaling;
+ pub mod wp_viewporter;
+ pub mod xdg_activation;
++
++#[cfg(target_os = "haiku")]
++pub mod haiku_decoration;
+--- a/src/platform_impl/linux/wayland/window/state.rs
++++ b/src/platform_impl/linux/wayland/window/state.rs
+@@ -54,6 +54,8 @@
+ 
+ /// The state of the window which is being updated from the [`WinitState`].
+ pub struct WindowState {
++    #[cfg(target_os = "haiku")]
++    haiku_decoration: Option<wayland_protocols_plasma::server_decoration::client::org_kde_kwin_server_decoration::OrgKdeKwinServerDecoration>,
+     /// The connection to Wayland server.
+     pub connection: Connection,
+ 
+@@ -184,6 +186,8 @@
+             .map(|fsm| fsm.fractional_scaling(window.wl_surface(), queue_handle));
+ 
+         Self {
++            #[cfg(target_os = "haiku")]
++            haiku_decoration: winit_state.haiku_decoration_manager.as_ref().map(|manager| manager.create(window.wl_surface(), queue_handle)),
+             blur: None,
+             blur_manager: winit_state.kwin_blur_manager.clone(),
+             compositor,
+@@ -267,6 +271,15 @@
+         shm: &Shm,
+         subcompositor: &Option<Arc<SubcompositorState>>,
+     ) -> bool {
++        #[cfg(target_os = "haiku")]
++        let configure = {
++            let mut configure = configure;
++            if self.haiku_decoration.is_some() {
++                configure.decoration_mode = DecorationMode::Server;
++            }
++            configure
++        };
++
+         // NOTE: when using fractional scaling or wl_compositor@v6 the scaling
+         // should be delivered before the first configure, thus apply it to
+         // properly scale the physical sizes provided by the users.
+@@ -986,6 +999,10 @@
+         }
+ 
+         self.decorate = decorate;
++        #[cfg(target_os = "haiku")]
++        if let Some(decoration) = &self.haiku_decoration {
++            decoration.request_mode(if decorate { 2 } else { 1 });
++        }
+ 
+         match self.last_configure.as_ref().map(|configure| configure.decoration_mode) {
+             Some(DecorationMode::Server) if !self.decorate => {
+@@ -1149,6 +1166,10 @@
+ 
+ impl Drop for WindowState {
+     fn drop(&mut self) {
++        #[cfg(target_os = "haiku")]
++        if let Some(decoration) = &self.haiku_decoration {
++            decoration.release();
++        }
+         if let Some(blur) = self.blur.take() {
+             blur.release();
+         }
+--- a/src/platform_impl/linux/x11/mod.rs
++++ b/src/platform_impl/linux/x11/mod.rs
+@@ -618,12 +618,14 @@
+     }
+ }
+ 
++#[cfg(not(target_os = "haiku"))]
+ impl<T> AsFd for EventLoop<T> {
+     fn as_fd(&self) -> BorrowedFd<'_> {
+         self.event_loop.as_fd()
+     }
+ }
+ 
++#[cfg(not(target_os = "haiku"))]
+ impl<T> AsRawFd for EventLoop<T> {
+     fn as_raw_fd(&self) -> RawFd {
+         self.event_loop.as_raw_fd()

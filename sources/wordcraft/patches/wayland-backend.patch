@@ -1,0 +1,47 @@
+--- a/src/client_api.rs
++++ b/src/client_api.rs
+@@ -167,6 +167,11 @@
+     /// and the system wayland library could not be found.
+     pub fn connect(stream: UnixStream) -> Result<Self, NoWaylandLib> {
+         client_impl::InnerBackend::connect(stream).map(|backend| Self { backend })
++    }
++
++    #[cfg(all(target_os = "haiku", feature = "client_system"))]
++    pub fn connect_in_process() -> Result<Self, NoWaylandLib> {
++        client_impl::InnerBackend::connect_in_process().map(|backend| Self { backend })
+     }
+ 
+     /// Get a [`WeakBackend`] from this backend
+--- a/src/lib.rs
++++ b/src/lib.rs
+@@ -79,6 +79,7 @@
+ #[cfg(any(test, feature = "client_system", feature = "server_system"))]
+ pub mod sys;
+ 
++#[cfg(not(all(target_os = "haiku", feature = "client_system", feature = "server_system")))]
+ pub mod rs;
+ 
+ #[cfg(not(feature = "client_system"))]
+--- a/src/sys/client_impl/mod.rs
++++ b/src/sys/client_impl/mod.rs
+@@ -264,6 +264,20 @@
+                 wl_log_set_handler_client,
+                 wl_log_trampoline_to_rust_client
+             );
++        }
++        Ok(Self::from_display(display, true))
++    }
++
++    #[cfg(target_os = "haiku")]
++    pub fn connect_in_process() -> Result<Self, NoWaylandLib> {
++        if !is_lib_available() {
++            return Err(NoWaylandLib);
++        }
++        let display = unsafe {
++            ffi_dispatch!(wayland_client_handle(), wl_display_connect, std::ptr::null())
++        };
++        if display.is_null() {
++            return Err(NoWaylandLib);
+         }
+         Ok(Self::from_display(display, true))
+     }

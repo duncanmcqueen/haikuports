@@ -1,0 +1,11 @@
+resource app_signature "application/x-vnd.storytold-wordcraft";
+resource app_flags B_MULTIPLE_LAUNCH;
+resource app_version {
+    major = 0,
+    middle = 6,
+    minor = 1,
+    variety = B_APPV_ALPHA,
+    internal = 1,
+    short_info = "Wordcraft 0.6.1 (Haiku experimental)",
+    long_info = "Word processor with an experimental Haiku software frontend"
+};

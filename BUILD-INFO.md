@@ -91,3 +91,31 @@ Verification before publication:
 The previous `maki-0.5.7-1` files remain on the site for older indexes but are not
 in the current index. An upstream support request with the source changes needed on
 Haiku is at `tontinton/maki` issue 1199.
+
+## Wordcraft 0.6.1
+
+Published package: `wordcraft-0.6.1-1-x86_64.hpkg`. It contains the tested r3
+experimental software-rendered frontend and wordcraft-cli. The package was
+assembled natively with `package create` from the existing binaries; this
+publication does not claim a new HaikuPorter build. Source commit, dependency
+patches and packaging inputs are in `sources/wordcraft/`. AI assistance was used.
+
+- Test VM: Haiku hrev60228 x86_64; compiler Rust/Cargo 1.99.
+- Native resources provide an application signature, version and bitmap icons.
+- A Deskbar Applications link launches the packaged executable.
+- Package installation in the home volume passed with no additional packages.
+- The installed executable passed native Save As to a filename with spaces,
+  Cancel, DOCX content verification, and subsequent Save.
+- Installed CLI: `wordcraft-cli 0.6.1`.
+- Standalone dependency resolution passed against system package files. The
+  dependencies explicitly include the dynamically loaded Wayland libraries,
+  in-process server, libxkbcommon and keyboard data.
+- Package SHA-256: `5809d5c109d9aaa7b52a7e9271741f5d4d6e37445fefe9a88623a5376428acb6`.
+
+The source build previously passed blank-document physical keyboard input,
+native Open with a visibly refreshed page, and native close-button exit. Those
+are smoke tests, not proof of long-term stability or full document compatibility.
+System printing, system clipboard integration and persistent settings are not
+wired into the frontend. The Haiku process-exit workaround remains necessary.
+The original tar-directory installations are preserved. This package's vendor
+field follows the repository convention and does not imply Haiku endorsement.

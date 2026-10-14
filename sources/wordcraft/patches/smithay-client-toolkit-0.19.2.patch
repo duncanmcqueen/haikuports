@@ -1,0 +1,53 @@
+--- a/src/data_device_manager/data_offer.rs
++++ b/src/data_device_manager/data_offer.rs
+@@ -436,7 +436,11 @@
+ /// Fails if too many file descriptors were already open and a pipe
+ /// could not be created.
+ pub fn receive(offer: &WlDataOffer, mime_type: String) -> std::io::Result<ReadPipe> {
+-    use rustix::pipe::{pipe_with, PipeFlags};
++    use rustix::pipe::PipeFlags;
++    #[cfg(not(target_os = "haiku"))]
++    use rustix::pipe::pipe_with;
++    #[cfg(target_os = "haiku")]
++    use crate::haiku::pipe_with;
+     // create a pipe
+     let (readfd, writefd) = pipe_with(PipeFlags::CLOEXEC)?;
+ 
+--- /dev/null
++++ b/src/haiku.rs
+@@ -0,0 +1,11 @@
++use rustix::fs::{FdFlags, fcntl_getfd, fcntl_setfd};
++use rustix::pipe::PipeFlags;
++use std::os::fd::OwnedFd;
++
++pub(crate) fn pipe_with(_flags: PipeFlags) -> rustix::io::Result<(OwnedFd, OwnedFd)> {
++    let (read, write) = rustix::pipe::pipe()?;
++    for fd in [&read, &write] {
++        fcntl_setfd(fd, fcntl_getfd(fd)? | FdFlags::CLOEXEC)?;
++    }
++    Ok((read, write))
++}
+--- a/src/lib.rs
++++ b/src/lib.rs
+@@ -32,3 +32,6 @@
+ pub mod shell;
+ pub mod shm;
+ pub mod subcompositor;
++
++#[cfg(target_os = "haiku")]
++mod haiku;
+--- a/src/primary_selection/offer.rs
++++ b/src/primary_selection/offer.rs
+@@ -36,7 +36,11 @@
+     /// Fails if too many file descriptors were already open and a pipe
+     /// could not be created.
+     pub fn receive(&self, mime_type: String) -> std::io::Result<ReadPipe> {
+-        use rustix::pipe::{pipe_with, PipeFlags};
++        use rustix::pipe::PipeFlags;
++    #[cfg(not(target_os = "haiku"))]
++    use rustix::pipe::pipe_with;
++    #[cfg(target_os = "haiku")]
++    use crate::haiku::pipe_with;
+         // create a pipe
+         let (readfd, writefd) = pipe_with(PipeFlags::CLOEXEC)?;
+ 

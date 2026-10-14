@@ -1,0 +1,248 @@
+--- a/Cargo.toml
++++ b/Cargo.toml
+@@ -10,7 +10,7 @@
+ keywords = ["egui", "raster", "software", "render", "softbuffer"]
+ 
+ [dependencies]
+-egui = { version = "0.34", default-features = false }
++egui = { version = "0.36", default-features = false }
+ strength_reduce = "0.2.4"
+ constify = { path = "constify", version = "0.0.1" }
+ ahash = { version = "0.8", default-features = false, features = ["no-rng"] }
+@@ -18,24 +18,24 @@
+ rayon = { version = "1.11.0", optional = true }
+ log = { version = "0.4", optional = true }
+ winit = { version = "0.30", optional = true }
+-softbuffer = { version = "0.4", optional = true }
+-egui-winit = { version = "0.34", default-features = false, optional = true }
++softbuffer = { version = "0.4", default-features = false, features = ["wayland", "wayland-dlopen"], optional = true }
++egui-winit = { version = "0.36", default-features = false, optional = true }
+ bytemuck = { version = "1.25", optional = true }
+ 
+ # Optional dependencies for automated testing:
+-egui_kittest = { version = "0.34", optional = true }
++egui_kittest = { version = "0.36", optional = true }
+ image = { version = "0.25", optional = true }
+ 
+ [dev-dependencies]
+-egui = { version = "0.34", features = ["default_fonts"] }
+-eframe = "0.34"
+-egui_kittest = { version = "0.34", features = ["snapshot", "wgpu"] }
+-egui_demo_lib = { version = "0.34" }
+-egui_extras = { version = "0.34", features = ["all_loaders"] }
+-egui-winit = { version = "0.34", default-features = false }
+-epaint_default_fonts = "0.34"
+-
+-softbuffer = { version = "0.4" }
++egui = { version = "0.36", features = ["default_fonts"] }
++eframe = "0.36"
++egui_kittest = { version = "0.36", features = ["snapshot", "wgpu"] }
++egui_demo_lib = { version = "0.36" }
++egui_extras = { version = "0.36", features = ["all_loaders"] }
++egui-winit = { version = "0.36", default-features = false }
++epaint_default_fonts = "0.36"
++
++softbuffer = { version = "0.4", default-features = false, features = ["wayland", "wayland-dlopen"] }
+ image = { version = "0.25", features = ["jpeg", "png"] }
+ winit = { version = "0.30" }
+ bytemuck = { version = "1.25" }
+--- a/src/lib.rs
++++ b/src/lib.rs
+@@ -880,41 +880,43 @@
+     fn set_textures(&mut self, textures_delta: &egui::TexturesDelta) {
+         #[cfg(feature = "raster_stats")]
+         let start = std::time::Instant::now();
+-        for (id, delta) in &textures_delta.set {
+-            if delta.options.magnification != delta.options.minification {
+-                // Would need helper lanes to impl?
+-                #[cfg(feature = "log")]
+-                log::warn!(
+-                    "TextureOptions magnification and minification not matching is unsupported."
+-                );
+-            }
+-            let pixels = match &delta.image {
+-                egui::ImageData::Color(image) => {
+-                    assert_eq!(image.width() * image.height(), image.pixels.len());
+-                    Cow::Borrowed(&image.pixels)
++        for (id, deltas) in &textures_delta.set {
++            for delta in deltas {
++                if delta.options.magnification != delta.options.minification {
++                    // Would need helper lanes to impl?
++                    #[cfg(feature = "log")]
++                    log::warn!(
++                        "TextureOptions magnification and minification not matching is unsupported."
++                    );
+                 }
+-            };
+-            let size = delta.image.size();
+-            if let Some(pos) = delta.pos {
+-                if let Some(texture) = self.textures.get_mut(id) {
+-                    for y in 0..size[1] {
+-                        for x in 0..size[0] {
+-                            let src_pos = x + y * size[0];
+-                            let dest_pos = (x + pos[0]) + (y + pos[1]) * texture.width;
+-                            texture.data[dest_pos] = match self.output_field_order {
+-                                ColorFieldOrder::Rgba => pixels[src_pos].to_array(),
+-                                ColorFieldOrder::Bgra => {
+-                                    swizzle_rgba_bgra(pixels[src_pos].to_array())
+-                                }
+-                            };
++                let pixels = match &delta.image {
++                    egui::ImageData::Color(image) => {
++                        assert_eq!(image.width() * image.height(), image.pixels.len());
++                        Cow::Borrowed(&image.pixels)
++                    }
++                };
++                let size = delta.image.size();
++                if let Some(pos) = delta.pos {
++                    if let Some(texture) = self.textures.get_mut(id) {
++                        for y in 0..size[1] {
++                            for x in 0..size[0] {
++                                let src_pos = x + y * size[0];
++                                let dest_pos = (x + pos[0]) + (y + pos[1]) * texture.width;
++                                texture.data[dest_pos] = match self.output_field_order {
++                                    ColorFieldOrder::Rgba => pixels[src_pos].to_array(),
++                                    ColorFieldOrder::Bgra => {
++                                        swizzle_rgba_bgra(pixels[src_pos].to_array())
++                                    }
++                                };
++                            }
+                         }
+                     }
++                } else {
++                    let new_texture =
++                        EguiTexture::new(self.output_field_order, delta.options, size, &pixels);
++
++                    self.textures.insert(*id, new_texture);
+                 }
+-            } else {
+-                let new_texture =
+-                    EguiTexture::new(self.output_field_order, delta.options, size, &pixels);
+-
+-                self.textures.insert(*id, new_texture);
+             }
+         }
+         #[cfg(feature = "raster_stats")]
+--- a/src/winit.rs
++++ b/src/winit.rs
+@@ -477,6 +477,7 @@
+                     .extend_from_slice(self.input_events.as_slice());
+                 self.input_events.clear();
+ 
++                self.egui_app.raw_input_hook(&mut raw_input);
+                 let full_output = self.egui_context.run_ui(raw_input, |ui| {
+                     self.egui_app.ui(ui, &mut self.software_backend);
+ 
+@@ -585,6 +586,15 @@
+                                             .set_fullscreen(Some(Fullscreen::Borderless(None)))
+                                     }
+                                 }
++                                ViewportCommand::SetMonitor(index) => {
++                                    if let Some(monitor) =
++                                        self.window.available_monitors().nth(*index)
++                                    {
++                                        self.window.set_fullscreen(Some(Fullscreen::Borderless(
++                                            Some(monitor),
++                                        )));
++                                    }
++                                }
+                                 ViewportCommand::Decorations(dec) => {
+                                     self.window.set_decorations(*dec)
+                                 }
+@@ -729,6 +739,10 @@
+             }
+ 
+             WindowEvent::CloseRequested => {
++                if !self.egui_app.close_requested() {
++                    self.window.request_redraw();
++                    return Ok(());
++                }
+                 self.egui_app.on_exit(&self.egui_context);
+                 elwt.exit();
+             }
+@@ -802,6 +816,11 @@
+ 
+ /// Implement this trait to write apps using the optional winit backend similarly to eframe's App.
+ pub trait App {
++    fn raw_input_hook(&mut self, _input: &mut egui::RawInput) {}
++    fn close_requested(&mut self) -> bool {
++        true
++    }
++
+     fn ui(&mut self, ui: &mut egui::Ui, software_backend: &mut SoftwareBackend);
+ 
+     fn on_exit(&mut self, _ctx: &Context) {}
+@@ -836,41 +855,8 @@
+ 
+ impl SoftwareBackendAppConfiguration {
+     /// Creates a new SoftwareBackendAppConfiguration using the default configuration.
+-    pub const fn new() -> Self {
+-        //The constructor is not const.
+-        let vp = ViewportBuilder {
+-            override_redirect: None,
+-            title: None,
+-            app_id: None,
+-            position: None,
+-            //CGA
+-            inner_size: Some(Vec2::new(320f32, 200f32)),
+-            min_inner_size: None,
+-            max_inner_size: None,
+-            clamp_size_to_monitor_size: None,
+-            fullscreen: None,
+-            maximized: None,
+-            resizable: None,
+-            transparent: None,
+-            decorations: None,
+-            icon: None,
+-            active: None,
+-            visible: None,
+-            fullsize_content_view: None,
+-            movable_by_window_background: None,
+-            title_shown: None,
+-            titlebar_buttons_shown: None,
+-            titlebar_shown: None,
+-            has_shadow: None,
+-            drag_and_drop: None,
+-            taskbar: None,
+-            close_button: None,
+-            minimize_button: None,
+-            maximize_button: None,
+-            window_level: None,
+-            mouse_passthrough: None,
+-            window_type: None,
+-        };
++    pub fn new() -> Self {
++        let vp = ViewportBuilder::default().with_inner_size([1024.0, 720.0]);
+ 
+         Self {
+             viewport_builder: vp,
+@@ -1114,7 +1100,13 @@
+         .with_convert_tris_to_rects(settings.convert_tris_to_rects)
+         .with_caching(settings.caching);
+ 
+-    let event_loop: EventLoop<UserEvent> = EventLoop::with_user_event()
++    let mut builder = EventLoop::<UserEvent>::with_user_event();
++    #[cfg(target_os = "haiku")]
++    {
++        use winit::platform::wayland::EventLoopBuilderExtWayland;
++        builder.with_wayland();
++    }
++    let event_loop = builder
+         .build()
+         .map_err(|e| SoftwareBackendAppError::EventLoop(Box::new(e)))?;
+ 
+@@ -1162,5 +1154,14 @@
+         return Err(app_err);
+     }
+ 
++    #[cfg(target_os = "haiku")]
++    {
++        unsafe extern "C" {
++            fn _exit(status: std::ffi::c_int) -> !;
++        }
++        unsafe { _exit(0) }
++    }
++
++    #[cfg(not(target_os = "haiku"))]
+     Ok(())
+ }

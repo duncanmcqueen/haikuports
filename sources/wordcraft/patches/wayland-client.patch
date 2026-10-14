@@ -1,0 +1,25 @@
+--- a/src/conn.rs
++++ b/src/conn.rs
+@@ -44,6 +44,13 @@
+     ///
+     /// This is the standard way to initialize a Wayland connection.
+     pub fn connect_to_env() -> Result<Self, ConnectError> {
++        #[cfg(target_os = "haiku")]
++        {
++            let backend = Backend::connect_in_process().map_err(|_| ConnectError::NoWaylandLib)?;
++            Ok(Self { backend })
++        }
++        #[cfg(not(target_os = "haiku"))]
++        {
+         let stream = if let Ok(txt) = env::var("WAYLAND_SOCKET") {
+             // We should connect to the provided WAYLAND_SOCKET
+             let fd = txt.parse::<i32>().map_err(|_| ConnectError::InvalidFd)?;
+@@ -88,6 +95,8 @@
+ 
+         let backend = Backend::connect(stream).map_err(|_| ConnectError::NoWaylandLib)?;
+         Ok(Self { backend })
++        }
++
+     }
+ 
+     /// Initialize a Wayland connection from an already existing Unix stream

@@ -58,6 +58,8 @@ ICU development files and tools are also optional; they are not needed to run No
 | `nodejs22` | Node.js 22.23.3 runtime (loads ICU 77) |
 | `nodejs22_devel` | Node.js development files |
 | `icu77`, `icu77_devel`, `icu77_tools` | ICU 77 runtime for the Node binary, plus optional development and tool files, from the maintained `icu77` port |
+| `filmcraft` | Experimental video editor with native file panels and SDL2 audio |
+| `wordcraft` | Experimental word processor with a Haiku frontend |
 | `fd` | `fd` file-search tool used by `pi` |
 | `pi` | The `pi` coding agent (`pi` command) |
 | `haiku_agent_library` | Haiku developer skills for `pi`, including the Haiku Book API reference |
@@ -118,3 +120,11 @@ pkgman drop-repo DuncanHaikuPackages
 Dropping the repository does not uninstall packages. A later full synchronization
 can replace or remove packages that are no longer provided by an enabled repository.
 
+
+## Filmcraft
+
+Install the experimental video editor with `pkgman install filmcraft`. Open it
+from Deskbar > Applications. The current package is 0.8.0-4. It uses CPU
+rendering; hardware acceleration and microphone capture are not implemented.
+See [sources/filmcraft/README.md](sources/filmcraft/README.md) for tests, limits
+and build instructions.

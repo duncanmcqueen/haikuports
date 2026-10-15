@@ -1,0 +1,41 @@
+diff --git a/crates/ui-egui/src/icons.rs b/crates/ui-egui/src/icons.rs
+index 230a84a..885f7c0 100644
+--- a/crates/ui-egui/src/icons.rs
++++ b/crates/ui-egui/src/icons.rs
+@@ -164,18 +164,17 @@ impl Pen16<'_> {
+         let c = self.rect.center();
+         pos2(self.snap(q.x, c.x, mid_x), self.snap(q.y, c.y, mid_y))
+     }
+-    /// Grid points to screen. Points on a horizontal or vertical segment (one that runs less than a
+-    /// device pixel sideways, so it draws straight anyway) snap to device pixels so the segment is
+-    /// drawn crisp; points between slanted segments keep their exact place.
++    /// Snap horizontal and vertical segments to device pixels. Keep curve points in place
++    /// so small neighboring segments do not collapse onto the same pixel.
+     fn crisp(&self, pts: &[(f32, f32)], closed: bool) -> Vec<Pos2> {
+         let n = pts.len();
+         let ppp = self.painter.pixels_per_point();
+         let q: Vec<Pos2> = pts.iter().map(|(x, y)| self.p(*x, *y)).collect();
+         let seg = |i: usize, j: usize| {
+             let d = (q[i] - q[j]) * ppp;
+-            (d.x.abs() < 1.0, d.y.abs() < 1.0) // (vertical, horizontal)
++            (d.x == 0.0, d.y == 0.0) // (vertical, horizontal)
+         };
+-        (0..n)
++        let mut points: Vec<_> = (0..n)
+             .map(|i| {
+                 let mut nb = Vec::new();
+                 if i > 0 || closed {
+@@ -193,7 +192,12 @@ impl Pen16<'_> {
+                 // across a straight segment: the stroke's middle; along it: a pixel edge, where it ends
+                 self.snap_pos(q, vert, horiz)
+             })
+-            .collect()
++            .collect();
++        points.dedup();
++        if closed && points.len() > 1 && points.first() == points.last() {
++            points.pop();
++        }
++        points
+     }
+     fn line(&self, pts: &[(f32, f32)]) {
+         let v = self.crisp(pts, false);

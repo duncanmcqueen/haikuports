@@ -1,0 +1,33 @@
+name filmcraft
+version 0.8.0-4
+architecture x86_64
+summary "Video editor with an experimental Haiku frontend"
+description "Filmcraft edits video with a Rust media engine.
+This experimental build uses software rendering, native Haiku file panels, and
+SDL2 audio output. Video import, playback, editing, saving and H.264/AAC export
+were tested with a short 320x180 clip. Hardware acceleration and microphone
+capture are not implemented. See the included notes for sources and limits."
+vendor "Haiku Project"
+packager "duncanmcqueen"
+copyrights {
+    "2026 ArtCraft Team and the FilmCraft contributors"
+    "Third-party authors listed in documentation/packages/filmcraft/licenses"
+}
+licenses { "MIT" "Apache v2" "Filmcraft third-party notices" }
+urls { "https://github.com/storytold/filmcraft" }
+source-urls { "https://github.com/storytold/filmcraft/archive/9ed9650cad4c9b22cb8d32f4a9ba8050cde20a62.tar.gz" }
+provides {
+    filmcraft = 0.8.0
+    app:Filmcraft = 0.8.0
+    cmd:filmcraft = 0.8.0
+}
+requires {
+    haiku >= r1~beta6_hrev59866_5
+    lib:libgcc_s
+    lib:libsdl2_2.0
+    lib:libwayland_client >= 0.21.90
+    lib:libwayland_server >= 0.21.90
+    lib:wayland_server_inproc >= 0.1.20251004
+    lib:libxkbcommon
+    xkeyboard_config
+}

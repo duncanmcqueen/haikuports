@@ -1,0 +1,28 @@
+commit 451c0bab15486c3e23167df993826b83e31ddc79
+Author:     duncanmcqueen <206344294+duncanmcqueen@users.noreply.github.com>
+AuthorDate: Wed Oct 14 19:34:46 2026 -0500
+Commit:     duncanmcqueen <206344294+duncanmcqueen@users.noreply.github.com>
+CommitDate: Wed Oct 14 19:34:46 2026 -0500
+
+    Apply CancelClose before exiting the event loop
+
+diff --git a/src/winit.rs b/src/winit.rs
+index 3f925ec..d0abd18 100644
+--- a/src/winit.rs
++++ b/src/winit.rs
+@@ -691,11 +691,10 @@ impl<EguiApp: App, EguiAppFactory: FnMut(Context) -> EguiApp>
+                                     //UNSUPPORTED
+                                 }
+                             }
+-
+-                            if die {
+-                                self.window.set_visible(false); //I wish eframe did this.
+-                                elwt.exit();
+-                            }
++                        }
++                        if die {
++                            self.window.set_visible(false); //I wish eframe did this.
++                            elwt.exit();
+                         }
+                     });
+                 });

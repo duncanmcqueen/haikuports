@@ -8,6 +8,7 @@ repository-info:
 	architecture: x86_64
 packages:
 	fd-10.5.0-1-x86_64.hpkg
+	filmcraft-0.8.0-4-x86_64.hpkg
 	haiku_agent_library-0.1.0-1-any.hpkg
 	icu77-77.1-1-x86_64.hpkg
 	icu77_devel-77.1-1-x86_64.hpkg

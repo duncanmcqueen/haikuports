@@ -1,0 +1,1143 @@
+ab_glyph 0.2.32
+License: Apache-2.0
+Source: https://github.com/alexheretic/ab-glyph
+
+ab_glyph_rasterizer 0.1.10
+License: Apache-2.0
+Source: https://github.com/alexheretic/ab-glyph
+
+accesskit 0.24.1
+License: MIT OR Apache-2.0
+Source: https://github.com/AccessKit/accesskit
+
+accesskit_winit 0.32.2
+License: Apache-2.0
+Source: https://github.com/AccessKit/accesskit
+
+adler2 2.0.1
+License: 0BSD OR MIT OR Apache-2.0
+Source: https://github.com/oyvindln/adler2
+
+ahash 0.8.12
+License: MIT OR Apache-2.0
+Source: https://github.com/tkaitchuck/ahash
+
+allocator-api2 0.2.21
+License: MIT OR Apache-2.0
+Source: https://github.com/zakarumych/allocator-api2
+
+arboard 3.6.1
+License: MIT OR Apache-2.0
+Source: https://github.com/1Password/arboard
+
+arrayref 0.3.9
+License: BSD-2-Clause
+Source: https://github.com/droundy/arrayref
+
+arrayvec 0.7.8
+License: MIT OR Apache-2.0
+Source: https://github.com/bluss/arrayvec
+
+as-raw-xcb-connection 1.0.1
+License: MIT OR Apache-2.0
+Source: https://github.com/psychon/as-raw-xcb-connection
+
+ash 0.38.0+1.3.281
+License: MIT OR Apache-2.0
+Source: https://github.com/ash-rs/ash
+
+autocfg 1.5.1
+License: Apache-2.0 OR MIT
+Source: https://github.com/cuviper/autocfg
+
+bit-set 0.10.0
+License: Apache-2.0 OR MIT
+Source: https://github.com/contain-rs/bit-set
+
+bit-vec 0.9.1
+License: Apache-2.0 OR MIT
+Source: https://github.com/contain-rs/bit-vec
+
+bitflags 1.3.2
+License: MIT/Apache-2.0
+Source: https://github.com/bitflags/bitflags
+
+bitflags 2.13.2
+License: MIT OR Apache-2.0
+Source: https://github.com/bitflags/bitflags
+
+bytemuck 1.25.2
+License: Zlib OR Apache-2.0 OR MIT
+Source: https://github.com/Lokathor/bytemuck
+
+bytemuck_derive 1.12.1
+License: Zlib OR Apache-2.0 OR MIT
+Source: https://github.com/Lokathor/bytemuck
+
+byteorder-lite 0.1.0
+License: Unlicense OR MIT
+Source: https://github.com/image-rs/byteorder-lite
+
+calloop 0.13.0
+License: MIT
+Source: https://github.com/Smithay/calloop
+
+calloop-wayland-source 0.3.0
+License: MIT
+Source: https://github.com/smithay/calloop-wayland-source
+
+cc 1.8.0
+License: MIT OR Apache-2.0
+Source: https://github.com/rust-lang/cc-rs
+
+cfg-if 1.0.5
+License: MIT OR Apache-2.0
+Source: https://github.com/rust-lang/cfg-if
+
+cfg_aliases 0.2.2
+License: MIT
+Source: https://github.com/katharostech/cfg_aliases
+
+codespan-reporting 0.13.1
+License: Apache-2.0
+Source: https://github.com/brendanzab/codespan
+
+color 0.3.3
+License: Apache-2.0 OR MIT
+Source: https://github.com/linebender/color
+
+color_quant 1.1.0
+License: MIT
+Source: https://github.com/image-rs/color_quant.git
+
+constify 0.0.1
+License: MIT OR Apache-2.0
+Source: https://github.com/DGriffin91/egui_software_backend
+
+core_detect 1.0.0
+License: MIT/Apache-2.0
+Source: https://github.com/thomcc/core_detect
+
+craft-ui 0.1.0
+License: MIT OR Apache-2.0
+Source: https://github.com/storytold/craft-libs
+
+crc32fast 1.5.2
+License: MIT OR Apache-2.0
+Source: https://github.com/srijs/rust-crc32fast
+
+crossbeam-deque 0.8.8
+License: MIT OR Apache-2.0
+Source: https://github.com/crossbeam-rs/crossbeam
+
+crossbeam-epoch 0.9.21
+License: MIT OR Apache-2.0
+Source: https://github.com/crossbeam-rs/crossbeam
+
+crossbeam-utils 0.8.23
+License: MIT OR Apache-2.0
+Source: https://github.com/crossbeam-rs/crossbeam
+
+ctor 0.10.1
+License: Apache-2.0 OR MIT
+Source: https://github.com/mmastrac/rust-ctor
+
+cursor-icon 1.2.0
+License: MIT OR Apache-2.0 OR Zlib
+Source: https://github.com/rust-windowing/cursor-icon
+
+dlib 0.5.3
+License: MIT
+Source: https://github.com/elinorbgr/dlib
+
+document-features 0.2.12
+License: MIT OR Apache-2.0
+Source: https://github.com/slint-ui/document-features
+
+downcast-rs 1.2.1
+License: MIT/Apache-2.0
+Source: https://github.com/marcianx/downcast-rs
+
+dpi 0.1.1
+License: Apache-2.0
+Source: https://github.com/rust-windowing/winit
+
+drm 0.14.1
+License: MIT
+Source: https://github.com/Smithay/drm-rs
+
+drm-ffi 0.9.1
+License: MIT
+Source: https://github.com/Smithay/drm-rs
+
+drm-fourcc 2.2.0
+License: MIT
+Source: https://github.com/danielzfranklin/drm-fourcc-rs
+
+drm-sys 0.8.1
+License: MIT
+Source: https://github.com/Smithay/drm-rs
+
+dtor 0.8.1
+License: Apache-2.0 OR MIT
+Source: https://github.com/mmastrac/rust-ctor
+
+ecolor 0.36.2
+License: MIT OR Apache-2.0
+Source: https://github.com/emilk/egui
+
+eframe 0.36.2
+License: MIT OR Apache-2.0
+Source: https://github.com/emilk/egui/tree/main/crates/eframe
+
+egui 0.36.2
+License: MIT OR Apache-2.0
+Source: https://github.com/emilk/egui
+
+egui-wgpu 0.36.2
+License: MIT OR Apache-2.0
+Source: https://github.com/emilk/egui/tree/main/crates/egui-wgpu
+
+egui-winit 0.36.2
+License: MIT OR Apache-2.0
+Source: https://github.com/emilk/egui/tree/main/crates/egui-winit
+
+egui_software_backend 0.0.3
+License: MIT OR Apache-2.0
+Source: https://github.com/DGriffin91/egui_software_backend
+
+either 1.19.0
+License: MIT OR Apache-2.0
+Source: https://github.com/rayon-rs/either
+
+emath 0.36.2
+License: MIT OR Apache-2.0
+Source: https://github.com/emilk/egui/tree/main/crates/emath
+
+encoding_rs 0.8.42
+License: (Apache-2.0 OR MIT) AND BSD-3-Clause
+Source: https://github.com/hsivonen/encoding_rs
+
+epaint 0.36.2
+License: MIT OR Apache-2.0
+Source: https://github.com/emilk/egui/tree/main/crates/epaint
+
+epaint_default_fonts 0.36.2
+License: (MIT OR Apache-2.0) AND OFL-1.1 AND Ubuntu-font-1.0
+Source: https://github.com/emilk/egui/tree/main/crates/epaint_default_fonts
+
+equivalent 1.0.3
+License: Apache-2.0 OR MIT
+Source: https://github.com/indexmap-rs/equivalent
+
+errno 0.3.14
+License: MIT OR Apache-2.0
+Source: https://github.com/lambda-fairy/rust-errno
+
+euclid 0.22.14
+License: MIT OR Apache-2.0
+Source: https://github.com/servo/euclid
+
+extended 0.1.0
+License: MIT
+Source: https://github.com/depp/extended-rs
+
+fastrand 2.5.0
+License: Apache-2.0 OR MIT
+Source: https://github.com/smol-rs/fastrand
+
+fax 0.2.7
+License: MIT
+Source: https://github.com/pdf-rs/fax
+
+fdeflate 0.3.7
+License: MIT OR Apache-2.0
+Source: https://github.com/image-rs/fdeflate
+
+fearless_simd 0.4.1
+License: Apache-2.0 OR MIT
+Source: https://github.com/linebender/fearless_simd
+
+filmcraft-aac 0.8.0
+License: MIT OR Apache-2.0
+Source: Filmcraft workspace
+
+filmcraft-ac3 0.8.0
+License: MIT OR Apache-2.0
+Source: Filmcraft workspace
+
+filmcraft-apv 0.8.0
+License: MIT OR Apache-2.0
+Source: Filmcraft workspace
+
+filmcraft-audio-dsp 0.8.0
+License: MIT OR Apache-2.0
+Source: Filmcraft workspace
+
+filmcraft-av1 0.8.0
+License: MIT OR Apache-2.0
+Source: Filmcraft workspace
+
+filmcraft-avi 0.8.0
+License: MIT OR Apache-2.0
+Source: Filmcraft workspace
+
+filmcraft-bitstream 0.8.0
+License: MIT OR Apache-2.0
+Source: Filmcraft workspace
+
+filmcraft-captions 0.8.0
+License: MIT OR Apache-2.0
+Source: Filmcraft workspace
+
+filmcraft-cfb 0.8.0
+License: MIT OR Apache-2.0
+Source: Filmcraft workspace
+
+filmcraft-codecs 0.8.0
+License: MIT OR Apache-2.0
+Source: Filmcraft workspace
+
+filmcraft-color 0.8.0
+License: MIT OR Apache-2.0
+Source: Filmcraft workspace
+
+filmcraft-dng 0.8.0
+License: MIT OR Apache-2.0
+Source: Filmcraft workspace
+
+filmcraft-dnx 0.8.0
+License: MIT OR Apache-2.0
+Source: Filmcraft workspace
+
+filmcraft-edit 0.8.0
+License: MIT OR Apache-2.0
+Source: Filmcraft workspace
+
+filmcraft-engine 0.8.0
+License: MIT OR Apache-2.0
+Source: Filmcraft workspace
+
+filmcraft-export 0.8.0
+License: MIT OR Apache-2.0
+Source: Filmcraft workspace
+
+filmcraft-flac 0.8.0
+License: MIT OR Apache-2.0
+Source: Filmcraft workspace
+
+filmcraft-format 0.8.0
+License: MIT OR Apache-2.0
+Source: Filmcraft workspace
+
+filmcraft-frame 0.8.0
+License: MIT OR Apache-2.0
+Source: Filmcraft workspace
+
+filmcraft-geom 0.8.0
+License: MIT OR Apache-2.0
+Source: Filmcraft workspace
+
+filmcraft-gpu 0.8.0
+License: MIT OR Apache-2.0
+Source: Filmcraft workspace
+
+filmcraft-h264 0.8.0
+License: MIT OR Apache-2.0
+Source: Filmcraft workspace
+
+filmcraft-h264enc 0.8.0
+License: MIT OR Apache-2.0
+Source: Filmcraft workspace
+
+filmcraft-haiku 0.8.0
+License: MIT OR Apache-2.0
+Source: Filmcraft workspace
+
+filmcraft-hevc 0.8.0
+License: MIT OR Apache-2.0
+Source: Filmcraft workspace
+
+filmcraft-interchange 0.8.0
+License: MIT OR Apache-2.0
+Source: Filmcraft workspace
+
+filmcraft-isobmff 0.8.0
+License: MIT OR Apache-2.0
+Source: Filmcraft workspace
+
+filmcraft-matroska 0.8.0
+License: MIT OR Apache-2.0
+Source: Filmcraft workspace
+
+filmcraft-media 0.8.0
+License: MIT OR Apache-2.0
+Source: Filmcraft workspace
+
+filmcraft-mpa 0.8.0
+License: MIT OR Apache-2.0
+Source: Filmcraft workspace
+
+filmcraft-mpeg2v 0.8.0
+License: MIT OR Apache-2.0
+Source: Filmcraft workspace
+
+filmcraft-mpegts 0.8.0
+License: MIT OR Apache-2.0
+Source: Filmcraft workspace
+
+filmcraft-mxf 0.8.0
+License: MIT OR Apache-2.0
+Source: Filmcraft workspace
+
+filmcraft-ogg 0.8.0
+License: MIT OR Apache-2.0
+Source: Filmcraft workspace
+
+filmcraft-opus 0.8.0
+License: MIT OR Apache-2.0
+Source: Filmcraft workspace
+
+filmcraft-project 0.8.0
+License: MIT OR Apache-2.0
+Source: Filmcraft workspace
+
+filmcraft-prores 0.8.0
+License: MIT OR Apache-2.0
+Source: Filmcraft workspace
+
+filmcraft-render 0.8.0
+License: MIT OR Apache-2.0
+Source: Filmcraft workspace
+
+filmcraft-scopes 0.8.0
+License: MIT OR Apache-2.0
+Source: Filmcraft workspace
+
+filmcraft-speech 0.8.0
+License: MIT OR Apache-2.0
+Source: Filmcraft workspace
+
+filmcraft-text 0.8.0
+License: MIT OR Apache-2.0
+Source: Filmcraft workspace
+
+filmcraft-time 0.8.0
+License: MIT OR Apache-2.0
+Source: Filmcraft workspace
+
+filmcraft-tts 0.8.0
+License: MIT OR Apache-2.0
+Source: Filmcraft workspace
+
+filmcraft-ui-egui 0.8.0
+License: MIT OR Apache-2.0
+Source: Filmcraft workspace
+
+filmcraft-vp8 0.8.0
+License: MIT OR Apache-2.0
+Source: Filmcraft workspace
+
+filmcraft-vp9 0.8.0
+License: MIT OR Apache-2.0
+Source: Filmcraft workspace
+
+find-msvc-tools 0.1.14
+License: MIT OR Apache-2.0
+Source: https://github.com/rust-lang/cc-rs
+
+flate2 1.1.10
+License: MIT OR Apache-2.0
+Source: https://github.com/rust-lang/flate2-rs
+
+foldhash 0.2.0
+License: Zlib
+Source: https://github.com/orlp/foldhash
+
+font-types 0.12.6
+License: MIT OR Apache-2.0
+Source: https://github.com/googlefonts/fontations
+
+gethostname 1.1.0
+License: Apache-2.0
+Source: https://codeberg.org/swsnr/gethostname.rs.git
+
+getrandom 0.3.4
+License: MIT OR Apache-2.0
+Source: https://github.com/rust-random/getrandom
+
+gif 0.14.2
+License: MIT OR Apache-2.0
+Source: https://github.com/image-rs/image-gif
+
+glifo 0.2.0
+License: Apache-2.0 OR MIT
+Source: https://github.com/linebender/vello
+
+glow 0.17.0
+License: MIT OR Apache-2.0 OR Zlib
+Source: https://github.com/grovesNL/glow
+
+gpu-allocator 0.28.0
+License: MIT OR Apache-2.0
+Source: https://github.com/Traverse-Research/gpu-allocator
+
+guillotiere 0.7.0
+License: MIT/Apache-2.0
+Source: https://github.com/nical/guillotiere
+
+half 2.7.1
+License: MIT OR Apache-2.0
+Source: https://github.com/VoidStarKat/half-rs
+
+harfrust 0.12.0
+License: MIT
+Source: https://github.com/harfbuzz/harfrust
+
+hashbrown 0.16.1
+License: MIT OR Apache-2.0
+Source: https://github.com/rust-lang/hashbrown
+
+hashbrown 0.17.1
+License: MIT OR Apache-2.0
+Source: https://github.com/rust-lang/hashbrown
+
+image 0.25.10
+License: MIT OR Apache-2.0
+Source: https://github.com/image-rs/image
+
+image-webp 0.2.4
+License: MIT OR Apache-2.0
+Source: https://github.com/image-rs/image-webp
+
+indexmap 2.14.2
+License: Apache-2.0 OR MIT
+Source: https://github.com/indexmap-rs/indexmap
+
+itertools 0.15.0
+License: MIT OR Apache-2.0
+Source: https://github.com/rust-itertools/itertools
+
+itoa 1.0.18
+License: MIT OR Apache-2.0
+Source: https://github.com/dtolnay/itoa
+
+jobserver 0.1.35
+License: MIT OR Apache-2.0
+Source: https://github.com/rust-lang/jobserver-rs
+
+khronos-egl 6.0.0
+License: MIT/Apache-2.0
+Source: https://github.com/timothee-haudebourg/khronos-egl
+
+kurbo 0.13.1
+License: Apache-2.0 OR MIT
+Source: https://github.com/linebender/kurbo
+
+lazy_static 1.5.1
+License: MIT OR Apache-2.0
+Source: https://github.com/rust-lang-nursery/lazy-static.rs
+
+libc 0.2.190
+License: MIT OR Apache-2.0
+Source: https://github.com/rust-lang/libc
+
+libloading 0.8.9
+License: ISC
+Source: https://github.com/nagisa/rust_libloading/
+
+libm 0.2.16
+License: MIT
+Source: https://github.com/rust-lang/compiler-builtins
+
+linebender_resource_handle 0.1.1
+License: Apache-2.0 OR MIT
+Source: https://github.com/linebender/raw_resource_handle
+
+litrs 1.0.1
+License: MIT OR Apache-2.0
+Source: https://github.com/LukasKalbertodt/litrs
+
+lock_api 0.4.14
+License: MIT OR Apache-2.0
+Source: https://github.com/Amanieu/parking_lot
+
+log 0.4.34
+License: MIT OR Apache-2.0
+Source: https://github.com/rust-lang/log
+
+memchr 2.8.3
+License: Unlicense OR MIT
+Source: https://github.com/BurntSushi/memchr
+
+memmap2 0.9.11
+License: MIT OR Apache-2.0
+Source: https://github.com/RazrFalcon/memmap2-rs
+
+memoffset 0.9.1
+License: MIT
+Source: https://github.com/Gilnaa/memoffset
+
+miniz_oxide 0.8.9
+License: MIT OR Zlib OR Apache-2.0
+Source: https://github.com/Frommi/miniz_oxide/tree/master/miniz_oxide
+
+miniz_oxide 0.9.1
+License: MIT OR Zlib OR Apache-2.0
+Source: https://github.com/Frommi/miniz_oxide/tree/master/miniz_oxide
+
+moxcms 0.8.1
+License: BSD-3-Clause OR Apache-2.0
+Source: https://github.com/awxkee/moxcms.git
+
+multiversion_no_op 1.0.0
+License: Apache-2.0 OR MIT
+Source: https://github.com/hsivonen/multiversion_no_op
+
+naga 30.0.1
+License: MIT OR Apache-2.0
+Source: https://github.com/gfx-rs/wgpu
+
+naga-types 30.0.1
+License: MIT OR Apache-2.0
+Source: https://github.com/gfx-rs/wgpu
+
+nohash-hasher 0.2.0
+License: Apache-2.0 OR MIT
+Source: https://github.com/paritytech/nohash-hasher
+
+num-traits 0.2.19
+License: MIT OR Apache-2.0
+Source: https://github.com/rust-num/num-traits
+
+once_cell 1.21.4
+License: MIT OR Apache-2.0
+Source: https://github.com/matklad/once_cell
+
+ordered-float 5.5.0
+License: MIT
+Source: https://github.com/reem/rust-ordered-float
+
+owned_ttf_parser 0.25.1
+License: Apache-2.0
+Source: https://github.com/alexheretic/owned-ttf-parser
+
+parking_lot 0.12.5
+License: MIT OR Apache-2.0
+Source: https://github.com/Amanieu/parking_lot
+
+parking_lot_core 0.9.12
+License: MIT OR Apache-2.0
+Source: https://github.com/Amanieu/parking_lot
+
+peniko 0.6.1
+License: Apache-2.0 OR MIT
+Source: https://github.com/linebender/peniko
+
+percent-encoding 2.3.2
+License: MIT OR Apache-2.0
+Source: https://github.com/servo/rust-url/
+
+pin-project-lite 0.2.17
+License: Apache-2.0 OR MIT
+Source: https://github.com/taiki-e/pin-project-lite
+
+pkg-config 0.3.34
+License: MIT OR Apache-2.0
+Source: https://github.com/rust-lang/pkg-config-rs
+
+png 0.18.1
+License: MIT OR Apache-2.0
+Source: https://github.com/image-rs/image-png
+
+polling 3.11.0
+License: Apache-2.0 OR MIT
+Source: https://github.com/smol-rs/polling
+
+pollster 0.4.0
+License: Apache-2.0/MIT
+Source: https://github.com/zesterer/pollster
+
+pollster 1.0.1
+License: Apache-2.0/MIT
+Source: https://github.com/zesterer/pollster
+
+polycool 0.4.0
+License: MIT OR Apache-2.0
+Source: https://github.com/linebender/kurbo
+
+presser 0.3.1
+License: MIT OR Apache-2.0
+Source: https://github.com/EmbarkStudios/presser
+
+proc-macro2 1.0.107
+License: MIT OR Apache-2.0
+Source: https://github.com/dtolnay/proc-macro2
+
+profiling 1.0.18
+License: MIT OR Apache-2.0
+Source: https://github.com/aclysma/profiling
+
+pxfm 0.1.30
+License: BSD-3-Clause OR Apache-2.0
+Source: https://github.com/awxkee/pxfm
+
+quick-error 2.0.1
+License: MIT/Apache-2.0
+Source: http://github.com/tailhook/quick-error
+
+quick-xml 0.41.0
+License: MIT
+Source: https://github.com/tafia/quick-xml
+
+quote 1.0.47
+License: MIT OR Apache-2.0
+Source: https://github.com/dtolnay/quote
+
+raw-window-handle 0.6.2
+License: MIT OR Apache-2.0 OR Zlib
+Source: https://github.com/rust-windowing/raw-window-handle
+
+rayon 1.12.0
+License: MIT OR Apache-2.0
+Source: https://github.com/rayon-rs/rayon
+
+rayon-core 1.13.0
+License: MIT OR Apache-2.0
+Source: https://github.com/rayon-rs/rayon
+
+read-fonts 0.41.0
+License: MIT OR Apache-2.0
+Source: https://github.com/googlefonts/fontations
+
+renderdoc-sys 1.1.0
+License: MIT OR Apache-2.0
+Source: https://github.com/ebkalderon/renderdoc-rs
+
+rfd 0.17.2
+License: MIT
+Source: https://github.com/PolyMeilex/rfd
+
+roxmltree 0.21.1
+License: MIT OR Apache-2.0
+Source: https://github.com/RazrFalcon/roxmltree
+
+rustc-hash 1.1.0
+License: Apache-2.0/MIT
+Source: https://github.com/rust-lang-nursery/rustc-hash
+
+rustc-hash 2.1.3
+License: Apache-2.0 OR MIT
+Source: https://github.com/rust-lang/rustc-hash
+
+rustix 0.38.44
+License: Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
+Source: https://github.com/bytecodealliance/rustix
+
+rustix 1.1.5
+License: Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
+Source: https://github.com/bytecodealliance/rustix
+
+rustversion 1.0.23
+License: MIT OR Apache-2.0
+Source: https://github.com/dtolnay/rustversion
+
+scoped-tls 1.0.1
+License: MIT/Apache-2.0
+Source: https://github.com/alexcrichton/scoped-tls
+
+scopeguard 1.2.0
+License: MIT OR Apache-2.0
+Source: https://github.com/bluss/scopeguard
+
+sctk-adwaita 0.10.1
+License: MIT
+Source: https://github.com/PolyMeilex/sctk-adwaita
+
+sdl2 0.38.0
+License: MIT
+Source: https://github.com/Rust-SDL2/rust-sdl2
+
+sdl2-sys 0.38.0
+License: MIT AND Zlib
+Source: https://github.com/rust-sdl2/rust-sdl2
+
+self_cell 1.3.0
+License: Apache-2.0 OR GPL-2.0-only
+Source: https://github.com/Voultapher/self_cell
+
+serde 1.0.229
+License: MIT OR Apache-2.0
+Source: https://github.com/serde-rs/serde
+
+serde_core 1.0.229
+License: MIT OR Apache-2.0
+Source: https://github.com/serde-rs/serde
+
+serde_derive 1.0.229
+License: MIT OR Apache-2.0
+Source: https://github.com/serde-rs/serde
+
+serde_json 1.0.154
+License: MIT OR Apache-2.0
+Source: https://github.com/serde-rs/json
+
+serde_spanned 1.1.2
+License: MIT OR Apache-2.0
+Source: https://github.com/toml-rs/toml
+
+shlex 2.0.1
+License: MIT OR Apache-2.0
+Source: https://github.com/comex/rust-shlex
+
+simd-adler32 0.3.10
+License: MIT
+Source: https://github.com/mcountryman/simd-adler32
+
+simdutf8 0.1.5
+License: MIT OR Apache-2.0
+Source: https://github.com/rusticstuff/simdutf8
+
+skrifa 0.44.0
+License: MIT OR Apache-2.0
+Source: https://github.com/googlefonts/fontations
+
+slab 0.4.12
+License: MIT
+Source: https://github.com/tokio-rs/slab
+
+smallvec 1.16.3
+License: MIT OR Apache-2.0
+Source: https://github.com/servo/rust-smallvec
+
+smithay-client-toolkit 0.19.2
+License: MIT
+Source: https://github.com/smithay/client-toolkit
+
+smol_str 0.2.2
+License: MIT OR Apache-2.0
+Source: https://github.com/rust-analyzer/smol_str
+
+softbuffer 0.4.8
+License: MIT OR Apache-2.0
+Source: https://github.com/rust-windowing/softbuffer
+
+spirv 0.4.0+sdk-1.4.341.0
+License: Apache-2.0
+Source: https://github.com/gfx-rs/rspirv
+
+static_assertions 1.1.0
+License: MIT OR Apache-2.0
+Source: https://github.com/nvzqz/static-assertions-rs
+
+strength_reduce 0.2.4
+License: MIT OR Apache-2.0
+Source: http://github.com/ejmahler/strength_reduce
+
+strict-num 0.1.1
+License: MIT
+Source: https://github.com/RazrFalcon/strict-num
+
+symphonia 0.5.5
+License: MPL-2.0
+Source: https://github.com/pdeljanov/Symphonia
+
+symphonia-bundle-flac 0.5.5
+License: MPL-2.0
+Source: https://github.com/pdeljanov/Symphonia
+
+symphonia-bundle-mp3 0.5.5
+License: MPL-2.0
+Source: https://github.com/pdeljanov/Symphonia
+
+symphonia-codec-aac 0.5.5
+License: MPL-2.0
+Source: https://github.com/pdeljanov/Symphonia
+
+symphonia-codec-alac 0.5.5
+License: MPL-2.0
+Source: https://github.com/pdeljanov/Symphonia
+
+symphonia-codec-pcm 0.5.5
+License: MPL-2.0
+Source: https://github.com/pdeljanov/Symphonia
+
+symphonia-codec-vorbis 0.5.5
+License: MPL-2.0
+Source: https://github.com/pdeljanov/Symphonia
+
+symphonia-core 0.5.5
+License: MPL-2.0
+Source: https://github.com/pdeljanov/Symphonia
+
+symphonia-format-isomp4 0.5.5
+License: MPL-2.0
+Source: https://github.com/pdeljanov/Symphonia
+
+symphonia-format-ogg 0.5.5
+License: MPL-2.0
+Source: https://github.com/pdeljanov/Symphonia
+
+symphonia-format-riff 0.5.5
+License: MPL-2.0
+Source: https://github.com/pdeljanov/Symphonia
+
+symphonia-metadata 0.5.5
+License: MPL-2.0
+Source: https://github.com/pdeljanov/Symphonia
+
+symphonia-utils-xiph 0.5.5
+License: MPL-2.0
+Source: https://github.com/pdeljanov/Symphonia
+
+syn 2.0.119
+License: MIT OR Apache-2.0
+Source: https://github.com/dtolnay/syn
+
+syn 3.0.9
+License: MIT OR Apache-2.0
+Source: https://github.com/dtolnay/syn
+
+termcolor 1.4.1
+License: Unlicense OR MIT
+Source: https://github.com/BurntSushi/termcolor
+
+thiserror 1.0.69
+License: MIT OR Apache-2.0
+Source: https://github.com/dtolnay/thiserror
+
+thiserror 2.0.21
+License: MIT OR Apache-2.0
+Source: https://github.com/dtolnay/thiserror
+
+thiserror-impl 1.0.69
+License: MIT OR Apache-2.0
+Source: https://github.com/dtolnay/thiserror
+
+thiserror-impl 2.0.21
+License: MIT OR Apache-2.0
+Source: https://github.com/dtolnay/thiserror
+
+tiff 0.11.3
+License: MIT
+Source: https://github.com/image-rs/image-tiff
+
+tiny-skia 0.11.4
+License: BSD-3-Clause
+Source: https://github.com/RazrFalcon/tiny-skia
+
+tiny-skia-path 0.11.4
+License: BSD-3-Clause
+Source: https://github.com/RazrFalcon/tiny-skia/tree/master/path
+
+tiny-xlib 0.2.5
+License: MIT OR Apache-2.0 OR Zlib
+Source: https://github.com/rust-windowing/tiny-xlib
+
+toml 1.1.8+spec-1.1.0
+License: MIT OR Apache-2.0
+Source: https://github.com/toml-rs/toml
+
+toml_datetime 1.1.2+spec-1.1.0
+License: MIT OR Apache-2.0
+Source: https://github.com/toml-rs/toml
+
+toml_parser 1.1.5+spec-1.1.0
+License: MIT OR Apache-2.0
+Source: https://github.com/toml-rs/toml
+
+toml_writer 1.1.3+spec-1.1.0
+License: MIT OR Apache-2.0
+Source: https://github.com/toml-rs/toml
+
+tracing 0.1.44
+License: MIT
+Source: https://github.com/tokio-rs/tracing
+
+tracing-attributes 0.1.31
+License: MIT
+Source: https://github.com/tokio-rs/tracing
+
+tracing-core 0.1.36
+License: MIT
+Source: https://github.com/tokio-rs/tracing
+
+ttf-parser 0.25.1
+License: MIT OR Apache-2.0
+Source: https://github.com/harfbuzz/ttf-parser
+
+type-map 0.5.1
+License: MIT/Apache-2.0
+Source: https://github.com/kardeiz/type-map
+
+unicode-bidi 0.3.18
+License: MIT OR Apache-2.0
+Source: https://github.com/servo/unicode-bidi
+
+unicode-general-category 1.1.0
+License: Apache-2.0
+Source: https://github.com/yeslogic/unicode-general-category
+
+unicode-ident 1.0.27
+License: (MIT OR Apache-2.0) AND Unicode-3.0
+Source: https://github.com/dtolnay/unicode-ident
+
+unicode-linebreak 0.1.5
+License: Apache-2.0
+Source: https://github.com/axelf4/unicode-linebreak
+
+unicode-segmentation 1.13.3
+License: MIT OR Apache-2.0
+Source: https://github.com/unicode-rs/unicode-segmentation
+
+unicode-width 0.2.2
+License: MIT OR Apache-2.0
+Source: https://github.com/unicode-rs/unicode-width
+
+uuid 1.28.0
+License: Apache-2.0 OR MIT
+Source: https://github.com/uuid-rs/uuid
+
+vello_common 0.1.0
+License: Apache-2.0 OR MIT
+Source: https://github.com/linebender/vello
+
+vello_cpu 0.1.0
+License: Apache-2.0 OR MIT
+Source: https://github.com/linebender/vello
+
+version-compare 0.1.1
+License: MIT
+Source: https://gitlab.com/timvisee/version-compare
+
+version_check 0.9.5
+License: MIT/Apache-2.0
+Source: https://github.com/SergioBenitez/version_check
+
+wayland-backend 0.3.17
+License: MIT
+Source: https://github.com/smithay/wayland-rs
+
+wayland-client 0.31.15
+License: MIT
+Source: https://github.com/smithay/wayland-rs
+
+wayland-csd-frame 0.3.0
+License: MIT
+Source: https://github.com/rust-windowing/wayland-csd-frame
+
+wayland-cursor 0.31.14
+License: MIT
+Source: https://github.com/smithay/wayland-rs
+
+wayland-protocols 0.32.13
+License: MIT
+Source: https://github.com/smithay/wayland-rs
+
+wayland-protocols-plasma 0.3.12
+License: MIT
+Source: https://github.com/smithay/wayland-rs
+
+wayland-protocols-wlr 0.3.12
+License: MIT
+Source: https://github.com/smithay/wayland-rs
+
+wayland-scanner 0.31.11
+License: MIT
+Source: https://github.com/smithay/wayland-rs
+
+wayland-scanner 0.31.11
+License: MIT
+Source: https://github.com/smithay/wayland-rs
+
+wayland-sys 0.31.11
+License: MIT
+Source: https://github.com/smithay/wayland-rs
+
+wayland-sys 0.31.11
+License: MIT
+Source: https://github.com/smithay/wayland-rs
+
+web-time 1.1.0
+License: MIT OR Apache-2.0
+Source: https://github.com/daxpedda/web-time
+
+weezl 0.1.12
+License: MIT OR Apache-2.0
+Source: https://github.com/image-rs/weezl
+
+wgpu 30.0.1
+License: MIT OR Apache-2.0
+Source: https://github.com/gfx-rs/wgpu
+
+wgpu-core 30.0.1
+License: MIT OR Apache-2.0
+Source: https://github.com/gfx-rs/wgpu
+
+wgpu-hal 30.0.1
+License: MIT OR Apache-2.0
+Source: https://github.com/gfx-rs/wgpu
+
+wgpu-naga-bridge 30.0.1
+License: MIT OR Apache-2.0
+Source: https://github.com/gfx-rs/wgpu
+
+wgpu-types 30.0.1
+License: MIT OR Apache-2.0
+Source: https://github.com/gfx-rs/wgpu
+
+winit 0.30.13
+License: Apache-2.0
+Source: https://github.com/rust-windowing/winit
+
+winnow 1.0.4
+License: MIT
+Source: https://github.com/winnow-rs/winnow
+
+x11-dl 2.21.0
+License: MIT
+Source: https://github.com/AltF02/x11-rs.git
+
+x11rb 0.13.2
+License: MIT OR Apache-2.0
+Source: https://github.com/psychon/x11rb
+
+x11rb-protocol 0.13.2
+License: MIT OR Apache-2.0
+Source: https://github.com/psychon/x11rb
+
+xcursor 0.3.11
+License: MIT
+Source: https://github.com/esposm03/xcursor-rs
+
+xkbcommon-dl 0.4.2
+License: MIT
+Source: https://github.com/rust-windowing/xkbcommon-dl
+
+xkeysym 0.2.1
+License: MIT OR Apache-2.0 OR Zlib
+Source: https://github.com/notgull/xkeysym
+
+zerocopy 0.8.63
+License: BSD-2-Clause OR Apache-2.0 OR MIT
+Source: https://github.com/google/zerocopy
+
+zerocopy-derive 0.8.63
+License: BSD-2-Clause OR Apache-2.0 OR MIT
+Source: https://github.com/google/zerocopy
+
+zlib-rs 0.6.8
+License: Zlib
+Source: https://github.com/trifectatechfoundation/zlib-rs
+
+zmij 1.0.23
+License: MIT
+Source: https://github.com/dtolnay/zmij
+
+zune-core 0.5.3
+License: MIT OR Apache-2.0 OR Zlib
+Source: https://github.com/etemesi254/zune-image
+
+zune-jpeg 0.5.15
+License: MIT OR Apache-2.0 OR Zlib
+Source: https://github.com/etemesi254/zune-image/tree/dev/crates/zune-jpeg

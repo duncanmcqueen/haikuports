@@ -156,3 +156,35 @@ System printing, system clipboard integration and persistent settings are not
 wired into the frontend. The Haiku process-exit workaround remains necessary.
 The original tar-directory installations are preserved. This package's vendor
 field follows the repository convention and does not imply Haiku endorsement.
+
+## Filmcraft 0.8.0
+
+Package: `filmcraft-0.8.0-4-x86_64.hpkg`. Sources, the full port patch, pinned
+Cargo.lock, license texts and package builder are in `sources/filmcraft/`.
+AI assistance was used. This is an experimental personal package.
+
+- Upstream commit: `9ed9650cad4c9b22cb8d32f4a9ba8050cde20a62`.
+- Native build: Haiku hrev60228 x86_64, Rust/Cargo 1.99. It uses the CPU
+  compositor, egui software renderer, native file panels and SDL2 audio output.
+- Tests passed for short H.264/AAC media import/playback, Razor editing,
+  undo/redo, native Save As, project reopen, and one-second H.264/AAC export.
+  Exported media decoded without errors in the external test tool.
+- Both menu Quit and the native close button passed save-before-close and Cancel.
+- The menu row is separate from the toolbar. Both 1100px and 960px layouts
+  were inspected. Corrected speaker/moon icon snapping removes NaN geometry
+  and the diagonal dotted line. The regression failed before and passes after.
+- Eleven focused application tests, all-target clippy and formatting passed.
+  Full upstream workspace CI and a clean reconstruction from the published
+  source instructions have not been run.
+- Revision 3's native package was installed and launched from Deskbar. Revision 4
+  packages the same Rust executable with the repository vendor convention and
+  an incremented application resource revision. No new Rust build is claimed.
+  Its staged executable reports the expected application and CLI versions.
+- The native repository builder accepts the new package and all 14 existing
+  indexed packages. Existing packages were checked against their old hashes.
+- Hardware acceleration and microphone capture are not implemented. Large
+  projects, other codecs, clipboard integration and long sessions need testing.
+- The package vendor follows the repository convention; it does not imply
+  Haiku endorsement. The process-exit workaround remains in use.
+
+SHA-256: `eaf111367f9d9982c85ef7cbf53b222dd787f4f2e6052bffe1f1b574f0cecf4c`.

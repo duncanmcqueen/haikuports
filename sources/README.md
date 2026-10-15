@@ -120,3 +120,9 @@ See [wordcraft/README.md](wordcraft/README.md) for source reconstruction, patche
 and the native package builder. This experimental port uses a custom packaging
 script rather than a HaikuPorter recipe. Its first package contains the tested
 r3 GUI and CLI binaries. A fresh clean reconstruction is not yet validated.
+
+## Filmcraft (`filmcraft`)
+
+See [filmcraft/README.md](filmcraft/README.md) for the source patch, pinned
+dependencies, build instructions and tests. The published package is assembled
+natively from the tested executable. It is not a HaikuPorter recipe build.

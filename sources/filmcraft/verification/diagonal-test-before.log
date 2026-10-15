@@ -1,0 +1,23 @@
+   Compiling filmcraft-haiku v0.8.0 (/home/dwmcqueen/Projects/HaikuOS/filmcraft-on-haiku/src/apps/filmcraft-haiku)
+    Finished `test` profile [unoptimized] target(s) in 2.12s
+     Running unittests src/main.rs (filmcraft-on-haiku/src/apps/filmcraft-haiku/target/debug/deps/filmcraft_haiku-7290908754636485)
+
+running 1 test
+test tests::speaker_icon_mesh_has_finite_vertices ... FAILED
+
+failures:
+
+---- tests::speaker_icon_mesh_has_finite_vertices stdout ----
+
+thread 'tests::speaker_icon_mesh_has_finite_vertices' (136) panicked at src/main.rs:181:17:
+assertion failed: mesh.vertices.iter().all(|vertex|
+        vertex.pos.is_finite() && vertex.uv.is_finite())
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    tests::speaker_icon_mesh_has_finite_vertices
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 10 filtered out; finished in 0.01s
+
+error: test failed, to rerun pass `--bin filmcraft-haiku`

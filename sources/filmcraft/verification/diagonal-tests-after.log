@@ -1,0 +1,19 @@
+   Compiling filmcraft-haiku v0.8.0 (/home/dwmcqueen/Projects/HaikuOS/filmcraft-on-haiku/src/apps/filmcraft-haiku)
+    Finished `test` profile [unoptimized] target(s) in 1.90s
+     Running unittests src/main.rs (filmcraft-on-haiku/src/apps/filmcraft-haiku/target/debug/deps/filmcraft_haiku-7290908754636485)
+
+running 11 tests
+test audio::tests::failed_mix_is_silenced_without_unwinding ... ok
+test control_server::tests::line_at_the_limit_is_accepted ... ok
+test control_server::tests::a_request_before_junk_still_runs ... ok
+test control_server::tests::http_request_closes_before_the_body_runs ... ok
+test control_server::tests::non_request_json_closes_the_connection ... ok
+test control_server::tests::requests_are_answered_in_order_with_ids ... ok
+test control_server::tests::tcp_connection_is_closed_after_junk ... ok
+test control_server::tests::extra_connections_are_refused ... ok
+test control_server::tests::overlong_line_is_refused ... ok
+test tests::toolbar_icon_mesh_has_finite_vertices ... ok
+test tests::menu_close_preserves_unsaved_project ... ok
+
+test result: ok. 11 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.13s
+

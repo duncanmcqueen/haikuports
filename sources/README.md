@@ -126,3 +126,9 @@ r3 GUI and CLI binaries. A fresh clean reconstruction is not yet validated.
 See [filmcraft/README.md](filmcraft/README.md) for the source patch, pinned
 dependencies, build instructions and tests. The published package is assembled
 natively from the tested executable. It is not a HaikuPorter recipe build.
+
+## Pdfcraft (`pdfcraft`)
+
+See [pdfcraft/README.md](pdfcraft/README.md) for the pinned source, port patch,
+build scripts and native PDF/save/close tests. The package includes the GUI
+and CLI. It is an experimental native package-create build.

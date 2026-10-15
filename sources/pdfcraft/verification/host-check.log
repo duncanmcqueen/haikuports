@@ -1,0 +1,492 @@
+    Updating git repository `https://github.com/duncanmcqueen/calloop`
+    Updating git repository `https://github.com/duncanmcqueen/calloop`
+    Updating git repository `https://github.com/duncanmcqueen/rfd`
+    Updating git repository `https://github.com/duncanmcqueen/client-toolkit`
+    Updating git repository `https://github.com/duncanmcqueen/client-toolkit`
+    Updating git repository `https://github.com/duncanmcqueen/wayland-rs`
+    Updating git repository `https://github.com/duncanmcqueen/winit`
+    Updating crates.io index
+    Updating git repository `https://github.com/duncanmcqueen/egui_software_backend`
+    Updating git repository `https://github.com/storytold/craft-libs`
+    Updating git repository `https://github.com/storytold/craft-libs`
+    Updating git repository `https://github.com/storytold/winprint.rs`
+     Locking 745 packages to latest Rust 1.98.1 compatible versions
+      Adding base64 v0.22.1 (available: v0.23.1)
+      Adding generic-array v0.14.7 (available: v0.14.9)
+      Adding rsa v0.10.0-rc.18 (available: v0.10.0-rc.19)
+ Downloading crates ...
+  Downloaded block-padding v0.4.2
+  Downloaded cow-utils v0.1.3
+  Downloaded utf16_iter v1.0.5
+  Downloaded tap v1.0.1
+  Downloaded untrusted v0.7.1
+  Downloaded base16ct v1.0.0
+  Downloaded time-core v0.1.9
+  Downloaded curve25519-dalek-derive v0.1.1
+  Downloaded zeroize_derive v1.5.0
+  Downloaded wnaf v0.14.1
+  Downloaded tag_ptr v0.1.0
+  Downloaded write16 v1.0.0
+  Downloaded enumn v0.1.14
+  Downloaded dunce v1.0.5
+  Downloaded typeid v1.0.3
+  Downloaded num_cpus v1.17.0
+  Downloaded num-conv v0.2.2
+  Downloaded strum_macros v0.28.0
+  Downloaded inout v0.2.3
+  Downloaded heck v0.5.0
+  Downloaded num_threads v0.1.7
+  Downloaded stringprep v0.1.5
+  Downloaded thin-vec v0.2.21
+  Downloaded time-macros v0.2.32
+  Downloaded rten-parallel v0.26.0
+  Downloaded small_btree v0.1.0
+  Downloaded tinyvec v1.13.3
+  Downloaded cmake v0.1.58
+  Downloaded boa_gc v0.22.0
+  Downloaded weezl v0.2.1
+  Downloaded base64ct v1.8.3
+  Downloaded vello_cpu v0.0.8
+  Downloaded rc2 v0.9.0
+  Downloaded rten-base v0.26.0
+  Downloaded signature v3.0.0
+  Downloaded unicode-normalization v0.1.25
+  Downloaded vello_common v0.0.8
+  Downloaded vello_common v0.0.9
+  Downloaded powerfmt v0.2.1
+  Downloaded time v0.3.55
+  Downloaded rfc6979 v0.6.0
+  Downloaded strum v0.28.0
+  Downloaded boa_interner v0.22.0
+  Downloaded boa_macros v0.22.0
+  Downloaded dashmap v6.2.1
+  Downloaded deranged v0.5.9
+  Downloaded flatbuffers v24.12.23
+  Downloaded ecb v0.2.1
+  Downloaded ed25519 v3.0.0
+  Downloaded dynify-macros v0.1.2
+  Downloaded fs_extra v1.3.0
+  Downloaded group v0.14.0
+  Downloaded keccak v0.2.2
+  Downloaded sponge-cursor v0.1.0
+  Downloaded boa_string v0.22.0
+  Downloaded cbc v0.2.1
+  Downloaded pem-rfc7468 v1.0.0
+  Downloaded primefield v0.14.0
+  Downloaded ripemd v0.2.0
+  Downloaded rten-vecmath v0.26.0
+  Downloaded md-5 v0.11.0
+  Downloaded pastey v0.2.3
+  Downloaded serdect v0.4.3
+  Downloaded phf_shared v0.14.0
+  Downloaded pbkdf2 v0.13.0
+  Downloaded phf_macros v0.14.0
+  Downloaded primeorder v0.14.0
+  Downloaded rten-imageproc v0.26.0
+  Downloaded sec1 v0.8.1
+  Downloaded phf v0.14.0
+  Downloaded spki v0.8.1
+  Downloaded ff v0.14.0
+  Downloaded dynify v0.1.2
+  Downloaded ecdsa v0.17.0
+  Downloaded des v0.9.0
+  Downloaded fast-float2 v0.2.4
+  Downloaded iana-time-zone v0.1.65
+  Downloaded chacha20 v0.10.2
+  Downloaded phf_generator v0.14.0
+  Downloaded rand_core v0.10.1
+  Downloaded pkcs1 v0.8.0-rc.5
+  Downloaded pkcs8 v0.11.0
+  Downloaded rten-model-file v0.26.0
+  Downloaded arboard v3.7.0
+  Downloaded elliptic-curve v0.14.1
+  Downloaded glifo v0.1.1
+  Downloaded rten-shape-inference v0.26.0
+  Downloaded intrusive-collections v0.10.3
+  Downloaded oneshot v0.2.1
+  Downloaded rten-simd v0.26.0
+  Downloaded rten-gemm v0.26.0
+  Downloaded p384 v0.14.0
+  Downloaded p256 v0.14.0
+  Downloaded rangemap v1.8.0
+  Downloaded ryu-js v1.0.3
+  Downloaded boa_ast v0.22.0
+  Downloaded rten-tensor v0.26.0
+  Downloaded futures-concurrency v7.7.1
+  Downloaded ed25519-dalek v3.0.0
+  Downloaded bp256 v0.14.0
+  Downloaded boa_parser v0.22.0
+  Downloaded num-bigint v0.5.1
+  Downloaded rsa v0.10.0-rc.18
+  Downloaded der v0.8.2
+  Downloaded p521 v0.14.0
+  Downloaded rand v0.10.3
+  Downloaded ron v0.12.2
+  Downloaded hashbrown v0.14.5
+  Downloaded bp384 v0.14.0
+  Downloaded sha3 v0.12.0
+  Downloaded crypto-primes v0.7.2
+  Downloaded chrono v0.4.45
+  Downloaded aws-lc-rs v1.18.2
+  Downloaded pic-scale v0.7.12
+  Downloaded ocrs v0.13.1
+  Downloaded crypto-bigint v0.7.5
+  Downloaded curve25519-dalek v5.0.0
+  Downloaded regress v0.12.0
+  Downloaded rten v0.26.0
+  Downloaded boa_engine v0.22.0
+  Downloaded aws-lc-sys v0.46.0
+   Compiling serde_core v1.0.229
+   Compiling syn v3.0.9
+   Compiling serde v1.0.229
+    Checking bitflags v2.13.2
+    Checking subtle v2.6.1
+    Checking zeroize v1.9.1
+    Checking rand_core v0.10.1
+   Compiling getrandom v0.4.3
+    Checking typenum v1.20.1
+    Checking hybrid-array v0.4.15
+   Compiling num-traits v0.2.19
+    Checking crypto-common v0.2.2
+   Compiling serde_derive v1.0.229
+   Compiling bytemuck_derive v1.12.1
+    Checking bytemuck v1.25.2
+   Compiling thiserror-impl v2.0.21
+    Checking thiserror v2.0.21
+    Checking cmov v0.5.4
+    Checking ctutils v0.4.3
+    Checking smallvec v1.16.3
+    Checking const-oid v0.10.2
+    Checking block-buffer v0.12.1
+    Checking rustix v1.1.5
+    Checking digest v0.11.3
+    Checking cpubits v0.1.1
+    Checking cpufeatures v0.3.1
+   Compiling jobserver v0.1.35
+   Compiling cc v1.8.0
+    Checking font-types v0.12.6
+    Checking block-padding v0.4.2
+   Compiling synstructure v0.14.0
+    Checking inout v0.2.3
+    Checking hashbrown v0.17.1
+    Checking cipher v0.5.2
+    Checking tinyvec v1.13.3
+    Checking sha2 v0.11.1
+    Checking unicode-normalization v0.1.25
+    Checking unicode-properties v0.1.4
+    Checking stringprep v0.1.5
+    Checking read-fonts v0.41.0
+   Compiling zerofrom-derive v0.1.8
+    Checking zerofrom v0.1.8
+    Checking aes v0.9.3
+    Checking polling v3.11.0 (/home/dwmcqueen/Projects/HaikuOS/pdfcraft-on-haiku/src/port-crates/polling)
+   Compiling yoke-derive v0.8.4
+    Checking md-5 v0.11.0
+    Checking stable_deref_trait v1.2.1
+    Checking yoke v0.8.3
+   Compiling wayland-backend v0.3.17 (https://github.com/duncanmcqueen/wayland-rs?rev=df9f9fc64a7b4bc5d16cec99e9b0bab86be29092#df9f9fc6)
+    Checking pdfcraft-crypt v0.8.0 (/home/dwmcqueen/Projects/HaikuOS/pdfcraft-on-haiku/src/crates/crypt)
+   Compiling zvariant_utils v4.2.0
+    Checking pdfcraft-filters v0.8.0 (/home/dwmcqueen/Projects/HaikuOS/pdfcraft-on-haiku/src/crates/filters)
+    Checking harfrust v0.12.0
+    Checking skrifa v0.44.0
+    Checking pdfcraft-cos v0.8.0 (/home/dwmcqueen/Projects/HaikuOS/pdfcraft-on-haiku/src/crates/cos)
+   Compiling zvariant_derive v5.15.0
+    Checking kurbo v0.13.1
+    Checking wayland-client v0.31.15 (https://github.com/duncanmcqueen/wayland-rs?rev=df9f9fc64a7b4bc5d16cec99e9b0bab86be29092#df9f9fc6)
+    Checking half v2.7.1
+   Compiling zerovec-derive v0.11.6
+    Checking fearless_simd v0.4.1
+    Checking zerovec v0.11.8
+    Checking parking_lot_core v0.9.12
+    Checking indexmap v2.14.2
+   Compiling displaydoc v0.2.7
+   Compiling typeid v1.0.3
+   Compiling enumflags2 v0.7.12
+   Compiling zcheapstr v1.1.0
+    Checking uuid v1.28.0
+   Compiling pdfcraft-fonts v0.8.0 (/home/dwmcqueen/Projects/HaikuOS/pdfcraft-on-haiku/src/crates/fonts)
+   Compiling zvariant v5.15.0
+    Checking color v0.3.3
+    Checking euclid v0.22.14
+    Checking peniko v0.6.1
+    Checking guillotiere v0.7.0
+   Compiling zbus_names v4.3.4
+    Checking tinystr v0.8.4
+    Checking crypto-bigint v0.7.5
+    Checking writeable v0.6.4
+    Checking litemap v0.8.3
+    Checking icu_locale_core v2.3.0
+    Checking wayland-protocols v0.32.13
+    Checking zerotrie v0.2.5
+    Checking potential_utf v0.1.6
+    Checking pdfcraft-model v0.8.0 (/home/dwmcqueen/Projects/HaikuOS/pdfcraft-on-haiku/src/crates/model)
+    Checking utf8_iter v1.0.4
+   Compiling semver v1.0.28
+   Compiling icu_properties_data v2.3.0
+   Compiling rustc_version v0.4.1
+    Checking icu_collections v2.3.0
+    Checking icu_provider v2.3.1
+    Checking async-io v2.6.0
+    Checking png v0.18.1
+    Checking ff v0.14.0
+   Compiling icu_normalizer_data v2.3.0
+    Checking async-signal v0.2.14
+    Checking moxcms v0.8.1
+    Checking parking_lot v0.12.5
+    Checking der v0.8.2
+    Checking float-cmp v0.9.0
+   Compiling ahash v0.8.12
+    Checking tiff v0.11.3
+    Checking strict-num v0.1.1
+    Checking rustix v0.38.44
+    Checking async-process v2.5.0
+    Checking icu_properties v2.3.0
+    Checking group v0.14.0
+   Compiling zbus_macros v5.19.0
+    Checking pdfcraft-content v0.8.0 (/home/dwmcqueen/Projects/HaikuOS/pdfcraft-on-haiku/src/crates/content)
+    Checking signature v3.0.0
+   Compiling async-recursion v1.2.0
+   Compiling serde_repr v0.1.21
+   Compiling async-trait v0.1.92
+   Compiling enumn v0.1.14
+    Checking rten-base v0.26.0
+    Checking base16ct v1.0.0
+    Checking utf16_iter v1.0.5
+    Checking write16 v1.0.0
+    Checking zbus v5.19.0
+    Checking icu_normalizer v2.3.0
+    Checking tiny-skia-path v0.11.4
+    Checking sec1 v0.8.1
+    Checking image v0.25.10
+    Checking accesskit v0.24.1
+   Compiling zbus_xml v5.2.1
+    Checking hmac v0.13.0
+    Checking wayland-cursor v0.31.14
+    Checking wayland-csd-frame v0.3.0
+   Compiling zbus-lockstep v0.5.2
+    Checking elliptic-curve v0.14.1
+    Checking wayland-protocols-wlr v0.3.12
+    Checking primefield v0.14.0
+    Checking png v0.17.16
+   Compiling phf_shared v0.14.0
+    Checking alloc-no-stdlib v2.0.4
+    Checking naga-types v30.0.1
+    Checking alloc-stdlib v0.2.4
+   Compiling phf_generator v0.14.0
+    Checking tiny-skia v0.11.4
+    Checking wnaf v0.14.1
+   Compiling zbus-lockstep-macros v0.5.2
+    Checking calloop v0.13.0 (https://github.com/duncanmcqueen/calloop?rev=80641145888ac2eb97586ea688279527d014c8a2#80641145)
+    Checking rfc6979 v0.6.0
+    Checking rten-parallel v0.26.0
+    Checking spki v0.8.1
+    Checking pdfcraft-annot v0.8.0 (/home/dwmcqueen/Projects/HaikuOS/pdfcraft-on-haiku/src/crates/annot)
+    Checking vello_common v0.1.0
+    Checking gethostname v1.1.0
+    Checking emath v0.36.2
+   Compiling pastey v0.2.3
+    Checking fast-float2 v0.2.4
+   Compiling cow-utils v0.1.3
+    Checking ryu-js v1.0.3
+   Compiling boa_macros v0.22.0
+    Checking boa_string v0.22.0
+    Checking x11rb v0.13.2
+    Checking ecolor v0.36.2
+    Checking vello_cpu v0.1.0
+    Checking ecdsa v0.17.0
+    Checking rten-tensor v0.26.0
+    Checking calloop-wayland-source v0.3.0
+    Checking atspi-common v0.13.0
+    Checking primeorder v0.14.0
+   Compiling phf_macros v0.14.0
+    Checking brotli-decompressor v5.0.3
+    Checking idna_adapter v1.2.2
+   Compiling flatbuffers v24.12.23
+   Compiling cmake v0.1.58
+    Checking spirv v0.4.0+sdk-1.4.341.0
+   Compiling dunce v1.0.5
+   Compiling heck v0.5.0
+   Compiling fs_extra v1.3.0
+    Checking thin-vec v0.2.21
+    Checking epaint v0.36.2
+    Checking boa_gc v0.22.0
+   Compiling aws-lc-sys v0.46.0
+    Checking naga v30.0.1
+   Compiling strum_macros v0.28.0
+    Checking phf v0.14.0
+    Checking idna v1.1.0
+    Checking smithay-client-toolkit v0.19.2 (https://github.com/duncanmcqueen/client-toolkit?rev=825cbd720e047ff6358e8c3a940763cd58721e73#825cbd72)
+    Checking wgpu-types v30.0.1
+    Checking form_urlencoded v1.2.2
+    Checking ron v0.12.2
+    Checking chacha20 v0.10.2
+    Checking num-integer v0.1.47
+    Checking rten-simd v0.26.0
+    Checking hayro-ccitt v0.3.0
+    Checking roxmltree v0.20.0
+    Checking base64 v0.22.1
+    Checking wgpu-naga-bridge v30.0.1
+    Checking hayro-jbig2 v0.3.0 (/home/dwmcqueen/Projects/HaikuOS/pdfcraft-on-haiku/src/vendor/hayro-jbig2)
+    Checking gpu-allocator v0.28.0
+    Checking num-bigint v0.5.1
+    Checking rand v0.10.3
+    Checking egui v0.36.2
+    Checking url v2.5.8
+    Checking sctk-adwaita v0.10.1
+    Checking boa_interner v0.22.0
+    Checking strum v0.28.0
+    Checking atspi-proxies v0.13.0
+    Checking brotli v8.0.4
+    Checking xkbcommon-dl v0.4.2
+    Checking accesskit_consumer v0.36.0
+    Checking wayland-protocols-plasma v0.3.12
+   Compiling curve25519-dalek v5.0.0
+    Checking hayro-jpeg2000 v0.3.5
+    Checking calloop v0.14.5 (https://github.com/duncanmcqueen/calloop?rev=bcad6118cdc3e20dd5ee10db890291fa19a38b42#bcad6118)
+    Checking read-fonts v0.44.0
+   Compiling futures-macro v0.3.34
+    Checking ordered-float v5.5.0
+   Compiling equator-macro v0.4.2
+   Compiling pin-project-internal v1.1.13
+   Compiling time-core v0.1.9
+   Compiling portable-atomic v1.15.0
+   Compiling anyhow v1.0.104
+    Checking hayro-postscript v0.1.0
+   Compiling num-conv v0.2.2
+    Checking futures-util v0.3.34
+    Checking winit v0.30.13 (https://github.com/duncanmcqueen/winit?rev=f9ac83d88b8fddbfc5d0f04b79b241f33a6bf305#f9ac83d8)
+   Compiling time-macros v0.2.32
+    Checking wgpu-hal v30.0.1
+    Checking hayro-cmap v0.1.0
+    Checking pin-project v1.1.13
+    Checking equator v0.4.2
+    Checking skrifa v0.47.0
+    Checking calloop-wayland-source v0.4.1
+    Checking hayro-syntax v0.7.2 (/home/dwmcqueen/Projects/HaikuOS/pdfcraft-on-haiku/src/vendor/hayro-syntax)
+    Checking accesskit_atspi_common v0.18.1
+    Checking atspi v0.29.0
+    Checking boa_ast v0.22.0
+    Checking rten-model-file v0.26.0
+    Checking rten-gemm v0.26.0
+    Checking rten-vecmath v0.26.0
+    Checking rten-shape-inference v0.26.0
+    Checking regress v0.12.0
+    Checking wayland-protocols-experimental v20250721.0.1
+    Checking wayland-protocols-misc v0.3.12
+    Checking vello_common v0.0.8
+   Compiling num_enum_derive v0.7.6
+    Checking cbc v0.2.1
+   Compiling dynify-macros v0.1.2
+   Compiling curve25519-dalek-derive v0.1.1
+    Checking num_cpus v1.17.0
+    Checking num_threads v0.1.7
+    Checking deranged v0.5.9
+    Checking iana-time-zone v0.1.65
+    Checking powerfmt v0.2.1
+    Checking fixedbitset v0.5.7
+    Checking hashbrown v0.14.5
+   Compiling aws-lc-rs v1.18.2
+    Checking time v0.3.55
+    Checking dashmap v6.2.1
+    Checking futures-concurrency v7.7.1
+    Checking chrono v0.4.45
+    Checking rten v0.26.0
+    Checking dynify v0.1.2
+    Checking num_enum v0.7.6
+    Checking vello_cpu v0.0.8
+    Checking boa_parser v0.22.0
+    Checking smithay-client-toolkit v0.20.0 (https://github.com/duncanmcqueen/client-toolkit?rev=71454d29abd88ed1d5b78f305c2ea7ac83cbbaf3#71454d29)
+    Checking serde_json v1.0.154
+    Checking accesskit_unix v0.21.1
+    Checking hayro-interpret v0.7.0 (/home/dwmcqueen/Projects/HaikuOS/pdfcraft-on-haiku/src/vendor/hayro-interpret)
+    Checking aligned-vec v0.6.4
+    Checking wgpu-core-deps-windows-linux-android v30.0.1
+    Checking rten-imageproc v0.26.0
+    Checking pdfcraft-edit v0.8.0 (/home/dwmcqueen/Projects/HaikuOS/pdfcraft-on-haiku/src/crates/edit)
+    Checking ed25519 v3.0.0
+    Checking pdfcraft-forms v0.8.0 (/home/dwmcqueen/Projects/HaikuOS/pdfcraft-on-haiku/src/crates/forms)
+    Checking nom v8.0.0
+    Checking pic-scale v0.7.12
+    Checking crypto-primes v0.7.2
+    Checking ecb v0.2.1
+    Checking small_btree v0.1.0
+    Checking kurbo v0.11.3
+    Checking keccak v0.2.2
+    Checking tag_ptr v0.1.0
+    Checking intrusive-collections v0.10.3
+    Checking weezl v0.2.1
+    Checking sponge-cursor v0.1.0
+    Checking rangemap v1.8.0
+    Checking tap v1.0.1
+    Checking oneshot v0.2.1
+    Checking boa_engine v0.22.0
+    Checking lopdf v0.45.0 (/home/dwmcqueen/Projects/HaikuOS/pdfcraft-on-haiku/src/vendor/lopdf)
+    Checking sha3 v0.12.0
+    Checking svgtypes v0.15.3
+    Checking rsa v0.10.0-rc.18
+    Checking hayro v0.7.1 (/home/dwmcqueen/Projects/HaikuOS/pdfcraft-on-haiku/src/vendor/hayro)
+    Checking ed25519-dalek v3.0.0
+    Checking ocrs v0.13.1
+    Checking wgpu-core v30.0.1
+    Checking accesskit_winit v0.32.2
+    Checking smithay-clipboard v0.7.3
+    Checking webbrowser v1.2.4
+    Checking p256 v0.14.0
+    Checking p384 v0.14.0
+    Checking bp256 v0.14.0
+    Checking p521 v0.14.0
+    Checking bp384 v0.14.0
+    Checking arboard v3.7.0
+    Checking pbkdf2 v0.13.0
+    Checking des v0.9.0
+    Checking rc2 v0.9.0
+    Checking sha1 v0.11.0
+    Checking ripemd v0.2.0
+    Checking simplecss v0.2.2
+    Checking xmlwriter v0.1.0
+    Checking craft-print v0.1.0 (https://github.com/storytold/craft-libs?rev=f03ec27ab2c405969428512178f746183cd55ca0#f03ec27a)
+    Checking imagesize v0.13.0
+    Checking pico-args v0.5.0
+    Checking data-url v0.3.2
+    Checking pdfcraft-sign v0.8.0 (/home/dwmcqueen/Projects/HaikuOS/pdfcraft-on-haiku/src/crates/sign)
+    Checking usvg v0.45.1
+    Checking pdfcraft-print v0.8.0 (/home/dwmcqueen/Projects/HaikuOS/pdfcraft-on-haiku/src/crates/print)
+    Checking egui-winit v0.36.2
+    Checking wgpu v30.0.1
+    Checking pdfcraft-js v0.8.0 (/home/dwmcqueen/Projects/HaikuOS/pdfcraft-on-haiku/src/crates/js)
+    Checking pdfcraft-ocr v0.8.0 (/home/dwmcqueen/Projects/HaikuOS/pdfcraft-on-haiku/src/crates/ocr)
+    Checking pdfcraft-render v0.8.0 (/home/dwmcqueen/Projects/HaikuOS/pdfcraft-on-haiku/src/crates/render)
+    Checking drm-ffi v0.9.1
+    Checking pdfcraft-audit v0.8.0 (/home/dwmcqueen/Projects/HaikuOS/pdfcraft-on-haiku/src/crates/audit)
+    Checking pdfcraft-redact v0.8.0 (/home/dwmcqueen/Projects/HaikuOS/pdfcraft-on-haiku/src/crates/redact)
+    Checking pdfcraft-xfdf v0.8.0 (/home/dwmcqueen/Projects/HaikuOS/pdfcraft-on-haiku/src/crates/xfdf)
+    Checking pdfcraft-create v0.8.0 (/home/dwmcqueen/Projects/HaikuOS/pdfcraft-on-haiku/src/crates/create)
+    Checking pdfcraft-xfa v0.8.0 (/home/dwmcqueen/Projects/HaikuOS/pdfcraft-on-haiku/src/crates/xfa)
+    Checking pdfcraft-optimize v0.8.0 (/home/dwmcqueen/Projects/HaikuOS/pdfcraft-on-haiku/src/crates/optimize)
+    Checking pdfcraft-measure v0.8.0 (/home/dwmcqueen/Projects/HaikuOS/pdfcraft-on-haiku/src/crates/measure)
+    Checking pdfcraft-organize v0.8.0 (/home/dwmcqueen/Projects/HaikuOS/pdfcraft-on-haiku/src/crates/organize)
+    Checking pdfcraft-a11y v0.8.0 (/home/dwmcqueen/Projects/HaikuOS/pdfcraft-on-haiku/src/crates/a11y)
+    Checking pdfcraft-preflight v0.8.0 (/home/dwmcqueen/Projects/HaikuOS/pdfcraft-on-haiku/src/crates/preflight)
+    Checking pdfcraft-export v0.8.0 (/home/dwmcqueen/Projects/HaikuOS/pdfcraft-on-haiku/src/crates/export)
+    Checking rgb v0.8.53
+   Compiling enum-map-derive v0.17.0
+    Checking pdfcraft-geom v0.8.0 (/home/dwmcqueen/Projects/HaikuOS/pdfcraft-on-haiku/src/crates/geom)
+    Checking pdfcraft-compare v0.8.0 (/home/dwmcqueen/Projects/HaikuOS/pdfcraft-on-haiku/src/crates/compare)
+    Checking pdfcraft-engine v0.8.0 (/home/dwmcqueen/Projects/HaikuOS/pdfcraft-on-haiku/src/crates/engine)
+    Checking enum-map v2.7.3
+    Checking resvg v0.45.1
+    Checking egui-wgpu v0.36.2 (/home/dwmcqueen/Projects/HaikuOS/pdfcraft-on-haiku/src/vendor/egui-wgpu)
+    Checking drm v0.14.1
+   Compiling pdfcraft-ui-egui v0.8.0 (/home/dwmcqueen/Projects/HaikuOS/pdfcraft-on-haiku/src/crates/ui-egui)
+    Checking pdfcraft-platform v0.8.0 (/home/dwmcqueen/Projects/HaikuOS/pdfcraft-on-haiku/src/crates/platform)
+    Checking softbuffer v0.4.8
+    Checking eframe v0.36.2
+    Checking egui_extras v0.36.2
+    Checking rfd v0.17.2 (https://github.com/duncanmcqueen/rfd?rev=376c3ef51b4823c392126ce1acf6eb380be5b715#376c3ef5)
+    Checking craft-ui v0.1.0 (https://github.com/storytold/craft-libs?rev=5c874d51eeb3de70e735c8ce87a59a7dedd47675#5c874d51)
+    Checking tempfile v3.27.0
+    Checking egui_software_backend v0.0.3 (https://github.com/duncanmcqueen/egui_software_backend?rev=451c0bab15486c3e23167df993826b83e31ddc79#451c0bab)
+    Checking pdfcraft-automation v0.8.0 (/home/dwmcqueen/Projects/HaikuOS/pdfcraft-on-haiku/src/crates/automation)
+    Checking pdfcraft-haiku v0.8.0 (/home/dwmcqueen/Projects/HaikuOS/pdfcraft-on-haiku/src/apps/pdfcraft-haiku)
+    Finished `dev` profile [unoptimized] target(s) in 2m 00s

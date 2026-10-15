@@ -1,0 +1,33 @@
+name pdfcraft
+version 0.8.0-1
+architecture x86_64
+summary "PDF editor with an experimental Haiku frontend"
+description "Pdfcraft views and edits PDF documents.
+This experimental build uses software rendering and native Haiku file panels.
+Opening, rendering, rotation, Save As and save-aware window closing were tested.
+The CLI also passed combine, extract and split tests. Printing, scanning and
+all optional workflows are unverified. See the included notes for limits."
+vendor "Haiku Project"
+packager "duncanmcqueen"
+copyrights {
+    "2026 ArtCraft Team and the PdfCraft contributors"
+    "Third-party authors listed in documentation/packages/pdfcraft/licenses"
+}
+licenses { "MIT" "Apache v2" "Pdfcraft third-party notices" }
+urls { "https://github.com/storytold/pdfcraft" }
+source-urls { "https://github.com/storytold/pdfcraft/archive/9931329b9fae0b05373b4dc3ac7c58541f0891a4.tar.gz" }
+provides {
+    pdfcraft = 0.8.0
+    app:Pdfcraft = 0.8.0
+    cmd:pdfcraft = 0.8.0
+    cmd:pdfcraft_cli = 0.8.0
+}
+requires {
+    haiku >= r1~beta6_hrev59866_5
+    lib:libgcc_s
+    lib:libwayland_client >= 0.21.90
+    lib:libwayland_server >= 0.21.90
+    lib:wayland_server_inproc >= 0.1.20251004
+    lib:libxkbcommon
+    xkeyboard_config
+}

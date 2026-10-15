@@ -128,3 +128,18 @@ from Deskbar > Applications. The current package is 0.8.0-4. It uses CPU
 rendering; hardware acceleration and microphone capture are not implemented.
 See [sources/filmcraft/README.md](sources/filmcraft/README.md) for tests, limits
 and build instructions.
+
+## Pdfcraft
+
+Experimental PDF editor for Haiku x86_64:
+
+```sh
+pkgman refresh DuncanHaikuPackages
+pkgman install pdfcraft
+```
+
+Open Pdfcraft from Deskbar > Applications, or run `pdfcraft file.pdf`.
+The package includes `pdfcraft-cli`. Opening, rendering, rotation, native
+Save As and save-before-close passed on a synthetic PDF. Printing, scanning,
+signing and other optional workflows remain unverified.
+[Source, build notes and tests](sources/pdfcraft/README.md).

@@ -1,0 +1,9 @@
+0e66a165f3aa01550598924b91e21507ce754eebc1ea0d204b525f4a7a3724ce  /boot/home/rust/pdfcraft-port/package-r1/pdfcraft-0.8.0-1-x86_64.hpkg
+The following changes will be made:
+  in home:
+    install package pdfcraft-0.8.0-1 from local file
+Continue? [yes/no] (yes) : yes
+[home] Applying changes ...
+[home] Changes applied. Old activation state backed up in "state_2026-10-15_07:35:25"
+[home] Cleaning up ...
+[home] Done.

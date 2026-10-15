@@ -1,0 +1,3 @@
+   Compiling pdfcraft-ui-egui v0.8.0 (/boot/home/rust/pdfcraft-port/src/crates/ui-egui)
+   Compiling pdfcraft-haiku v0.8.0 (/boot/home/rust/pdfcraft-port/src/apps/pdfcraft-haiku)
+    Finished `release` profile [optimized] target(s) in 2m 55s

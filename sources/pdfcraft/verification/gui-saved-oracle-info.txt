@@ -1,0 +1,26 @@
+Title:           Haiku PDFcraft synthetic test
+Subject:         unspecified
+Keywords:        
+Author:          Generated test fixture
+Creator:         anonymous
+Producer:        ReportLab PDF Library - (opensource)
+CreationDate:    Thu Oct 15 07:32:51 2026 CDT
+ModDate:         Thu Oct 15 02:58:15 2026 CDT
+Custom Metadata: no
+Metadata Stream: no
+Tagged:          no
+UserProperties:  no
+Suspects:        no
+Form:            none
+JavaScript:      no
+Pages:           3
+Encrypted:       no
+Page    1 size:  420 x 595 pts (A5)
+Page    1 rot:   180
+Page    2 size:  420 x 595 pts (A5)
+Page    2 rot:   0
+Page    3 size:  420 x 595 pts (A5)
+Page    3 rot:   0
+File size:       21415 bytes
+Optimized:       no
+PDF version:     1.3

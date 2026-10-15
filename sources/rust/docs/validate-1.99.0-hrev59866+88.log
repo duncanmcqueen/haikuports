@@ -1,0 +1,105 @@
+Haiku: Haiku shredder R1~beta6 hrev59866+88 Sep 29 2026 18:28: x86_64 x86_64 Haiku
+Package: <system> rust_bin 1.99.0-1 x86_64
+
+$ rustc --version --verbose
+rustc 1.99.0 (b940084d7 2026-09-28) (built from a source tarball)
+binary: rustc
+commit-hash: b940084d7eb6a299eb4bfeb8e34901bc051e7ac4
+commit-date: 2026-09-28
+host: x86_64-unknown-haiku
+release: 1.99.0
+LLVM version: 23.1.0
+[exit 0]
+
+$ cargo --version
+cargo 1.99.0 (5f94df478 2026-08-27) (built from a source tarball)
+[exit 0]
+
+$ rustdoc --version
+rustdoc 1.99.0 (b940084d7 2026-09-28) (built from a source tarball)
+[exit 0]
+
+$ cargo clippy --version
+clippy 0.1.99
+[exit 0]
+
+$ cargo fmt --version
+rustfmt 1.10.0
+[exit 0]
+
+$ rustc -O hello.rs -o hello
+[exit 0]
+
+$ ./hello
+Hello from Rust on Haiku
+[exit 0]
+
+$ cargo new --lib demo
+    Creating library `demo` package
+note: see more `Cargo.toml` keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[exit 0]
+
+$ cargo test
+   Compiling demo v0.1.0 (/boot/system/cache/tmp/rv/demo)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 2.73s
+     Running unittests src/lib.rs (target/debug/deps/demo-09af16e5e83025fa)
+
+running 2 tests
+test tests::adds ... ok
+test tests::threads_and_files ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+   Doc-tests demo
+
+running 1 test
+test src/lib.rs - add (line 3) ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+all doctests ran in 0.49s; merged doctests compilation took 0.48s
+[exit 0]
+
+$ cargo fmt
+[exit 0]
+
+$ cargo fmt --check
+[exit 0]
+
+$ cargo clippy -- -D warnings
+    Checking demo v0.1.0 (/boot/system/cache/tmp/rv/demo)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.25s
+[exit 0]
+
+$ cargo doc --no-deps
+ Documenting demo v0.1.0 (/boot/system/cache/tmp/rv/demo)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.58s
+   Generated /boot/system/cache/tmp/rv/demo/target/doc/demo/index.html
+[exit 0]
+
+$ cargo new pm
+    Creating binary (application) `pm` package
+note: see more `Cargo.toml` keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[exit 0]
+
+$ cargo run --release
+    Updating crates.io index
+     Locking 11 packages to highest Rust 1.99.0 compatible versions
+   Compiling proc-macro2 v1.0.107
+   Compiling quote v1.0.47
+   Compiling unicode-ident v1.0.26
+   Compiling serde_core v1.0.229
+   Compiling zmij v1.0.23
+   Compiling serde v1.0.229
+   Compiling serde_json v1.0.151
+   Compiling memchr v2.8.3
+   Compiling itoa v1.0.18
+   Compiling syn v3.0.6
+   Compiling serde_derive v1.0.229
+   Compiling pm v0.1.0 (/boot/system/cache/tmp/rv/pm)
+    Finished `release` profile [optimized] target(s) in 26.49s
+     Running `target/release/pm`
+{"name":"haiku","v":199}
+[exit 0]
+
+VALIDATION DONE (all checks passed)

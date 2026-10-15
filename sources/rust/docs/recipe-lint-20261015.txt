@@ -1,0 +1,2 @@
+7c4b1b9b874d4311979f1d2d98a556813eed949efe7d6f4a287efe986003789a  /boot/home/haikuports/dev-lang/rust_bin/rust_bin-1.99.0.recipe
+rust_bin-1.99.0	[dev-lang]

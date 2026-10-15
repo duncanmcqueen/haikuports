@@ -8,7 +8,7 @@ LICENSE="MIT
 REVISION="1"
 
 SOURCE_URI="https://github.com/duncanmcqueen/rust-on-haiku/releases/download/$portVersion/rust-$portVersion-x86_64-unknown-haiku.tar.xz"
-CHECKSUM_SHA256="152f04a65cb111e950d3de85ef38f407af2d9965ba25c0166c0432bb638e254d"
+CHECKSUM_SHA256="b7bf61492da5da972c081e77625e2ea7f9cbbf9c761553b84014be9543fa8006"
 SOURCE_DIR="rust-$portVersion-x86_64-unknown-haiku"
 
 ARCHITECTURES="!x86_gcc2 x86_64"
@@ -36,6 +36,7 @@ REQUIRES="
 	haiku$secondaryArchSuffix
 	lib:libcrypto$secondaryArchSuffix >= 3
 	lib:libcurl$secondaryArchSuffix
+	lib:libssh2$secondaryArchSuffix
 	lib:libssl$secondaryArchSuffix >= 3
 	lib:libz$secondaryArchSuffix
 	"

@@ -99,13 +99,13 @@ HTTP worker. The recipe generator preserves this dependency patch.
 
 ## Rust 1.99.0 (`rust_bin`)
 
-See `rust/README.md`. The recipe (`rust/rust_bin-1.99.0.recipe`) repackages a
-prebuilt tarball and compiles nothing, so it has no patchset. The one source
-patch for building the tarball is
-`rust/patches/0001-std-haiku-file-locking-via-flock.patch`; the build settings,
-the `nofilemmap` workaround, and the pending tasks (checksum, `lib:libssh2`,
-`SOURCE_URI`, hosting) are described there. The 1.99.0 `.hpkg` is about 147 MiB
-and is too large for the GitHub Pages repository.
+See [rust/README.md](rust/README.md) for the source-build records, bootstrap
+configuration, merged upstream file-lock patch, validation log and corrected
+binary-package recipe. The recipe repackages the native dist archive; it does
+not compile Rust. The archive and HPKG are hosted as [Release assets](https://github.com/duncanmcqueen/rust-on-haiku/releases/tag/1.99.0).
+The recipe's checksum and libssh2 dependency are current, and lint passed.
+The HPKG exceeds GitHub's normal per-file git limit and is not in this Pages
+package index. RenkuOS runtime/bootstrap testing remains outstanding.
 
 ## Publishing
 

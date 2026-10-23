@@ -63,6 +63,7 @@ ICU development files and tools are also optional; they are not needed to run No
 | `fd` | `fd` file-search tool used by `pi` |
 | `pi` | The `pi` coding agent (`pi` command) |
 | `haiku_agent_library` | Haiku developer skills for `pi`, including the Haiku Book API reference |
+| `intel_bluetooth_firmwares` | Firmware for Intel 8260/8265 Bluetooth controllers; needs a patched `h2generic` driver |
 
 ## Rebuild the packages
 
@@ -128,6 +129,15 @@ from Deskbar > Applications. The current package is 0.8.0-4. It uses CPU
 rendering; hardware acceleration and microphone capture are not implemented.
 See [sources/filmcraft/README.md](sources/filmcraft/README.md) for tests, limits
 and build instructions.
+
+## Intel Bluetooth firmware
+
+`pkgman install intel_bluetooth_firmwares` installs the firmware for the Intel
+Wireless 8260 and 8265 Bluetooth controllers (USB `8087:0a2b`) to
+`/boot/system/data/firmware/h2generic/`. The stock `h2generic` driver does not
+load it yet; a firmware loader is proposed to RenkuOS. Tested on a Xiaomi Mi
+Air 12.5 (8260) with the patched driver. The 8265 files are not tested.
+[Source and notes](sources/intel-bluetooth-firmwares/README.md).
 
 ## Pdfcraft
 

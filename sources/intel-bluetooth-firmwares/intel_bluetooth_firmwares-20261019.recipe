@@ -1,0 +1,38 @@
+SUMMARY="Intel Bluetooth firmware modules"
+DESCRIPTION="Some Intel Bluetooth controllers start in a bootloader and \
+require firmware to operate. This package contains the firmware files for \
+the Intel Wireless 8260 and 8265 Bluetooth controllers (USB 8087:0a2b), \
+which the h2generic driver loads when the device is opened."
+HOMEPAGE="https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/"
+COPYRIGHT="2014-2021 Intel Corporation"
+LICENSE="Intel Bluetooth Firmware"
+REVISION="1"
+
+srcGitRev="a2dcb924f0897368b0b4f305cbf9808cdda90ce0"
+srcBaseUri="https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/plain"
+SOURCE_URI="$srcBaseUri/intel/ibt-11-5.sfi?id=$srcGitRev#noarchive"
+CHECKSUM_SHA256="62e0ffb26d8f04adb5b9a2838ec7c60840bdabb38c024a98b905b991ed08e000"
+SOURCE_FILENAME="ibt-11-5.sfi"
+SOURCE_URI_2="$srcBaseUri/intel/ibt-11-5.ddc?id=$srcGitRev#noarchive"
+CHECKSUM_SHA256_2="9e57302abc15ac991b71350705c4b5060f69c7111813bc5034704f6edea30872"
+SOURCE_FILENAME_2="ibt-11-5.ddc"
+SOURCE_URI_3="$srcBaseUri/intel/ibt-12-16.sfi?id=$srcGitRev#noarchive"
+CHECKSUM_SHA256_3="75b8b8cc10abd616a96066bce9ce62be80ebc293d6a4e9a0a11c3ecc5d3ca373"
+SOURCE_FILENAME_3="ibt-12-16.sfi"
+SOURCE_URI_4="$srcBaseUri/intel/ibt-12-16.ddc?id=$srcGitRev#noarchive"
+CHECKSUM_SHA256_4="3ca252ad20e8f76d6d906536bf9e5abe6654c657183584a48e90a0dcf40ac4d5"
+SOURCE_FILENAME_4="ibt-12-16.ddc"
+
+ARCHITECTURES="any"
+DISABLE_SOURCE_PACKAGE="yes"
+
+PROVIDES="
+	intel_bluetooth_firmwares = $portVersion
+	"
+
+INSTALL()
+{
+	mkdir -p $dataDir/firmware/h2generic
+	cp $sourceDir/* $sourceDir2/* $sourceDir3/* $sourceDir4/* \
+		$dataDir/firmware/h2generic/
+}

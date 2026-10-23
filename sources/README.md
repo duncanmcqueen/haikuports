@@ -132,3 +132,12 @@ natively from the tested executable. It is not a HaikuPorter recipe build.
 See [pdfcraft/README.md](pdfcraft/README.md) for the pinned source, port patch,
 build scripts and native PDF/save/close tests. The package includes the GUI
 and CLI. It is an experimental native package-create build.
+
+## Intel Bluetooth firmware (`intel_bluetooth_firmwares`)
+
+- Recipe: `intel-bluetooth-firmwares/intel_bluetooth_firmwares-20261019.recipe`
+- License: `intel-bluetooth-firmwares/licenses/Intel Bluetooth Firmware`
+
+Put both in `<tree>/sys-firmware/intel-bluetooth-firmwares/` and run
+`haikuporter intel_bluetooth_firmwares`. See
+`intel-bluetooth-firmwares/README.md`.

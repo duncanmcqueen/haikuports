@@ -188,3 +188,26 @@ AI assistance was used. This is an experimental personal package.
   Haiku endorsement. The process-exit workaround remains in use.
 
 SHA-256: `eaf111367f9d9982c85ef7cbf53b222dd787f4f2e6052bffe1f1b574f0cecf4c`.
+
+## Intel Bluetooth firmware 20261019
+
+Package: `intel_bluetooth_firmwares-20261019-1-any.hpkg`. Recipe and license are
+in `sources/intel-bluetooth-firmwares/`. AI assistance was used.
+
+- Unmodified files from linux-firmware 20261019 (commit
+  `a2dcb924f0897368b0b4f305cbf9808cdda90ce0`): `ibt-11-5.sfi`, `ibt-11-5.ddc`,
+  `ibt-12-16.sfi`, `ibt-12-16.ddc`. The recipe checks the SHA-256 of each file.
+- Built with HaikuPorter 1.5.3 on Haiku R1/beta6 x86_64; `haikuporter --lint` passed.
+- Installed on a Xiaomi Mi Air 12.5 (Intel 8260, hrev60232). The package
+  activated, and the files are in `/boot/system/data/firmware/h2generic/`.
+- The same `ibt-11-5.sfi` and `ibt-11-5.ddc` bytes, loaded from the non-packaged
+  data directory by the patched `h2generic` driver, started firmware build 14
+  (week 44, 2021). An inquiry then found a pair of Bluetooth headphones.
+- Not yet tested: a cold boot that loads the files from the package, and the
+  8265 files.
+- The stock `h2generic` driver does not load this firmware. The loader is
+  proposed to RenkuOS.
+- The native repository builder accepted the new package and the 16 existing
+  indexed packages. The existing packages were checked against their published hashes.
+
+SHA-256: `e10ba069c1550295f7e629bef9092e9fb23b7ca0d71cfe006545e95e8e209471`.
